@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    @apply bg-bg font-body text-text selection:bg-accent/20 selection:text-primary;
+    line-height: 1.6;
+  }
+  h1, h2, h3, h4 {
+    @apply font-heading text-primary tracking-tight;
+    line-height: 1.25;
+  }
+  a {
+    @apply transition-colors duration-200;
+  }
+  button, a, input, select, textarea {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+@layer components {
+  /* Warm Gold Button */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-accent text-white font-medium rounded-lg shadow-sm transition-all duration-200 active:scale-[0.98];
+    min-height: 46px;
+  }
+  .btn-primary:hover {
+    @apply bg-accent-hover shadow-md -translate-y-0.5;
+  }
+  .btn-primary:focus-visible {
+    @apply outline-none ring-2 ring-accent ring-offset-2 ring-offset-bg;
+  }
+
+  /* Deep Obsidian Forest Button */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-primary text-white font-medium rounded-lg shadow-sm transition-all duration-200 active:scale-[0.98];
+    min-height: 46px;
+  }
+  .btn-secondary:hover {
+    @apply bg-primary-light shadow-md -translate-y-0.5;
+  }
+  .btn-secondary:focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-bg;
+  }
+
+  /* Refined Outline Button */
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3.5 border border-primary/30 text-primary font-medium rounded-lg bg-white/70 backdrop-blur-sm transition-all duration-200 hover:border-primary hover:bg-primary-50;
+    min-height: 46px;
+  }
+  .btn-outline:focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2;
+  }
+
+  /* Gentle Clinical Mint Button */
+  .btn-mint {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 bg-mint-soft text-mint font-medium rounded-lg border border-mint/20 transition-all duration-200 hover:bg-mint hover:text-white;
+    min-height: 44px;
+  }
+
+  .section-padding {
+    @apply px-5 py-16 md:px-8 lg:px-16 lg:py-24;
+  }
+
+  /* Enamel glass card */
+  .glass-card {
+    @apply bg-white/90 backdrop-blur-md border border-primary/10 shadow-soft rounded-xl;
+  }
+
+  /* Dental badge pill */
+  .dental-badge {
+    @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-primary-50 border border-primary/15 text-primary;
+  }
+}
+
+/* Animations */
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.animate-float {
+  animation: floatSlow 4s ease-in-out infinite;
+}
+
+@keyframes pulseSubtle {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.animate-pulse-subtle {
+  animation: pulseSubtle 3s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <rect width="48" height="48" rx="12" fill="#122A24"/>
+  <!-- Stylized Tooth Shape -->
+  <path d="M16 11C11.5 11 9 14.5 9 18.5C9 23 11.5 27 13.5 32C14.8 35.2 16.5 39 19 39C21.2 39 22 36.5 22.8 33.5C23.2 32 23.6 30.5 24 30.5C24.4 30.5 24.8 32 25.2 33.5C26 36.5 26.8 39 29 39C31.5 39 33.2 35.2 34.5 32C36.5 27 39 23 39 18.5C39 14.5 36.5 11 32 11C28 11 25.8 13.5 24 13.5C22.2 13.5 20 11 16 11Z" fill="#FBF9F5" stroke="#C08A3E" stroke-width="2" stroke-linejoin="round"/>
+  <!-- Enamel Sheen / Sparkle Highlight -->
+  <path d="M15 16C15 16 16.5 14.5 19 14.5" stroke="#C08A3E" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="33" cy="17" r="1.5" fill="#C08A3E"/>
+</svg>
