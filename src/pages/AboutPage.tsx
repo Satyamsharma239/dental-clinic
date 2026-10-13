@@ -1,242 +1,226 @@
 import FadeIn from '@/components/FadeIn';
 import { CLINIC, CLINIC_PHOTOS } from '@/data/clinicInfo';
-import { Shield, Heart, CheckCircle2, Award, Sparkles, GraduationCap, ArrowRight, Phone, Calendar } from 'lucide-react';
+import { ArrowRight, ShieldCheck, Eye, Sparkles, Calendar, HeartHandshake } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { DentalToothIcon } from '@/components/common/DentalToothIcon';
 
 export default function AboutPage() {
   return (
-    <div className="flex flex-col">
-      {/* Hero Header */}
-      <section className="section-padding bg-gradient-to-b from-primary-50/60 to-bg border-b border-primary/10">
-        <div className="max-w-6xl mx-auto px-4 text-center">
+    <div className="flex flex-col bg-bg">
+      
+      {/* 1. Hero Header */}
+      <section className="pt-16 pb-20 lg:pt-24 lg:pb-28 border-b border-border bg-white">
+        <div className="max-w-5xl mx-auto px-5 sm:px-8 text-center space-y-6">
           <FadeIn>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-primary/20 text-xs font-semibold text-primary mb-4 shadow-sm">
-              <DentalToothIcon size={14} className="text-accent" />
-              <span>Orthodontist & Clinical Director</span>
-            </div>
-            <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl text-primary font-bold mb-4 tracking-tight">
-              About {CLINIC.doctor.name}
+            <span className="editorial-badge">
+              Philosophy & Standards
+            </span>
+
+            <h1 className="font-heading text-4xl sm:text-6xl text-primary font-normal tracking-tight">
+              A deliberate standard of <br />
+              <span className="italic font-light text-primary-light">contemporary dentistry.</span>
             </h1>
-            <p className="text-base md:text-lg text-text-muted max-w-2xl mx-auto leading-relaxed">
-              Practicing gentle, ethical, and evidence-based dentistry in {CLINIC.area}, {CLINIC.city} for over 12 years.
+
+            <p className="text-text-muted text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+              We designed Aura Dental Studio around a simple principle: dentistry should feel unhurried, evidence-based, and completely transparent from the first conversation.
             </p>
           </FadeIn>
         </div>
       </section>
 
-      {/* Doctor Profile Section */}
-      <section className="section-padding bg-white">
-        <div className="max-w-6xl mx-auto px-4">
+      {/* 2. Clinical Director Profile */}
+      <section className="section-padding bg-bg border-b border-border">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <FadeIn>
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+              
+              {/* Portrait Composition */}
               <div className="lg:col-span-5">
-                <div className="rounded-2xl overflow-hidden shadow-card border border-primary/15 relative bg-bg">
+                <div className="aspect-[4/5] rounded-2xl overflow-hidden border border-border bg-white shadow-card">
                   <img 
                     src={CLINIC_PHOTOS.doctor} 
                     alt={CLINIC.doctor.name} 
-                    className="w-full h-full object-cover min-h-[420px]"
+                    className="w-full h-full object-cover"
+                    loading="lazy"
                   />
-                  <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-md p-3.5 rounded-xl border border-primary/10 flex items-center justify-between">
-                    <div>
-                      <p className="text-xs font-bold text-primary">{CLINIC.doctor.qualification}</p>
-                      <p className="text-[11px] text-accent font-semibold">{CLINIC.doctor.experience} Experience</p>
-                    </div>
-                    <span className="text-[10px] font-mono text-text-muted bg-primary-50 px-2 py-1 rounded">
-                      Reg: {CLINIC.doctor.registration}
-                    </span>
-                  </div>
+                </div>
+                <div className="mt-3 flex items-center justify-between text-xs text-text-muted px-1">
+                  <span className="font-semibold text-primary">{CLINIC.doctor.name}</span>
+                  <span className="font-mono text-[11px] text-text-light">Portfolio Sample Persona</span>
                 </div>
               </div>
 
+              {/* Bio & Clinical Approach */}
               <div className="lg:col-span-7 space-y-6">
-                <div>
-                  <span className="text-xs font-bold text-accent uppercase tracking-wider">
-                    Clinical Expertise & Gentle Approach
-                  </span>
-                  <h2 className="font-heading text-3xl md:text-4xl font-bold text-primary mt-1">
-                    Dr. Satyam Sharma, MDS
-                  </h2>
-                  <p className="text-sm font-semibold text-text mt-1">
-                    Specialist in Orthodontics & Dentofacial Orthopedics
-                  </p>
-                </div>
+                <span className="editorial-badge">
+                  Clinical Lead
+                </span>
 
-                <div className="text-text-muted text-sm leading-relaxed space-y-3">
+                <h2 className="font-heading text-3xl sm:text-4xl text-primary font-normal leading-tight">
+                  {CLINIC.doctor.name}
+                </h2>
+
+                <p className="text-sm font-mono text-text-muted uppercase tracking-wider">
+                  {CLINIC.doctor.title} • {CLINIC.doctor.credentials}
+                </p>
+
+                <div className="text-text-muted text-base space-y-4 leading-relaxed max-w-prose">
                   <p>{CLINIC.doctor.bio}</p>
                   <p>
-                    Over his 12+ years in clinical practice, Dr. Satyam Sharma has treated thousands of cases ranging from simple dental fillings and smile makeovers to complex root canal treatments and orthodontic alignment. He actively attends continuous dental education workshops to implement the latest pain-reduction techniques.
+                    Throughout his orthodontic and restorative work, he focuses on digital diagnostic workflows. Rather than imposing invasive corrections, our practice guides patients through conservative choices, helping them understand longevity and hygiene impact.
+                  </p>
+                  <p className="italic text-primary border-l-2 border-accent pl-4 py-1">
+                    "{CLINIC.doctor.philosophy}"
                   </p>
                 </div>
 
-                {/* Key Qualifications */}
-                <div className="bg-bg p-5 rounded-xl border border-primary/10 grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-xs">
-                  <div className="flex items-center gap-2.5 text-text font-medium">
-                    <GraduationCap size={18} className="text-primary shrink-0" />
-                    <span>BDS — Nair Hospital Dental College, Mumbai</span>
-                  </div>
-                  <div className="flex items-center gap-2.5 text-text font-medium">
-                    <Award size={18} className="text-accent shrink-0" />
-                    <span>MDS — Orthodontics (Govt Dental College, Mumbai)</span>
-                  </div>
-                  <div className="flex items-center gap-2.5 text-text font-medium">
-                    <CheckCircle2 size={18} className="text-emerald-700 shrink-0" />
-                    <span>Certified Invisible Aligner Specialist</span>
-                  </div>
-                  <div className="flex items-center gap-2.5 text-text font-medium">
-                    <CheckCircle2 size={18} className="text-emerald-700 shrink-0" />
-                    <span>Fellow — Indian Dental Association</span>
-                  </div>
-                </div>
-
-                <div className="pt-2 flex flex-wrap items-center gap-3">
-                  <Link to="/booking" className="btn-primary text-xs py-3 px-6 shadow-sm">
-                    <Calendar size={15} />
-                    <span>Schedule Consultation</span>
+                <div className="pt-2 flex flex-wrap items-center gap-4">
+                  <Link to="/booking" className="btn-primary text-xs py-3 px-6 font-semibold shadow-xs">
+                    <Calendar size={14} className="text-accent" />
+                    <span>Book consultation</span>
                   </Link>
-                  <a href={`tel:${CLINIC.phone}`} className="btn-outline text-xs py-3 px-5">
-                    <Phone size={15} />
-                    <span>Call Dr. Sharma's Desk</span>
-                  </a>
+
+                  <Link to="/services" className="btn-outline text-xs py-3 px-5 font-medium">
+                    <span>View treatments</span>
+                  </Link>
                 </div>
               </div>
+
             </div>
           </FadeIn>
         </div>
       </section>
 
-      {/* Core Philosophy Section */}
-      <section className="section-padding bg-bg border-y border-primary/10">
-        <div className="max-w-6xl mx-auto px-4">
+      {/* 3. Three Core Practice Commitments */}
+      <section className="section-padding bg-white border-b border-border">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <FadeIn>
-            <div className="max-w-3xl mx-auto text-center mb-14">
-              <span className="text-xs font-bold text-accent uppercase tracking-wider">
-                Our Ethical Foundation
+            
+            <div className="max-w-2xl mb-14">
+              <span className="editorial-badge mb-3">
+                Our Commitments
               </span>
-              <h2 className="font-heading text-3xl md:text-4xl text-primary font-bold mt-1 mb-3">
-                Our Practice Philosophy
+              <h2 className="font-heading text-3xl sm:text-4xl text-primary font-normal">
+                How we operate differently.
               </h2>
-              <p className="text-text-muted text-sm leading-relaxed">
-                "{CLINIC.doctor.philosophy}"
-              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="bg-bg border border-border rounded-xl p-8 space-y-4">
+                <span className="font-mono text-xs font-bold text-accent uppercase tracking-widest block">
+                  01 / Conservation
+                </span>
+                <h3 className="font-heading text-xl font-semibold text-primary">
+                  Structure-Preserving Dentistry
+                </h3>
+                <p className="text-text-muted text-sm leading-relaxed">
+                  We believe natural tooth structure is irreplaceable. We avoid overtreating or recommending crown reductions when bonded ceramic inlays or restorative composite preserves healthy enamel.
+                </p>
+              </div>
+
+              <div className="bg-bg border border-border rounded-xl p-8 space-y-4">
+                <span className="font-mono text-xs font-bold text-accent uppercase tracking-widest block">
+                  02 / Transparency
+                </span>
+                <h3 className="font-heading text-xl font-semibold text-primary">
+                  Visual Diagnostics First
+                </h3>
+                <p className="text-text-muted text-sm leading-relaxed">
+                  Every patient receives a high-definition 3D intraoral scan. We review the imagery together on an unhurried monitor, ensuring you see the condition of every tooth before discussing treatment steps.
+                </p>
+              </div>
+
+              <div className="bg-bg border border-border rounded-xl p-8 space-y-4">
+                <span className="font-mono text-xs font-bold text-accent uppercase tracking-widest block">
+                  03 / Respect
+                </span>
+                <h3 className="font-heading text-xl font-semibold text-primary">
+                  Uncompromised Comfort
+                </h3>
+                <p className="text-text-muted text-sm leading-relaxed">
+                  Dental anxiety is completely valid. We maintain quiet appointment buffers, acoustic dampening, and computer-controlled anesthesia so procedures remain calm and painless.
+                </p>
+              </div>
+            </div>
+
+          </FadeIn>
+        </div>
+      </section>
+
+      {/* 4. Studio Environment Spaces */}
+      <section className="section-padding bg-bg border-b border-border">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
+          <FadeIn>
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+              <div>
+                <span className="editorial-badge mb-3">
+                  Studio Atmosphere
+                </span>
+                <h2 className="font-heading text-3xl sm:text-4xl text-primary font-normal">
+                  A serene, architectural environment.
+                </h2>
+              </div>
+              <Link to="/gallery" className="text-xs font-semibold text-primary hover:text-accent-hover transition-colors inline-flex items-center gap-1.5">
+                <span>View full studio tour</span>
+                <ArrowRight size={14} />
+              </Link>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-white p-7 rounded-xl border border-primary/10 shadow-soft space-y-3">
-                <div className="w-12 h-12 rounded-xl bg-primary-50 text-primary flex items-center justify-center">
-                  <Shield size={22} className="text-accent" />
+              <div className="space-y-3">
+                <div className="aspect-[4/3] rounded-xl overflow-hidden border border-border bg-white shadow-soft">
+                  <img src={CLINIC_PHOTOS.operatory} alt="Operatory Suite" className="w-full h-full object-cover" loading="lazy" />
                 </div>
-                <h3 className="font-heading text-lg font-bold text-primary">Uncompromising Honesty</h3>
-                <p className="text-text-muted text-xs leading-relaxed">
-                  We never prescribe unnecessary root canals or cosmetic crowns if a conservative filling can preserve your natural tooth. What we recommend is what we would do for our own family.
-                </p>
+                <div className="px-1">
+                  <h4 className="font-heading text-base font-semibold text-primary">Clinical Suite</h4>
+                  <p className="text-xs text-text-muted mt-0.5">Ergonomic seating with natural daylight exposure.</p>
+                </div>
               </div>
 
-              <div className="bg-white p-7 rounded-xl border border-primary/10 shadow-soft space-y-3">
-                <div className="w-12 h-12 rounded-xl bg-primary-50 text-primary flex items-center justify-center">
-                  <Heart size={22} className="text-accent" />
+              <div className="space-y-3">
+                <div className="aspect-[4/3] rounded-xl overflow-hidden border border-border bg-white shadow-soft">
+                  <img src={CLINIC_PHOTOS.lounge} alt="Reception Lounge" className="w-full h-full object-cover" loading="lazy" />
                 </div>
-                <h3 className="font-heading text-lg font-bold text-primary">Zero-Anxiety Environment</h3>
-                <p className="text-text-muted text-xs leading-relaxed">
-                  We understand dental anxiety is real. You control the pace of treatment. We explain every sensation in advance and use topical anesthetic creams so you never feel uncomfortable.
-                </p>
+                <div className="px-1">
+                  <h4 className="font-heading text-base font-semibold text-primary">Arrival Lounge</h4>
+                  <p className="text-xs text-text-muted mt-0.5">Acoustically softened space without clinical odors.</p>
+                </div>
               </div>
 
-              <div className="bg-white p-7 rounded-xl border border-primary/10 shadow-soft space-y-3">
-                <div className="w-12 h-12 rounded-xl bg-primary-50 text-primary flex items-center justify-center">
-                  <CheckCircle2 size={22} className="text-accent" />
+              <div className="space-y-3">
+                <div className="aspect-[4/3] rounded-xl overflow-hidden border border-border bg-white shadow-soft">
+                  <img src={CLINIC_PHOTOS.instruments} alt="Precision Suite" className="w-full h-full object-cover" loading="lazy" />
                 </div>
-                <h3 className="font-heading text-lg font-bold text-primary">Transparent Itemized Pricing</h3>
-                <p className="text-text-muted text-xs leading-relaxed">
-                  You receive an upfront written treatment plan before any procedure begins. No unexpected chair costs, sterilisation fees, or hidden billing.
-                </p>
+                <div className="px-1">
+                  <h4 className="font-heading text-base font-semibold text-primary">Diagnostic Technology</h4>
+                  <p className="text-xs text-text-muted mt-0.5">Intraoral scanners and digital radiography.</p>
+                </div>
               </div>
             </div>
+
           </FadeIn>
         </div>
       </section>
 
-      {/* Clinic Facility Photos */}
-      <section className="section-padding bg-white">
-        <div className="max-w-6xl mx-auto px-4">
+      {/* 5. Closing CTA */}
+      <section className="py-20 bg-white text-center">
+        <div className="max-w-3xl mx-auto px-5 sm:px-8 space-y-6">
           <FadeIn>
-            <div className="text-center max-w-2xl mx-auto mb-12">
-              <span className="text-xs font-bold text-accent uppercase tracking-wider">
-                Hospital-Grade Hygiene
-              </span>
-              <h2 className="font-heading text-3xl font-bold text-primary mt-1 mb-2">
-                Inside Bright Smiles Dental Clinic
-              </h2>
-              <p className="text-text-muted text-xs md:text-sm">
-                Take a look at our clinical operatory rooms, sterilized instrumentation suite, and patient consultation lounge.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="rounded-xl overflow-hidden border border-primary/10 shadow-sm bg-bg group">
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img
-                    src={CLINIC_PHOTOS.operatory}
-                    alt="Dental Operatory Suite"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <div className="p-4">
-                  <h4 className="font-heading font-bold text-sm text-primary">Ergonomic Operatory Suite</h4>
-                  <p className="text-[11px] text-text-muted mt-0.5">High-comfort memory foam dental chair with intraoral 4K camera</p>
-                </div>
-              </div>
-
-              <div className="rounded-xl overflow-hidden border border-primary/10 shadow-sm bg-bg group">
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img
-                    src={CLINIC_PHOTOS.sterilization}
-                    alt="Class-B Autoclave Sterilisation Room"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <div className="p-4">
-                  <h4 className="font-heading font-bold text-sm text-primary">Class-B Sterilisation Lab</h4>
-                  <p className="text-[11px] text-text-muted mt-0.5">Vacuum autoclaving with individually sealed and dated instrument packs</p>
-                </div>
-              </div>
-
-              <div className="rounded-xl overflow-hidden border border-primary/10 shadow-sm bg-bg group">
-                <div className="aspect-[4/3] overflow-hidden">
-                  <img
-                    src={CLINIC_PHOTOS.reception}
-                    alt="Reception and Waiting Lounge"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <div className="p-4">
-                  <h4 className="font-heading font-bold text-sm text-primary">Patient Reception & Lounge</h4>
-                  <p className="text-[11px] text-text-muted mt-0.5">Calming tea bar, zero clinical odor, and friendly front-desk care</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom CTA Banner */}
-            <div className="mt-14 p-8 rounded-2xl bg-primary text-white flex flex-col md:flex-row items-center justify-between gap-6">
-              <div className="space-y-1 text-center md:text-left">
-                <h3 className="font-heading text-2xl font-bold">Ready to Experience Gentle Dental Care?</h3>
-                <p className="text-xs md:text-sm text-white/70">
-                  Book your consultation with Dr. Satyam Sharma today. New patients welcome.
-                </p>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <Link to="/booking" className="btn-primary text-xs py-3 px-6 shadow-md">
-                  Book Online
-                </Link>
-                <Link to="/services" className="btn-outline bg-white/10 text-white border-white/20 hover:bg-white/20 text-xs py-3 px-5">
-                  Browse Services
-                </Link>
-              </div>
+            <h2 className="font-heading text-3xl sm:text-4xl text-primary font-normal">
+              Experience thoughtful dental care.
+            </h2>
+            <p className="text-text-muted text-base max-w-lg mx-auto">
+              Schedule your first comprehensive digital assessment with our clinical team.
+            </p>
+            <div className="pt-2">
+              <Link to="/booking" className="btn-primary text-sm px-8 py-4 font-semibold">
+                <span>Book consultation</span>
+                <ArrowRight size={15} className="text-accent" />
+              </Link>
             </div>
           </FadeIn>
         </div>
       </section>
+
     </div>
   );
 }

@@ -7,6 +7,8 @@ export interface Service {
   id: string;
   name: string;
   slug: string;
+  category?: 'preventive' | 'orthodontics' | 'restorative' | 'cosmetic';
+  featured?: boolean;
   shortDescription: string;
   description: string;
   durationMins: number;
@@ -16,115 +18,122 @@ export interface Service {
 
 export const SERVICES: Service[] = [
   {
-    id: 'svc-1',
-    name: 'Dental Cleaning',
-    slug: 'dental-cleaning',
-    shortDescription: 'Professional cleaning to remove plaque and tartar build-up.',
+    id: 'svc-6',
+    name: 'Clear Aligners & Orthodontics',
+    slug: 'braces-orthodontics',
+    category: 'orthodontics',
+    featured: true,
+    shortDescription: 'Digital 3D trajectory planning, transparent aligners, and aesthetic orthodontics.',
     description:
-      'A thorough cleaning by our hygienist removes plaque and tartar that regular brushing misses. We use ultrasonic scaling followed by polishing. Most patients say it feels like a gentle vibration — not painful at all. We recommend a cleaning every 6 months to keep your gums healthy.',
-    durationMins: 30,
-    priceRange: '₹500 – ₹1,500',
+      'We utilize high-resolution digital scanning to model your alignment progress from day one. Treatment roadmaps include predictable tooth movement milestones with discreet, comfortable aligners that fit your daily lifestyle. Every case begins with a comprehensive consultation and digital assessment.',
+    durationMins: 45,
+    priceRange: '₹28,000 – ₹85,000 (Sample Guide)',
     faqs: [
-      { q: 'Does cleaning hurt?', a: 'Most patients feel only a mild vibration. If you have sensitive teeth, we can apply a numbing gel beforehand.' },
-      { q: 'How often should I get my teeth cleaned?', a: 'We recommend every 6 months, or more often if you have gum disease.' },
+      { q: 'How do clear aligners compare to fixed braces?', a: 'Clear aligners are virtually invisible, removable for eating and hygiene, and customized using precision 3D modeling.' },
+      { q: 'How long is the typical alignment duration?', a: 'Most aesthetic cases average between 6 to 14 months, depending on complex crowding or rotation requirements.' },
+    ],
+  },
+  {
+    id: 'svc-1',
+    name: 'Preventive Hygiene & Airflow',
+    slug: 'dental-cleaning',
+    category: 'preventive',
+    shortDescription: 'Gentle ultrasonic scaling and biofilm removal for lasting gum health.',
+    description:
+      'Our preventative hygiene appointments focus on gentle calculus removal, gum pocket measurement, and enamel polishing without uncomfortable scraping. We take intraoral photos before and after so you can clearly see the clinical results.',
+    durationMins: 30,
+    priceRange: '₹800 – ₹1,800 (Sample Guide)',
+    faqs: [
+      { q: 'Does preventive cleaning cause tooth sensitivity?', a: 'We calibrate ultrasonic vibrations carefully and apply desensitizing mineral treatments when needed.' },
+      { q: 'Recommended frequency?', a: 'Every 6 months for optimal gum health and early caries prevention.' },
     ],
   },
   {
     id: 'svc-2',
-    name: 'Root Canal Treatment',
+    name: 'Modern Root Canal Therapy',
     slug: 'root-canal',
-    shortDescription: 'Save an infected tooth with modern, comfortable root canal therapy.',
+    category: 'restorative',
+    shortDescription: 'Micro-endodontic care to relieve discomfort and preserve your natural tooth.',
     description:
-      'A root canal removes the infected nerve inside your tooth and seals it to prevent further damage. With modern anaesthesia and techniques, the procedure is no more uncomfortable than getting a filling. Most treatments are completed in one or two visits.',
+      'Root canal therapy removes diseased pulp tissue while conserving as much natural tooth structure as possible. Computerized local numbing ensures comfort throughout the procedure, typically completed in one or two quiet sessions.',
     durationMins: 60,
-    priceRange: '₹3,000 – ₹8,000',
+    priceRange: '₹3,500 – ₹8,500 (Sample Guide)',
     faqs: [
-      { q: 'Is root canal painful?', a: 'With modern anaesthesia, most patients feel little to no pain during the procedure. You may have mild soreness for a day or two afterwards, managed with over-the-counter painkillers.' },
-      { q: 'How many visits does it take?', a: 'Usually 1–2 visits, depending on the complexity of the case.' },
-    ],
-  },
-  {
-    id: 'svc-3',
-    name: 'Tooth Extraction',
-    slug: 'tooth-extraction',
-    shortDescription: 'Safe, gentle removal of damaged or problematic teeth.',
-    description:
-      'Sometimes a tooth is too damaged to save, or a wisdom tooth is causing crowding. We perform simple and surgical extractions with proper anaesthesia. We always discuss replacement options (implant, bridge) before proceeding.',
-    durationMins: 30,
-    priceRange: '₹500 – ₹2,000',
-    faqs: [
-      { q: 'Will I feel pain during extraction?', a: 'The area is completely numbed before we begin. You will feel pressure but not pain.' },
-      { q: 'How long does recovery take?', a: 'Most patients feel fine within 2–3 days. We provide detailed aftercare instructions.' },
+      { q: 'Is root canal treatment painful?', a: 'Modern single-tooth anesthesia renders the procedure virtually pain-free. Most patients experience relief from pre-existing toothache immediately.' },
+      { q: 'Why save the tooth instead of extracting?', a: 'Preserving your natural root structure maintains jawbone density and avoids shifting of adjacent teeth.' },
     ],
   },
   {
     id: 'svc-4',
-    name: 'Dental Filling',
+    name: 'Biomimetic Ceramic Fillings',
     slug: 'dental-filling',
-    shortDescription: 'Restore cavities with tooth-coloured composite fillings.',
+    category: 'restorative',
+    shortDescription: 'Tooth-shaded composite and ceramic inlays bonded to restore natural strength.',
     description:
-      'We use tooth-coloured composite resin to fill cavities, matching the shade to your natural teeth. The procedure takes about 30 minutes per tooth and is done under local anaesthesia so you stay comfortable throughout.',
+      'We use high-grade nano-hybrid composite resins layered to mimic the natural translucency, shade, and anatomy of your tooth. The restoration bonds securely with minimal removal of healthy enamel.',
     durationMins: 30,
-    priceRange: '₹500 – ₹2,500',
+    priceRange: '₹900 – ₹2,800 (Sample Guide)',
     faqs: [
-      { q: 'Do you use silver (amalgam) fillings?', a: 'We primarily use tooth-coloured composite fillings for a natural look and safe bonding.' },
-      { q: 'How long do fillings last?', a: 'Composite fillings typically last 5–10 years with good oral hygiene.' },
+      { q: 'Do composite fillings match my tooth color?', a: 'Yes, we select custom shade gradients under high-CRI daylight lighting for a seamless natural finish.' },
+      { q: 'How long do modern composites last?', a: 'Typically 7 to 12 years with standard hygiene and routine check-ups.' },
     ],
   },
   {
     id: 'svc-5',
-    name: 'Teeth Whitening',
+    name: 'Controlled In-Clinic Whitening',
     slug: 'teeth-whitening',
-    shortDescription: 'Brighten your smile safely with professional whitening.',
+    category: 'cosmetic',
+    shortDescription: 'Safe, dentist-supervised light-activated enamel brightening.',
     description:
-      'Our in-clinic whitening uses a safe, dentist-strength bleaching gel applied under controlled conditions. Results are visible in a single 45-minute session. We also provide take-home trays for gradual whitening if you prefer.',
+      'Supervised clinical whitening protects your gums with a protective barrier while gentle peroxide compounds break down deep enamel stains. Results are noticeable within a single 45-minute appointment, supplemented with customized home maintenance guides.',
     durationMins: 45,
-    priceRange: '₹3,000 – ₹6,000',
+    priceRange: '₹3,500 – ₹7,000 (Sample Guide)',
     faqs: [
-      { q: 'Is teeth whitening safe?', a: 'Yes, when done professionally. We protect your gums during the procedure and use clinically tested products.' },
-      { q: 'How long do results last?', a: 'Results can last 6–12 months depending on your diet and habits. Avoiding tea, coffee, and tobacco helps.' },
-    ],
-  },
-  {
-    id: 'svc-6',
-    name: 'Braces & Orthodontics',
-    slug: 'braces-orthodontics',
-    shortDescription: 'Straighten your teeth with braces or clear aligners.',
-    description:
-      'Dr. Satyam Sharma specialises in orthodontics. We offer traditional metal braces, ceramic braces, and clear aligner options. Treatment begins with a detailed assessment including X-rays and moulds to create a personalised plan. The first consultation is short and informative — no commitment required.',
-    durationMins: 30,
-    priceRange: '₹25,000 – ₹80,000',
-    faqs: [
-      { q: 'How long do braces take?', a: 'Typical treatment duration is 12–24 months, depending on the complexity of alignment needed.' },
-      { q: 'Do you offer clear aligners?', a: 'Yes, we offer clear aligner options for suitable cases. We will advise you during the consultation.' },
+      { q: 'Will whitening weaken my enamel?', a: 'No, professional whitening does not strip or abrade enamel when performed with pH-neutral clinical formulations.' },
+      { q: 'How long do results persist?', a: 'Usually 9 to 18 months, depending on tea, coffee, or staining food intake.' },
     ],
   },
   {
     id: 'svc-7',
-    name: 'Crown & Bridge',
+    name: 'Zirconia & Ceramic Crowns',
     slug: 'crown-bridge',
-    shortDescription: 'Restore damaged or missing teeth with custom-made crowns and bridges.',
+    category: 'restorative',
+    shortDescription: 'Precision-milled crowns and bridges for structural reinforcement.',
     description:
-      'A crown caps a damaged tooth to restore its shape and strength. A bridge replaces one or more missing teeth by anchoring to neighbouring teeth. We use ceramic and zirconia materials that look and feel like natural teeth. Impressions are taken in one visit and the final piece is fitted in the next.',
+      'When a tooth is weakened by deep restorations or fracture, our ceramic and monolithic zirconia crowns provide full functional reinforcement with natural aesthetic vitality. Precision digital margins prevent gum irritation.',
     durationMins: 60,
-    priceRange: '₹3,000 – ₹12,000',
+    priceRange: '₹4,500 – ₹14,000 (Sample Guide)',
     faqs: [
-      { q: 'How long does a crown last?', a: 'A well-maintained crown can last 10–15 years or longer.' },
-      { q: 'Is the process painful?', a: 'The tooth is numbed during preparation. You may feel mild sensitivity for a few days after.' },
+      { q: 'What material is best for crowns?', a: 'We evaluate biting forces and visibility. Monolithic zirconia offers maximum strength for molars, while layered ceramics excel for front teeth.' },
+      { q: 'How many appointments are required?', a: 'Typically two appointments: preparation & digital scanning, followed by bonding.' },
+    ],
+  },
+  {
+    id: 'svc-3',
+    name: 'Atraumatic Tooth Extractions',
+    slug: 'tooth-extraction',
+    category: 'restorative',
+    shortDescription: 'Careful removal of impacted wisdom teeth or non-restorable roots.',
+    description:
+      'When a tooth cannot be saved predictably or is severely impacted, we perform sectioned atraumatic extractions to preserve the surrounding bone architecture for future restorative options.',
+    durationMins: 30,
+    priceRange: '₹800 – ₹2,500 (Sample Guide)',
+    faqs: [
+      { q: 'What is the recovery period?', a: 'Initial tissue recovery takes 48 to 72 hours. We provide clear postoperative packs and direct follow-up support.' },
     ],
   },
   {
     id: 'svc-8',
-    name: 'Child Dental Check-up',
+    name: 'Paediatric & Family Consultations',
     slug: 'child-dental-checkup',
-    shortDescription: 'Gentle dental check-ups for children aged 3 and above.',
+    category: 'preventive',
+    shortDescription: 'Patient, positive introductory visits and preventive sealants for children.',
     description:
-      'We make dental visits fun and stress-free for kids. A typical check-up includes a gentle examination, cleaning if needed, fluoride application, and tips for parents on brushing habits. Our team is experienced in handling anxious young patients with patience and care.',
+      'We cultivate trust with young patients through calm demonstrations, fissure sealants, and positive reinforcement. We show children how dental tools work before any check-up begins.',
     durationMins: 30,
-    priceRange: '₹300 – ₹800',
+    priceRange: '₹400 – ₹900 (Sample Guide)',
     faqs: [
-      { q: 'At what age should my child first visit the dentist?', a: 'We recommend a first visit by age 3, or earlier if you notice any concerns.' },
-      { q: 'How do you handle nervous children?', a: 'We use a gentle, step-by-step approach. We show children our tools, explain everything in simple language, and never rush.' },
+      { q: 'When should a child first see a dentist?', a: 'We recommend introducing children by their first birthday or when primary teeth emerge.' },
     ],
   },
 ];
@@ -190,7 +199,6 @@ export function generateTimeSlots(
 
 /* Mock booked slots — simulates some slots being taken */
 export function getMockBookedSlots(dateStr: string): string[] {
-  // Deterministic "random" based on date string to simulate bookings
   const hash = dateStr.split('').reduce((a, c) => a + c.charCodeAt(0), 0);
   const possibleSlots = ['09:30', '10:00', '11:00', '14:30', '15:00', '16:00', '16:30'];
   return possibleSlots.filter((_, i) => (hash + i) % 3 === 0);

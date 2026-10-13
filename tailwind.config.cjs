@@ -5,36 +5,41 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#0E2A25', // Deep Jade Forest / Obsidian Mineral
-          light: '#163E37',
-          dark: '#081D1A',
-          50: '#F2F7F5',      // Gentle Celadon Pearl
-          100: '#DFECE7',     // Fresh Clinical Mint Tint
-          200: '#BBD6CD',
-          800: '#102E29',
-          900: '#091B18',
+          DEFAULT: '#102A43', // Midnight Navy
+          light: '#1C3D5A',
+          dark: '#0B1D2F',
+          50: '#F0F4F8',
+          100: '#D9E2EC',
+          200: '#BCCCDC',
+          800: '#102A43',
+          900: '#0B1D2F',
         },
         bg: {
-          DEFAULT: '#FAF8F5', // Warm Porcelain / Enamel Bone
+          DEFAULT: '#F4F7FA', // Cool Off-White
           card: '#FFFFFF',
-          muted: '#F1ECE4',
-          dark: '#0A1C19',
+          muted: '#E4ECF3',
+          dark: '#102A43',
         },
         accent: {
-          DEFAULT: '#D48A36', // Warm Radiant Amber Gold
-          hover: '#BA7325',
-          light: '#E6A55A',
-          50: '#FAF4EC',
+          DEFAULT: '#65E6C4', // Fresh Mint Accent
+          hover: '#38D9A9',
+          light: '#E6FCF5',
+          50: '#F0FDF9',
         },
         mint: {
-          DEFAULT: '#108E6C',
-          soft: '#EAF7F2',
-          dark: '#0B664D',
+          DEFAULT: '#65E6C4',
+          soft: '#E6FCF5',
+          dark: '#0FA57E',
+        },
+        border: {
+          DEFAULT: '#DCE6EF', // Soft Blue-Grey
+          light: '#EDF2F7',
+          dark: '#BCCCDC',
         },
         text: {
-          DEFAULT: '#15221F', // Rich Obsidian Graphite
-          muted: '#52645E',   // Calming Slate Muted
-          light: '#889B95',   // Subtle Ash
+          DEFAULT: '#17212B', // Deep Ink
+          muted: '#617181',   // Slate Muted
+          light: '#829AB1',   // Soft Ash
         },
       },
       fontFamily: {
@@ -42,9 +47,9 @@ module.exports = {
         body: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
       },
       boxShadow: {
-        soft: '0 4px 24px -2px rgba(14, 42, 37, 0.06)',
-        card: '0 10px 32px -4px rgba(14, 42, 37, 0.08)',
-        hover: '0 18px 46px -6px rgba(14, 42, 37, 0.14)',
+        soft: '0 4px 20px -2px rgba(16, 42, 67, 0.05)',
+        card: '0 10px 30px -4px rgba(16, 42, 67, 0.08)',
+        hover: '0 20px 40px -8px rgba(16, 42, 67, 0.12)',
       },
       maxWidth: {
         prose: '65ch',

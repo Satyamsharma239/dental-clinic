@@ -1,185 +1,164 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Phone, Calendar, Clock } from 'lucide-react';
+import { Menu, X, ArrowRight, Sparkles } from 'lucide-react';
 import { CLINIC } from '@/data/clinicInfo';
 import { DentalToothIcon } from '@/components/common/DentalToothIcon';
 
 const NAV_LINKS = [
-  { to: '/', label: 'Home' },
-  { to: '/services', label: 'Treatments & Fees' },
-  { to: '/about', label: 'About Dr. Sharma' },
-  { to: '/gallery', label: 'Clinic Tour' },
-  { to: '/faq', label: 'Patient FAQs' },
-  { to: '/contact', label: 'Location & Hours' },
+  { to: '/services', label: 'Treatments' },
+  { to: '/about', label: 'Philosophy' },
+  { to: '/gallery', label: 'Studio' },
+  { to: '/faq', label: 'FAQs' },
+  { to: '/contact', label: 'Contact' },
 ];
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 12);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [location.pathname]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileOpen]);
+
   return (
-    <>
-      {/* Top Clinical Utility Bar */}
-      <div className="bg-[#081D1A] text-white/80 text-[11px] py-2 px-4 border-b border-primary/20 hidden sm:block">
-        <div className="max-w-6xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <span className="inline-flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span className="text-white/95 font-medium">Bandra West, Mumbai</span>
-              <span className="text-white/40">•</span>
-              <span className="text-white/80">Mon – Sat: 9:30 AM – 7:30 PM</span>
+    <header
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? 'bg-white/95 backdrop-blur-md border-b border-border shadow-soft'
+          : 'bg-bg/90 backdrop-blur-sm border-b border-border/60'
+      }`}
+    >
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-5 sm:px-8 py-4">
+        
+        {/* Distinctive Architectural Dental Wordmark */}
+        <Link 
+          to="/" 
+          className="flex items-center gap-3 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg"
+          aria-label={`${CLINIC.name} — Home`}
+        >
+          <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center text-white shadow-sm transition-transform duration-200 group-hover:scale-105">
+            <DentalToothIcon size={19} className="text-accent" />
+          </div>
+          <div className="flex flex-col">
+            <span className="font-heading font-semibold text-lg tracking-tight text-primary leading-none">
+              {CLINIC.name}
             </span>
-            <span className="text-white/60 hidden lg:inline">
-              📍 Near National College, Waterfield Road
+            <span className="text-[11px] font-medium tracking-widest uppercase text-text-muted mt-1">
+              Contemporary Practice
             </span>
           </div>
-          <div className="flex items-center gap-4">
-            <span className="text-white/70 hidden md:inline">Emergency Helpline:</span>
-            <a 
-              href={`tel:${CLINIC.emergencyPhone}`} 
-              className="text-accent font-semibold hover:underline flex items-center gap-1.5 transition-colors"
-            >
-              <Phone size={12} className="text-accent" />
-              <span>{CLINIC.emergencyPhoneDisplay}</span>
-            </a>
-          </div>
+        </Link>
+
+        {/* Desktop Navigation Links */}
+        <nav className="hidden md:flex items-center gap-8" aria-label="Main Navigation">
+          {NAV_LINKS.map((link) => {
+            const isActive = location.pathname === link.to;
+            return (
+              <Link
+                key={link.to}
+                to={link.to}
+                className={`text-sm font-medium transition-colors duration-150 relative py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded ${
+                  isActive
+                    ? 'text-primary font-semibold'
+                    : 'text-text-muted hover:text-primary'
+                }`}
+              >
+                {link.label}
+                {isActive && (
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent rounded-full" />
+                )}
+              </Link>
+            );
+          })}
+        </nav>
+
+        {/* Primary Action Button */}
+        <div className="hidden md:flex items-center gap-4">
+          <Link
+            to="/booking"
+            className="btn-primary text-xs tracking-wide py-2.5 px-5 font-semibold"
+          >
+            <span>Book appointment</span>
+            <ArrowRight size={14} className="text-accent" />
+          </Link>
         </div>
+
+        {/* Accessible Mobile Menu Trigger */}
+        <button
+          type="button"
+          className="md:hidden p-2 text-primary hover:bg-primary-50 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          onClick={() => setMobileOpen(!mobileOpen)}
+          aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={mobileOpen}
+        >
+          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </div>
 
-      {/* Main Navigation Header */}
-      <header className="sticky top-0 z-40 bg-bg/95 backdrop-blur-md border-b border-primary/10 shadow-soft">
-        <div className="max-w-6xl mx-auto flex items-center justify-between px-5 py-3.5">
-          {/* Dental Clinic Brand / Logo */}
-          <Link 
-            to="/" 
-            className="flex items-center gap-3 group" 
-            onClick={() => setMobileOpen(false)}
-          >
-            <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white shadow-sm group-hover:bg-primary-light transition-all">
-              <DentalToothIcon size={22} className="text-accent group-hover:scale-105 transition-transform" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-heading font-bold text-lg text-primary tracking-tight leading-none">
-                {CLINIC.name}
-              </span>
-              <span className="text-[10px] tracking-wider uppercase font-semibold text-accent mt-0.5">
-                Dental Clinic & Orthodontics
-              </span>
-            </div>
-          </Link>
-
-          {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-7" aria-label="Main navigation">
+      {/* Mobile Navigation Drawer */}
+      {mobileOpen && (
+        <div className="md:hidden fixed inset-0 top-[65px] bg-bg/95 backdrop-blur-xl z-50 flex flex-col justify-between p-6 border-t border-border animate-fadeIn">
+          <div className="flex flex-col gap-2 pt-2">
+            <Link
+              to="/"
+              className={`text-lg font-heading py-3 px-3 rounded-lg transition-colors ${
+                location.pathname === '/' ? 'bg-white font-bold text-primary shadow-xs' : 'text-text-muted hover:text-primary'
+              }`}
+            >
+              Home
+            </Link>
             {NAV_LINKS.map((link) => {
               const isActive = location.pathname === link.to;
               return (
                 <Link
                   key={link.to}
                   to={link.to}
-                  className={`text-sm font-medium transition-all relative py-1 ${
-                    isActive
-                      ? 'text-primary font-semibold'
-                      : 'text-text-muted hover:text-primary'
+                  className={`text-lg font-heading py-3 px-3 rounded-lg transition-colors ${
+                    isActive ? 'bg-white font-bold text-primary shadow-xs' : 'text-text-muted hover:text-primary'
                   }`}
                 >
                   {link.label}
-                  {isActive && (
-                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent rounded-full animate-fadeIn" />
-                  )}
                 </Link>
               );
             })}
-          </nav>
+          </div>
 
-          {/* Desktop Action CTAs */}
-          <div className="hidden sm:flex items-center gap-3">
-            <a 
-              href={`tel:${CLINIC.phone}`} 
-              className="btn-outline text-xs py-2 px-3.5"
-              title="Call Reception"
+          <div className="pt-6 border-t border-border space-y-4">
+            <Link
+              to="/booking"
+              className="btn-primary w-full text-sm py-4 shadow-sm"
             >
-              <Phone size={14} className="text-primary" />
-              <span>{CLINIC.phoneDisplay}</span>
-            </a>
-            <Link 
-              to="/booking" 
-              className="btn-primary text-xs py-2 px-4 shadow-sm"
-            >
-              <Calendar size={14} />
-              <span>Book Appointment</span>
+              <span>Book appointment</span>
+              <ArrowRight size={16} className="text-accent" />
             </Link>
+            <p className="text-center text-xs text-text-muted">
+              {CLINIC.address.full}
+            </p>
           </div>
-
-          {/* Mobile hamburger button */}
-          <button
-            className="lg:hidden p-2 text-primary hover:bg-primary-50 rounded-lg transition-colors"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={mobileOpen}
-          >
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
         </div>
-
-        {/* Mobile slide-in menu with backdrop overlay */}
-        {mobileOpen && (
-          <>
-            <div 
-              className="fixed inset-0 top-[65px] bg-black/30 z-30 lg:hidden backdrop-blur-xs"
-              onClick={() => setMobileOpen(false)}
-            />
-            <div className="relative z-40 lg:hidden border-t border-primary/10 bg-bg px-5 py-5 shadow-2xl transition-all animate-fadeIn">
-              <div className="mb-4 pb-3 border-b border-primary/10 flex items-center justify-between text-xs text-text-muted">
-              <span className="flex items-center gap-1.5">
-                <Clock size={13} className="text-accent" />
-                <span>Open 9:30 AM – 7:30 PM</span>
-              </span>
-              <a href={`tel:${CLINIC.emergencyPhone}`} className="text-accent font-semibold">
-                Emergency: {CLINIC.emergencyPhoneDisplay}
-              </a>
-            </div>
-
-            <nav className="flex flex-col gap-1.5" aria-label="Mobile navigation">
-              {NAV_LINKS.map((link) => {
-                const isActive = location.pathname === link.to;
-                return (
-                  <Link
-                    key={link.to}
-                    to={link.to}
-                    onClick={() => setMobileOpen(false)}
-                    className={`py-3 px-3.5 rounded-lg text-sm font-medium transition-colors ${
-                      isActive
-                        ? 'bg-primary text-white font-semibold'
-                        : 'text-text hover:bg-primary-50'
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                );
-              })}
-              
-              <div className="pt-3 mt-2 border-t border-primary/10 flex flex-col gap-2.5">
-                <Link
-                  to="/booking"
-                  onClick={() => setMobileOpen(false)}
-                  className="btn-primary w-full text-center"
-                >
-                  <Calendar size={16} />
-                  Book Clinical Appointment
-                </Link>
-                <a
-                  href={`tel:${CLINIC.phone}`}
-                  className="btn-outline w-full text-center justify-center text-sm"
-                >
-                  <Phone size={16} />
-                  Call Reception ({CLINIC.phoneDisplay})
-                </a>
-              </div>
-            </nav>
-          </div>
-        </>
       )}
     </header>
-  </>
   );
 }

@@ -1,66 +1,48 @@
-import React from 'react';
 import FadeIn from '@/components/FadeIn';
 import { CLINIC } from '@/data/clinicInfo';
 
 export default function PrivacyPage() {
   return (
-    <div className="max-w-3xl mx-auto px-4 py-16">
+    <div className="max-w-3xl mx-auto px-5 sm:px-8 py-20 bg-bg">
       <FadeIn>
-        <h1 className="text-4xl font-heading text-primary-900 mb-4">Privacy Policy</h1>
-        <p className="text-gray-500 mb-12">Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+        <span className="editorial-badge mb-3">
+          Legal & Privacy
+        </span>
+        <h1 className="text-4xl font-heading text-primary font-normal mb-3">Privacy & Demonstration Policy</h1>
+        <p className="text-text-light text-xs font-mono mb-12">
+          Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+        </p>
         
-        <div className="prose prose-primary max-w-none text-gray-700 space-y-8">
-          <section>
-            <h2 className="text-2xl font-heading text-primary-900 mb-4">Information We Collect</h2>
+        <div className="space-y-8 text-text-muted text-sm leading-relaxed">
+          <section className="bg-white p-6 rounded-2xl border border-border">
+            <h2 className="text-lg font-heading text-primary font-semibold mb-2">1. Demonstration Project Scope</h2>
             <p>
-              When you book an appointment or contact Bright Smiles Dental Clinic, we collect standard information needed to provide you with healthcare services. This typically includes your name, phone number, email address, age, and a brief description of your dental concerns.
+              {CLINIC.name} is a demonstration website developed for product design, user experience, and frontend engineering showcase. Form submissions (such as appointment reservations or contact inquiries) are processed purely in client-side storage (such as browser localStorage) to illustrate application flow, validation, and confirmation slip generation.
             </p>
           </section>
 
-          <section>
-            <h2 className="text-2xl font-heading text-primary-900 mb-4">How We Use It</h2>
+          <section className="bg-white p-6 rounded-2xl border border-border">
+            <h2 className="text-lg font-heading text-primary font-semibold mb-2">2. Information Handled In Demonstrations</h2>
             <p>
-              The information we collect is used strictly for the operations of our clinic. This includes:
-            </p>
-            <ul className="list-disc pl-5 mt-2 space-y-1">
-              <li>Scheduling and managing your dental appointments.</li>
-              <li>Sending appointment reminders via WhatsApp or SMS.</li>
-              <li>Providing you with accurate medical advice and treatment plans.</li>
-              <li>Processing payments and sending receipts.</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-heading text-primary-900 mb-4">Data Security</h2>
-            <p>
-              We take the security of your personal and medical information seriously. All physical records are kept in locked cabinets, and our digital records are stored on secure, encrypted practice management software accessible only by authorized clinic staff.
+              Any sample details entered into the booking wizard (such as mock names, contact numbers, or treatment selections) remain local to your browser session. No medical histories or private health data are transmitted to external cloud databases.
             </p>
           </section>
 
-          <section>
-            <h2 className="text-2xl font-heading text-primary-900 mb-4">Third Parties</h2>
+          <section className="bg-white p-6 rounded-2xl border border-border">
+            <h2 className="text-lg font-heading text-primary font-semibold mb-2">3. Calendar & Messaging Handoffs</h2>
             <p>
-              We <strong>do not</strong> sell, rent, or share your personal information with third-party marketers. Your data is only shared with third parties when absolutely necessary for your treatment (e.g., referring you to a specialist or sending lab work), and only with your explicit consent.
+              When utilizing features such as "Add to Google Calendar" or "WhatsApp Handoff", standard public URL query parameters are constructed locally to prefill event information on your device.
             </p>
           </section>
 
-          <section>
-            <h2 className="text-2xl font-heading text-primary-900 mb-4">Your Rights</h2>
+          <section className="bg-white p-6 rounded-2xl border border-border">
+            <h2 className="text-lg font-heading text-primary font-semibold mb-2">4. Contact & Inquiries</h2>
             <p>
-              You have the right to access the personal and medical information we hold about you. You may also request corrections to any inaccurate data or ask for the deletion of your data, provided it does not conflict with legal requirements for medical record retention.
+              For questions regarding the design system, code architecture, or engineering patterns used in this demonstration:
             </p>
-          </section>
-
-          <section>
-            <h2 className="text-2xl font-heading text-primary-900 mb-4">Contact Us</h2>
-            <p>
-              If you have any questions or concerns about how we handle your data, please reach out to us:
+            <p className="mt-2 font-mono text-xs text-primary">
+              Email: {CLINIC.email}
             </p>
-            <ul className="mt-2 space-y-1">
-              <li><strong>Email:</strong> {CLINIC.email}</li>
-              <li><strong>Phone:</strong> {CLINIC.phoneDisplay}</li>
-              <li><strong>Address:</strong> {CLINIC.address.full}</li>
-            </ul>
           </section>
         </div>
       </FadeIn>

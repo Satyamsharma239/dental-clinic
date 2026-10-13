@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ChevronDown, ArrowRight, ShieldCheck, Sparkles, Clock, CheckCircle2, Phone, Calendar } from 'lucide-react';
+import { ChevronDown, ArrowRight, Clock, Sparkles, HelpCircle } from 'lucide-react';
 import FadeIn from '@/components/FadeIn';
-import { SERVICES } from '@/data/services';
+import { SERVICES, Service } from '@/data/services';
 import { CLINIC } from '@/data/clinicInfo';
-import { DentalToothIcon } from '@/components/common/DentalToothIcon';
 
 export default function ServicesPage() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
-  const [activeCategory, setActiveCategory] = useState<'all' | 'preventive' | 'restorative' | 'cosmetic'>('all');
+  const [activeCategory, setActiveCategory] = useState<'all' | 'orthodontics' | 'restorative' | 'preventive' | 'cosmetic'>('all');
 
   const toggleExpand = (id: string) => {
     setExpandedId(expandedId === id ? null : id);
@@ -16,44 +15,47 @@ export default function ServicesPage() {
 
   const filteredServices = SERVICES.filter((service) => {
     if (activeCategory === 'all') return true;
-    if (activeCategory === 'preventive') return service.id === 'svc-1' || service.id === 'svc-7';
-    if (activeCategory === 'restorative') return service.id === 'svc-2' || service.id === 'svc-3' || service.id === 'svc-4' || service.id === 'svc-8';
-    if (activeCategory === 'cosmetic') return service.id === 'svc-5' || service.id === 'svc-6';
-    return true;
+    return service.category === activeCategory;
   });
 
   return (
-    <div className="flex flex-col">
-      {/* Page Header */}
-      <section className="section-padding bg-gradient-to-b from-primary-50/60 to-bg border-b border-primary/10">
-        <div className="max-w-6xl mx-auto px-4 text-center">
+    <div className="flex flex-col bg-bg">
+      {/* 1. Page Header */}
+      <section className="pt-16 pb-20 lg:pt-24 lg:pb-28 border-b border-border bg-white">
+        <div className="max-w-5xl mx-auto px-5 sm:px-8 text-center space-y-6">
           <FadeIn>
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-primary/20 text-xs font-semibold text-primary mb-4 shadow-sm">
-              <DentalToothIcon size={14} className="text-accent" />
-              <span>Ethical Dental Care & Honest Pricing</span>
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading text-primary font-bold mb-4 tracking-tight">
-              Clinical Treatments & Transparent Fees
+            <span className="editorial-badge">
+              Clinical Catalog & Pricing Guide
+            </span>
+
+            <h1 className="font-heading text-4xl sm:text-6xl text-primary font-normal tracking-tight">
+              Comprehensive disciplines, <br />
+              <span className="italic font-light text-primary-light">transparent sample fees.</span>
             </h1>
-            <p className="text-base md:text-lg text-text-muted max-w-2xl mx-auto leading-relaxed">
-              Clear clinical explanations, realistic timelines, and itemized upfront costs. We never recommend procedures you don’t genuinely need.
+
+            <p className="text-text-muted text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+              We practice conservative, evidence-based dentistry. Explore our clinical services below with sample fee guides and common clinical questions.
             </p>
 
             {/* Category Filter Chips */}
-            <div className="flex flex-wrap items-center justify-center gap-2.5 mt-8">
+            <div className="flex flex-wrap items-center justify-center gap-2 pt-4" role="tablist">
               {[
-                { id: 'all', label: 'All Dental Procedures' },
-                { id: 'preventive', label: 'Preventive & Hygiene' },
-                { id: 'restorative', label: 'Restorative & Pain Relief' },
-                { id: 'cosmetic', label: 'Orthodontics & Cosmetics' },
+                { id: 'all', label: 'All Services' },
+                { id: 'orthodontics', label: 'Orthodontics & Aligners' },
+                { id: 'restorative', label: 'Restorative Care' },
+                { id: 'preventive', label: 'Preventative & Hygiene' },
+                { id: 'cosmetic', label: 'Cosmetic' },
               ].map((tab) => (
                 <button
                   key={tab.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={activeCategory === tab.id}
                   onClick={() => setActiveCategory(tab.id as any)}
-                  className={`px-4 py-2 rounded-xl text-xs font-semibold transition-all ${
+                  className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
                     activeCategory === tab.id
-                      ? 'bg-primary text-white shadow-sm'
-                      : 'bg-white border border-primary/15 text-text-muted hover:border-primary/40 hover:text-primary'
+                      ? 'bg-primary text-white shadow-xs'
+                      : 'bg-bg border border-border text-text-muted hover:border-primary/40 hover:text-primary'
                   }`}
                 >
                   {tab.label}
@@ -64,111 +66,136 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Services Grid */}
-      <section className="section-padding bg-white">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
+      {/* 2. Services Editorial Grid */}
+      <section className="section-padding bg-bg">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
             {filteredServices.map((service, index) => {
               const isExpanded = expandedId === service.id;
-              
+
               return (
-                <FadeIn key={service.id} delay={index * 0.05}>
-                  <div className="bg-bg rounded-2xl border border-primary/10 p-6 flex flex-col hover:border-primary/30 transition-all hover:shadow-card">
-                    <div className="flex justify-between items-start mb-3">
-                      <div className="flex items-center gap-2">
-                        <div className="w-8 h-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                          <DentalToothIcon size={16} className="text-accent" />
-                        </div>
-                        <h3 className="text-xl font-heading text-primary font-bold">{service.name}</h3>
+                <FadeIn key={service.id} delay={index * 0.04}>
+                  <div className="bg-white rounded-2xl border border-border p-7 sm:p-8 space-y-6 shadow-soft transition-all duration-200 hover:border-primary/30">
+                    
+                    {/* Header */}
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <span className="text-[11px] font-mono uppercase tracking-wider text-text-light">
+                          {service.category}
+                        </span>
+                        <h2 className="font-heading text-2xl font-semibold text-primary mt-1">
+                          {service.name}
+                        </h2>
                       </div>
-                      <span className="bg-primary-50 text-primary border border-primary/20 rounded-md text-[11px] px-2.5 py-1 font-semibold whitespace-nowrap font-mono">
-                        {service.durationMins} mins
+                      <span className="inline-flex items-center gap-1.5 text-xs font-mono text-text-muted bg-bg px-2.5 py-1 rounded border border-border shrink-0">
+                        <Clock size={12} />
+                        {service.durationMins}m
                       </span>
                     </div>
-                    
-                    <p className="text-text-muted text-xs leading-relaxed mb-4">
+
+                    {/* Short Description */}
+                    <p className="text-text-muted text-sm sm:text-base leading-relaxed">
                       {service.shortDescription}
                     </p>
-                    
-                    <div className="flex justify-between items-center pt-3 border-t border-primary/10 text-xs mb-4">
+
+                    {/* Fee & Action Bar */}
+                    <div className="pt-4 border-t border-border flex items-center justify-between">
                       <div>
-                        <span className="text-[10px] text-text-muted block">Estimated Fee</span>
-                        <span className="font-bold text-primary text-sm font-mono">{service.priceRange}</span>
+                        <span className="text-[10px] font-mono uppercase tracking-wider text-text-light block">
+                          Sample Fee Range
+                        </span>
+                        <span className="font-semibold text-primary text-sm sm:text-base">
+                          {service.priceRange}
+                        </span>
                       </div>
-                      
-                      <button 
-                        onClick={() => toggleExpand(service.id)}
-                        className="text-primary font-semibold text-xs flex items-center hover:text-accent focus:outline-none"
-                      >
-                        {isExpanded ? 'Hide details' : 'Procedure details'}
-                        <ChevronDown className={`w-3.5 h-3.5 ml-1 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
-                      </button>
+
+                      <div className="flex items-center gap-3">
+                        <button
+                          type="button"
+                          onClick={() => toggleExpand(service.id)}
+                          className="text-xs font-medium text-text-muted hover:text-primary flex items-center gap-1 transition-colors"
+                          aria-expanded={isExpanded}
+                        >
+                          <span>{isExpanded ? 'Less' : 'Details'}</span>
+                          <ChevronDown
+                            size={14}
+                            className={`transition-transform duration-200 ${
+                              isExpanded ? 'rotate-180' : ''
+                            }`}
+                          />
+                        </button>
+
+                        <Link
+                          to={`/booking?service=${service.slug}`}
+                          className="btn-primary text-xs py-2 px-3.5 font-semibold"
+                        >
+                          <span>Reserve</span>
+                          <ArrowRight size={13} className="text-accent" />
+                        </Link>
+                      </div>
                     </div>
 
-                    {/* Expandable Clinical Details & FAQs */}
+                    {/* Expanded Clinical Narrative & FAQs */}
                     {isExpanded && (
-                      <div className="bg-white p-4 rounded-xl border border-primary/10 text-xs space-y-3 shadow-inner mb-4 animate-fadeIn">
-                        <div>
-                          <h4 className="font-bold text-primary mb-1">Clinical Protocol:</h4>
-                          <p className="text-text-muted leading-relaxed">{service.description}</p>
+                      <div className="pt-5 border-t border-border space-y-5 animate-fadeIn">
+                        <div className="space-y-2">
+                          <h4 className="text-xs font-mono uppercase tracking-wider text-primary font-semibold">
+                            Clinical Overview
+                          </h4>
+                          <p className="text-xs sm:text-sm text-text-muted leading-relaxed">
+                            {service.description}
+                          </p>
                         </div>
-                        
-                        {service.faqs && service.faqs.length > 0 && (
-                          <div className="pt-2 border-t border-primary/10 space-y-2">
-                            <h4 className="font-bold text-primary">Patient Questions:</h4>
-                            {service.faqs.map((faq, i: number) => (
-                              <div key={i} className="space-y-0.5">
-                                <p className="font-semibold text-text text-[11px]">Q: {faq.q}</p>
-                                <p className="text-text-muted text-[11px] leading-relaxed">A: {faq.a}</p>
-                              </div>
-                            ))}
+
+                        {service.faqs.length > 0 && (
+                          <div className="space-y-3 pt-2">
+                            <h4 className="text-xs font-mono uppercase tracking-wider text-primary font-semibold flex items-center gap-1.5">
+                              <HelpCircle size={13} className="text-accent" />
+                              Common Patient Questions
+                            </h4>
+                            <div className="space-y-2.5">
+                              {service.faqs.map((faq, fIdx) => (
+                                <div key={fIdx} className="bg-bg p-3.5 rounded-lg border border-border text-xs">
+                                  <p className="font-semibold text-primary mb-1">
+                                    Q: {faq.q}
+                                  </p>
+                                  <p className="text-text-muted leading-relaxed">
+                                    {faq.a}
+                                  </p>
+                                </div>
+                              ))}
+                            </div>
                           </div>
                         )}
                       </div>
                     )}
 
-                    {/* Book Action */}
-                    <div className="pt-1">
-                      <Link 
-                        to={`/booking?service=${service.slug}`} 
-                        className="btn-primary w-full text-xs py-2.5 flex items-center justify-center gap-1.5 shadow-sm"
-                      >
-                        <Calendar size={13} />
-                        <span>Book Appointment</span>
-                      </Link>
-                    </div>
                   </div>
                 </FadeIn>
               );
             })}
           </div>
 
-          {/* Not Sure Consultation Card */}
-          <FadeIn delay={0.2}>
-            <div className="mt-12 p-8 rounded-2xl bg-primary text-white flex flex-col lg:flex-row items-center justify-between gap-6 shadow-card">
-              <div className="space-y-2 text-center lg:text-left">
-                <span className="text-xs font-bold text-accent uppercase tracking-wider">
-                  Unsure which treatment fits your symptoms?
-                </span>
-                <h3 className="font-heading text-2xl md:text-3xl font-bold">
-                  Book a Comprehensive Clinical Examination
-                </h3>
-                <p className="text-xs md:text-sm text-white/70 max-w-2xl leading-relaxed">
-                  Dr. Satyam Sharma will perform an intraoral examination, review your oral health, answer all questions, and provide a clear, pressure-free treatment quote.
-                </p>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-3">
-                <Link to="/booking" className="btn-primary text-xs py-3 px-6 shadow-md">
-                  Book Consultation (₹500)
-                </Link>
-                <a href={`tel:${CLINIC.phone}`} className="btn-outline bg-white/10 text-white border-white/20 hover:bg-white/20 text-xs py-3 px-5">
-                  <Phone size={14} />
-                  Call Clinic
-                </a>
-              </div>
+          {/* Bottom Guidance Card */}
+          <div className="mt-14 bg-white border border-border rounded-2xl p-8 sm:p-12 text-center max-w-3xl mx-auto space-y-4">
+            <span className="mint-pill">
+              <Sparkles size={13} />
+              Unsure Where To Start?
+            </span>
+            <h3 className="font-heading text-2xl sm:text-3xl font-normal text-primary">
+              Begin with an unhurried digital consultation.
+            </h3>
+            <p className="text-text-muted text-sm sm:text-base max-w-lg mx-auto leading-relaxed">
+              Every smile is unique. We conduct a thorough visual assessment, discuss your concerns, and construct a conservative care plan without obligation.
+            </p>
+            <div className="pt-2">
+              <Link to="/booking" className="btn-primary text-xs py-3 px-6 font-semibold">
+                <span>Book general consultation</span>
+                <ArrowRight size={14} className="text-accent" />
+              </Link>
             </div>
-          </FadeIn>
+          </div>
+
         </div>
       </section>
     </div>

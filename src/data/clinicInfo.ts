@@ -1,79 +1,81 @@
+/**
+ * AURA DENTAL STUDIO — SAMPLE CLINICAL DATA & BRAND SYSTEM
+ * 
+ * Note: This application is a design & engineering demonstration project
+ * for portfolio purposes. The details below are illustrative sample content.
+ */
+
 export const CLINIC = {
-  name: 'Bright Smiles Dental Clinic',
-  tagline: 'Gentle, honest dental care for your family',
+  name: 'Aura Dental Studio',
+  shortName: 'Aura',
+  tagline: 'Dentistry, designed around you.',
+  subtitle: 'Contemporary Practice & Aesthetic Orthodontics',
+  concept: 'A patient-first dental studio pairing modern diagnostics with a calm, deliberate environment.',
   city: 'Mumbai',
   area: 'Bandra West',
+  isDemo: true,
   doctor: {
     name: 'Dr. Satyam Sharma',
-    qualification: 'BDS, MDS – Orthodontics & Dentofacial Orthopedics',
-    registration: 'MSDC-42891',
-    council: 'Maharashtra State Dental Council',
-    experience: '12+ years',
-    bio: 'Dr. Satyam Sharma has been practicing dentistry in Bandra West, Mumbai for over 12 years. He completed his BDS from Nair Hospital Dental College, Mumbai and his MDS in Orthodontics from Government Dental College & Hospital, Mumbai. He is widely recognized for his patient-first, gentle approach — particularly with anxious patients and children.',
-    philosophy: 'We believe dental care should be honest, transparent, and comfortable. We take the time to explain every step with intraoral imaging so you always know what is happening, why it is needed, and what it costs upfront.',
+    title: 'Clinical Director & Orthodontic Lead',
+    credentials: 'BDS, MDS (Sample Specialty: Orthodontics)',
+    bio: 'Leading clinical care at Aura Dental Studio, Dr. Sharma focuses on preventative dental health, clear aligner mechanics, and conservative restorative techniques. His approach emphasizes active listening, digital 3D scans over conventional impressions, and transparent, step-by-step treatment roadmaps before any procedure begins.',
+    philosophy: 'Great dentistry is calm, unhurried, and deeply transparent. We prioritize natural tooth structure above all else, ensuring you understand every recommendation before making a decision.',
+    isSample: true,
   },
   address: {
-    line1: '201, 2nd Floor, Sagar Fortune Building',
-    line2: 'Waterfield Road, Off Linking Road, Bandra West',
+    line1: 'Studio 204, Waterfield Road',
+    line2: 'Off Linking Road, Bandra West',
     city: 'Mumbai',
     pincode: '400050',
-    full: '201, Sagar Fortune Building, Waterfield Road, Bandra West, Mumbai – 400050',
+    full: 'Studio 204, Waterfield Road, Bandra West, Mumbai 400050',
   },
   phone: '+919820144521',
   phoneDisplay: '+91 98201 44521',
-  email: 'care@brightsmilesmumbai.com',
+  email: 'hello@auradentalstudio.demo',
   whatsapp: '919820144521',
   hours: {
-    weekdays: '9:30 AM – 7:30 PM (Mon – Sat)',
-    lunch: '1:30 PM – 2:30 PM (closed for lunch)',
-    closed: 'Sundays (Emergency appointments available on call)',
+    weekdays: 'Monday – Saturday: 9:30 AM – 7:00 PM',
+    lunch: '1:30 PM – 2:30 PM (Midday break)',
+    closed: 'Sundays (Consultations by prior reservation)',
   },
-  parking: 'Valet and dedicated basement visitor parking inside Sagar Fortune premises.',
-  transit: '750 metres from Bandra Railway Station (West). 3 mins from Linking Road. Bus Stop: National College / Waterfield Junction.',
-  landmark: 'Near National College, Above Nature\'s Basket, Waterfield Road, Bandra West',
-  languages: ['English', 'Hindi', 'Marathi', 'Gujarati'],
-  payments: ['Cash', 'UPI (GPay, PhonePe, Paytm)', 'Credit & Debit Cards', 'No-Cost EMI (for Aligners & Implants)'],
-  emergencyPhone: '+919820144522',
-  emergencyPhoneDisplay: '+91 98201 44522',
+  transitGuide: 'Walking distance from National College & Linking Road junction. 800m from Bandra Station (West).',
+  disclaimer: 'Demonstration portfolio project. All appointments generated are sample enquiries.',
 } as const;
 
 export const CLINIC_PHOTOS = {
-  hero: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1200&q=80',
-  doctor: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=800&q=80',
+  hero: 'https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1600&q=80',
+  doctor: 'https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=1000&q=80',
   operatory: 'https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=1200&q=80',
+  lounge: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=80',
   instruments: 'https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=1200&q=80',
-  sterilization: 'https://images.unsplash.com/photo-1584515979956-d9f6e5d09982?auto=format&fit=crop&w=1200&q=80',
-  reception: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1200&q=80',
+  aligners: 'https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&w=1200&q=80',
   consultation: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1200&q=80',
-  xray: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1200&q=80',
+  diagnostic: 'https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=1200&q=80',
 };
 
-export const PATIENT_REVIEWS = [
+export const PATIENT_EXPERIENCES = [
   {
-    name: 'Rohit Malhotra',
-    location: 'Pali Hill, Bandra West',
-    treatment: 'Root Canal Treatment',
-    rating: 5,
-    date: 'August 2026',
-    comment:
-      'I had severe throbbing pain in my lower molar and was terrified of root canal. Dr. Satyam Sharma explained each step calmly, numbed the tooth completely, and the entire procedure was genuinely painless. Truly grateful for his gentle hands!',
+    id: 'exp-1',
+    author: 'A. Merchant',
+    context: 'Clear Aligners Planning',
+    quote:
+      'The 3D intraoral simulation made all the difference. Seeing the expected movement trajectory before committing gave me complete confidence in the timeline.',
+    note: 'Illustrative patient vignette',
   },
   {
-    name: 'Sunita Nair',
-    location: 'Khar West, Mumbai',
-    treatment: 'Dental Cleaning & Polishing',
-    rating: 5,
-    date: 'September 2026',
-    comment:
-      'Very clean and modern clinic. The cleaning took about 30 minutes and the doctor didn’t push any unnecessary procedures or expensive products. Transparent billing and very polite front desk.',
+    id: 'exp-2',
+    author: 'P. Kapoor',
+    context: 'Restorative & Deep Cleaning',
+    quote:
+      'What stood out was the pacing. Nothing felt rushed, every instrument was explained beforehand, and there were no surprise add-ons on the final estimate.',
+    note: 'Illustrative patient vignette',
   },
   {
-    name: 'Kavita Deshmukh',
-    location: 'BKC, Mumbai',
-    treatment: 'Clear Aligners Consultation',
-    rating: 5,
-    date: 'October 2026',
-    comment:
-      'Consulted Dr. Satyam for invisible aligners. As an MDS Orthodontist, his 3D scan explanation was crystal clear with zero false promises. Best dental clinic experience in Bandra!',
+    id: 'exp-3',
+    author: 'R. Sen',
+    context: 'Root Canal & Ceramic Crown',
+    quote:
+      'I was dreading the root canal for weeks. The computerized numbing was entirely painless, and the post-op care guidance was clear and reassuring.',
+    note: 'Illustrative patient vignette',
   },
 ];

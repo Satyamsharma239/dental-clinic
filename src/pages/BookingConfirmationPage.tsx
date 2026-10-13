@@ -4,15 +4,17 @@ import { CLINIC } from '@/data/clinicInfo';
 import { 
   CheckCircle2, 
   MessageSquare, 
-  Mail, 
-  Copy,
-  Check,
+  Copy, 
+  Check, 
   Printer, 
-  Clock,
-  AlertCircle,
-  MapPin,
-  Calendar
+  Calendar as CalendarIcon, 
+  Clock, 
+  MapPin, 
+  ArrowRight,
+  Info,
+  AlertCircle
 } from 'lucide-react';
+import { DentalToothIcon } from '@/components/common/DentalToothIcon';
 
 export default function BookingConfirmationPage() {
   const { bookingId } = useParams<{ bookingId: string }>();
@@ -34,7 +36,7 @@ export default function BookingConfirmationPage() {
   if (loading) {
     return (
       <div className="min-h-[60vh] flex items-center justify-center">
-        <div className="w-8 h-8 border-3 border-accent border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-3 border-primary border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -42,14 +44,14 @@ export default function BookingConfirmationPage() {
   if (!booking) {
     return (
       <div className="min-h-[70vh] bg-bg flex flex-col items-center justify-center p-4">
-        <div className="bg-white p-8 rounded-2xl shadow-card max-w-md w-full text-center border border-primary/10">
-          <AlertCircle className="w-16 h-16 text-amber-600 mx-auto mb-4" />
-          <h1 className="font-heading text-2xl font-bold text-primary mb-2">Booking Not Found</h1>
+        <div className="bg-white p-8 rounded-2xl shadow-card max-w-md w-full text-center border border-border">
+          <AlertCircle className="w-12 h-12 text-primary mx-auto mb-3" />
+          <h1 className="font-heading text-2xl font-semibold text-primary mb-2">Slip Not Found</h1>
           <p className="text-text-muted mb-6 text-xs leading-relaxed">
-            We couldn't locate a booking with Reference #{bookingId}.
+            We couldn't locate a demonstration booking with Reference #{bookingId}.
           </p>
           <Link to="/booking" className="btn-primary w-full text-xs">
-            Book an Appointment
+            Start a New Demo Booking
           </Link>
         </div>
       </div>
@@ -66,172 +68,183 @@ export default function BookingConfirmationPage() {
   
   const duration = booking.service?.durationMins || 30;
 
+  // Google Calendar URL construction
+  const startDateTime = new Date(booking.date);
+  if (booking.time) {
+    const [h, m] = booking.time.split(':').map(Number);
+    startDateTime.setHours(h, m, 0, 0);
+  }
+  const endDateTime = new Date(startDateTime.getTime() + duration * 60 * 1000);
+
+  const formatCalTime = (d: Date) => d.toISOString().replace(/-|:|\.\d\d\d/g, '');
+  const googleCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(
+    `Consultation: ${booking.service?.name} — ${CLINIC.name}`
+  )}&dates=${formatCalTime(startDateTime)}/${formatCalTime(endDateTime)}&details=${encodeURIComponent(
+    `Demonstration booking reference: ${booking.id}\nPatient: ${booking.patientName}\nDuration: ${duration} minutes\nNote: ${booking.notes || 'None'}`
+  )}&location=${encodeURIComponent(CLINIC.address.full)}`;
+
   // Formatted WhatsApp Receipt
-  const whatsappMessage = `🦷 *APPOINTMENT CONFIRMED* - ${CLINIC.name}
+  const whatsappMessage = `🦷 *CONSULTATION SLIP* — ${CLINIC.name}
 ━━━━━━━━━━━━━━━━━━━━
-• *Booking ID*: ${booking.id}
-• *Patient*: ${booking.patientName}
-• *Treatment*: ${booking.service?.name}
-• *Date & Time*: ${dateFormatted} at ${booking.time}
-• *Doctor*: ${CLINIC.doctor.name} (${CLINIC.doctor.qualification})
-• *Address*: ${CLINIC.address.full}
-• *Landmark*: ${CLINIC.landmark}
+• Reference: ${booking.id}
+• Patient: ${booking.patientName}
+• Discipline: ${booking.service?.name}
+• Date & Time: ${dateFormatted} at ${booking.time}
+• Studio: ${CLINIC.address.full}
 ━━━━━━━━━━━━━━━━━━━━
-📌 *Note*: No advance payment required. Please arrive 10 minutes prior to your slot.
-Need help? Call: ${CLINIC.phoneDisplay}`;
+📌 Demo portfolio booking showcase.`;
 
   const whatsappUrl = `https://wa.me/${CLINIC.whatsapp}?text=${encodeURIComponent(whatsappMessage)}`;
 
-  // Formatted Email
-  const emailSubject = `Dental Appointment Confirmed [${booking.id}] - ${CLINIC.name}`;
-  const emailBody = `Dear ${booking.patientName},
-
-Your dental appointment at ${CLINIC.name} is confirmed.
-
-DETAILS:
-- Booking Reference ID: ${booking.id}
-- Treatment: ${booking.service?.name}
-- Scheduled Slot: ${dateFormatted} at ${booking.time}
-- Consulting Doctor: ${CLINIC.doctor.name} (${CLINIC.doctor.qualification})
-- Clinic Address: ${CLINIC.address.full}
-- Landmark: ${CLINIC.landmark}
-
-PRE-VISIT INSTRUCTIONS:
-1. Please arrive 10 minutes before your slot.
-2. Payment is settled at the clinic desk (Cash, UPI, Cards accepted).
-3. For rescheduling or emergencies, call ${CLINIC.phoneDisplay}.
-
-Kind regards,
-${CLINIC.name}`;
-
-  const emailUrl = `mailto:${booking.email || CLINIC.email}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(whatsappMessage);
+  const handleCopyId = () => {
+    navigator.clipboard.writeText(booking.id);
     setCopied(true);
-    setTimeout(() => setCopied(false), 2500);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const handlePrint = () => {
+    window.print();
   };
 
   return (
-    <div className="min-h-screen bg-bg py-8 sm:py-12 px-4 sm:px-6">
-      <div className="max-w-xl mx-auto">
+    <div className="min-h-screen bg-bg py-12 sm:py-16 px-4 sm:px-6">
+      <div className="max-w-2xl mx-auto space-y-6">
         
-        {/* Simple & Clean Confirmation Card */}
-        <div className="bg-white p-6 sm:p-10 rounded-2xl shadow-card border border-primary/10 text-center">
+        {/* Printable Card */}
+        <div className="bg-white rounded-2xl border border-border p-7 sm:p-10 shadow-soft print-clean space-y-6">
           
-          {/* Green Check Icon */}
-          <div className="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4">
-            <CheckCircle2 size={36} />
+          {/* Header */}
+          <div className="flex items-start justify-between pb-6 border-b border-border">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-accent shadow-xs">
+                <DentalToothIcon size={20} className="text-accent" />
+              </div>
+              <div>
+                <h1 className="font-heading text-xl sm:text-2xl font-semibold text-primary">
+                  {CLINIC.name}
+                </h1>
+                <p className="text-xs text-text-muted">
+                  Demonstration Consultation Slip
+                </p>
+              </div>
+            </div>
+
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-accent/20 text-primary border border-accent/40">
+              <CheckCircle2 size={13} />
+              Prepared
+            </span>
           </div>
 
-          <h1 className="font-heading text-2xl sm:text-3xl font-bold text-primary mb-1">
-            Appointment Confirmed!
-          </h1>
-          <p className="text-text-muted text-xs sm:text-sm">
-            Thank you, <strong className="text-primary">{booking.patientName}</strong>. Your appointment has been scheduled with <strong className="text-primary">{CLINIC.doctor.name}</strong>.
-          </p>
-
-          {/* Reference ID Pill */}
-          <div className="mt-5 inline-block bg-primary-50 px-5 py-2.5 rounded-xl border border-primary/15">
-            <span className="text-xs text-text-muted font-medium">Booking ID: </span>
-            <span className="font-mono text-base font-bold text-primary">{booking.id}</span>
-          </div>
-
-          {/* Clean Receipt Box */}
-          <div className="mt-6 bg-bg rounded-xl p-5 border border-primary/10 text-left space-y-3 text-xs">
-            <div className="flex justify-between items-center pb-2.5 border-b border-primary/10">
-              <span className="text-text-muted">Treatment:</span>
-              <span className="font-bold text-primary text-sm">{booking.service?.name}</span>
-            </div>
-
-            <div className="flex justify-between items-center pb-2.5 border-b border-primary/10">
-              <span className="text-text-muted">Date & Time:</span>
-              <span className="font-bold text-primary">{dateFormatted} at {booking.time}</span>
-            </div>
-
-            <div className="flex justify-between items-center pb-2.5 border-b border-primary/10">
-              <span className="text-text-muted">Doctor:</span>
-              <span className="font-medium text-text">{CLINIC.doctor.name} ({CLINIC.doctor.qualification})</span>
-            </div>
-
-            <div className="flex justify-between items-center pb-2.5 border-b border-primary/10">
-              <span className="text-text-muted">Duration:</span>
-              <span className="font-mono text-text">{duration} minutes</span>
-            </div>
-
-            <div className="flex justify-between items-start pt-1">
-              <span className="text-text-muted">Clinic Address:</span>
-              <span className="text-right text-text max-w-[240px] font-medium leading-relaxed">
-                {CLINIC.address.full}
+          {/* Reference Banner */}
+          <div className="bg-bg p-4 rounded-xl border border-border flex items-center justify-between">
+            <div>
+              <span className="text-[11px] font-mono uppercase tracking-wider text-text-light block">
+                Slip Reference
               </span>
-            </div>
-          </div>
-
-          {/* Notification Info */}
-          <p className="mt-4 text-xs text-text-muted">
-            Confirmation message is ready for your WhatsApp (<strong>+91 {booking.phone}</strong>)
-            {booking.email ? <> and Email (<strong>{booking.email}</strong>)</> : ''}.
-          </p>
-
-          {/* Action Buttons: WhatsApp & Email Integrated */}
-          <div className="mt-6 space-y-2.5">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 py-3 px-4 bg-[#25D366] hover:bg-[#20ba59] text-white rounded-xl text-xs font-bold transition-all shadow-sm"
-              >
-                <MessageSquare size={16} />
-                <span>Open on WhatsApp</span>
-              </a>
-
-              <a
-                href={emailUrl}
-                className="flex items-center justify-center gap-2 py-3 px-4 bg-primary hover:bg-primary-light text-white rounded-xl text-xs font-bold transition-all shadow-sm"
-              >
-                <Mail size={16} />
-                <span>Open Email Receipt</span>
-              </a>
+              <span className="font-mono text-base font-bold text-primary">
+                {booking.id}
+              </span>
             </div>
 
             <button
               type="button"
-              onClick={handleCopy}
-              className="w-full py-2.5 px-4 bg-bg border border-primary/15 hover:bg-neutral-100 text-text rounded-xl text-xs font-medium flex items-center justify-center gap-2 transition-colors"
+              onClick={handleCopyId}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border bg-white text-xs font-medium text-text hover:border-primary transition-colors"
             >
-              {copied ? <Check size={14} className="text-emerald-700" /> : <Copy size={14} />}
-              <span>{copied ? 'Receipt Copied to Clipboard!' : 'Copy WhatsApp Receipt Text'}</span>
+              {copied ? <Check size={13} className="text-emerald-600" /> : <Copy size={13} />}
+              <span>{copied ? 'Copied' : 'Copy'}</span>
             </button>
           </div>
 
-          {/* Secondary Actions */}
-          <div className="mt-6 pt-4 border-t border-primary/10 flex flex-wrap items-center justify-between gap-3 text-xs">
-            <div className="flex items-center gap-4">
-              <button
-                onClick={() => window.print()}
-                className="text-text-muted hover:text-primary flex items-center gap-1.5 transition-colors font-medium"
-              >
-                <Printer size={14} />
-                <span>Print Slip</span>
-              </button>
-
-              <a
-                href={`https://calendar.google.com/calendar/r/eventedit?text=${encodeURIComponent(`Dental Appointment: ${booking.service?.name} - Dr. Satyam Sharma`)}&details=${encodeURIComponent(`Appointment Ref: ${booking.id}\nDoctor: ${CLINIC.doctor.name}\nAddress: ${CLINIC.address.full}\nPhone: ${CLINIC.phoneDisplay}`)}&location=${encodeURIComponent(CLINIC.address.full)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-text-muted hover:text-primary flex items-center gap-1.5 transition-colors font-medium"
-              >
-                <Calendar size={14} className="text-accent" />
-                <span>Add to Calendar</span>
-              </a>
+          {/* Consultation Details Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+            <div className="p-3.5 rounded-xl bg-bg border border-border/80">
+              <span className="text-text-muted block text-[11px]">Patient Name</span>
+              <span className="font-semibold text-primary text-sm mt-0.5 block">{booking.patientName}</span>
             </div>
 
-            <Link to="/" className="text-accent font-semibold hover:underline">
-              ← Return to Home
-            </Link>
+            <div className="p-3.5 rounded-xl bg-bg border border-border/80">
+              <span className="text-text-muted block text-[11px]">Mobile Number</span>
+              <span className="font-semibold text-primary text-sm mt-0.5 font-mono block">+91 {booking.phone}</span>
+            </div>
+
+            <div className="p-3.5 rounded-xl bg-bg border border-border/80">
+              <span className="text-text-muted block text-[11px]">Discipline</span>
+              <span className="font-semibold text-primary text-sm mt-0.5 block">{booking.service?.name}</span>
+            </div>
+
+            <div className="p-3.5 rounded-xl bg-bg border border-border/80">
+              <span className="text-text-muted block text-[11px]">Scheduled Slot</span>
+              <span className="font-semibold text-primary text-sm mt-0.5 font-mono block">
+                {dateFormatted} at {booking.time}
+              </span>
+            </div>
           </div>
 
+          {/* Studio Location Guide */}
+          <div className="p-4 rounded-xl bg-bg border border-border text-xs space-y-1">
+            <span className="font-mono uppercase tracking-wider text-text-light text-[10px] block">
+              Studio Address
+            </span>
+            <p className="font-medium text-primary">
+              {CLINIC.address.full}
+            </p>
+            <p className="text-text-muted text-[11px]">
+              {CLINIC.transitGuide}
+            </p>
+          </div>
+
+          {/* Demonstration Notice */}
+          <div className="p-4 rounded-xl bg-primary-50/50 border border-primary/10 text-xs text-text-muted space-y-1">
+            <p className="font-semibold text-primary flex items-center gap-1.5">
+              <Info size={14} className="text-accent" />
+              Portfolio Demonstration Note
+            </p>
+            <p className="text-[11px] leading-relaxed">
+              This slip confirms successful execution of the React form validation, client-side persistence, and receipt generation flow.
+            </p>
+          </div>
+
+        </div>
+
+        {/* Action Buttons */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 print:hidden">
+          <a
+            href={googleCalUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary text-xs py-3 px-4 font-semibold"
+          >
+            <CalendarIcon size={14} className="text-accent" />
+            <span>Add to Google Calendar</span>
+          </a>
+
+          <button
+            type="button"
+            onClick={handlePrint}
+            className="btn-outline text-xs py-3 px-4 font-semibold"
+          >
+            <Printer size={14} />
+            <span>Print Consultation Slip</span>
+          </button>
+
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 py-3 px-4 rounded-lg border border-border bg-white text-text hover:border-primary text-xs font-medium transition-colors"
+          >
+            <MessageSquare size={14} className="text-emerald-600" />
+            <span>Test WhatsApp Handoff</span>
+          </a>
+
+          <Link
+            to="/booking"
+            className="inline-flex items-center justify-center gap-2 py-3 px-4 rounded-lg border border-border bg-white text-text hover:border-primary text-xs font-medium transition-colors"
+          >
+            <span>Book Another Demo</span>
+            <ArrowRight size={13} />
+          </Link>
         </div>
 
       </div>
