@@ -1,5 +1,6 @@
 import React from 'react';
 import FadeIn from '@/components/FadeIn';
+import { CLINIC } from '@/data/clinicInfo';
 
 export default function PrivacyPage() {
   return (
@@ -56,9 +57,9 @@ export default function PrivacyPage() {
               If you have any questions or concerns about how we handle your data, please reach out to us:
             </p>
             <ul className="mt-2 space-y-1">
-              <li><strong>Email:</strong> info@brightsmiles.com</li>
-              <li><strong>Phone:</strong> +91 98765 43210</li>
-              <li><strong>Address:</strong> 123 Main Street, Metropolis, 560001</li>
+              <li><strong>Email:</strong> {CLINIC.email}</li>
+              <li><strong>Phone:</strong> {CLINIC.phoneDisplay}</li>
+              <li><strong>Address:</strong> {CLINIC.address.full}</li>
             </ul>
           </section>
         </div>

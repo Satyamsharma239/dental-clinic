@@ -44,7 +44,7 @@ const FAQS = [
   {
     category: 'visit',
     question: "Can I book a same-day emergency appointment?",
-    answer: "Yes. We maintain emergency slots every day for severe toothaches, broken teeth, or lost restorations. You can call our emergency helpline (+91 98765 43211) or book the next available slot online."
+    answer: `Yes. We maintain emergency slots every day for severe toothaches, broken teeth, or lost restorations. You can call our emergency helpline (${CLINIC.emergencyPhoneDisplay}) or book the next available slot online.`
   },
   {
     category: 'care',

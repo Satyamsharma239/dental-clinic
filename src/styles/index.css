@@ -117,3 +117,20 @@
     scroll-behavior: auto !important;
   }
 }
+
+@media print {
+  header, footer, nav, .btn-primary, .btn-outline, a[href^="tel"], button:not(.printable-content) {
+    display: none !important;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  .print-clean {
+    border: 1px solid #ddd !important;
+    box-shadow: none !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}

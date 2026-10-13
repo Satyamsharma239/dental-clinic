@@ -113,7 +113,7 @@ export default function GalleryPage() {
             {/* Bottom Booking Banner */}
             <div className="mt-14 p-8 rounded-2xl bg-primary text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-card">
               <div className="space-y-1 text-center md:text-left">
-                <h3 className="font-heading text-2xl font-bold">Ready to Visit Us in Metropolis?</h3>
+                <h3 className="font-heading text-2xl font-bold">Ready to Visit Us in Bandra West?</h3>
                 <p className="text-xs md:text-sm text-white/70">
                   Experience clean, relaxed dental care with Dr. Satyam Sharma.
                 </p>

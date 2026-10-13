@@ -19,7 +19,7 @@ export default function AboutPage() {
               About {CLINIC.doctor.name}
             </h1>
             <p className="text-base md:text-lg text-text-muted max-w-2xl mx-auto leading-relaxed">
-              Practicing gentle, ethical, and evidence-based dentistry in {CLINIC.city} for over 12 years.
+              Practicing gentle, ethical, and evidence-based dentistry in {CLINIC.area}, {CLINIC.city} for over 12 years.
             </p>
           </FadeIn>
         </div>
@@ -73,11 +73,11 @@ export default function AboutPage() {
                 <div className="bg-bg p-5 rounded-xl border border-primary/10 grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-xs">
                   <div className="flex items-center gap-2.5 text-text font-medium">
                     <GraduationCap size={18} className="text-primary shrink-0" />
-                    <span>BDS — Government Dental College</span>
+                    <span>BDS — Nair Hospital Dental College, Mumbai</span>
                   </div>
                   <div className="flex items-center gap-2.5 text-text font-medium">
                     <Award size={18} className="text-accent shrink-0" />
-                    <span>MDS — Orthodontics (Govt. Ranked)</span>
+                    <span>MDS — Orthodontics (Govt Dental College, Mumbai)</span>
                   </div>
                   <div className="flex items-center gap-2.5 text-text font-medium">
                     <CheckCircle2 size={18} className="text-emerald-700 shrink-0" />

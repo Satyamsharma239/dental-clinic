@@ -206,17 +206,29 @@ ${CLINIC.name}`;
           </div>
 
           {/* Secondary Actions */}
-          <div className="mt-6 pt-4 border-t border-primary/10 flex items-center justify-between text-xs">
-            <button
-              onClick={() => window.print()}
-              className="text-text-muted hover:text-primary flex items-center gap-1.5 transition-colors"
-            >
-              <Printer size={14} />
-              <span>Print Appointment Slip</span>
-            </button>
+          <div className="mt-6 pt-4 border-t border-primary/10 flex flex-wrap items-center justify-between gap-3 text-xs">
+            <div className="flex items-center gap-4">
+              <button
+                onClick={() => window.print()}
+                className="text-text-muted hover:text-primary flex items-center gap-1.5 transition-colors font-medium"
+              >
+                <Printer size={14} />
+                <span>Print Slip</span>
+              </button>
+
+              <a
+                href={`https://calendar.google.com/calendar/r/eventedit?text=${encodeURIComponent(`Dental Appointment: ${booking.service?.name} - Dr. Satyam Sharma`)}&details=${encodeURIComponent(`Appointment Ref: ${booking.id}\nDoctor: ${CLINIC.doctor.name}\nAddress: ${CLINIC.address.full}\nPhone: ${CLINIC.phoneDisplay}`)}&location=${encodeURIComponent(CLINIC.address.full)}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-text-muted hover:text-primary flex items-center gap-1.5 transition-colors font-medium"
+              >
+                <Calendar size={14} className="text-accent" />
+                <span>Add to Calendar</span>
+              </a>
+            </div>
 
             <Link to="/" className="text-accent font-semibold hover:underline">
-              ← Back to Homepage
+              ← Return to Home
             </Link>
           </div>
 

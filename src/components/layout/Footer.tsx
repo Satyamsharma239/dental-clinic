@@ -59,7 +59,7 @@ export default function Footer() {
           </div>
 
           <p className="text-xs text-white/70 leading-relaxed">
-            Personalised, gentle dental care in Metropolis. We listen, explain every step, and guarantee honest, pressure-free treatment plans.
+            Personalised, gentle dental care in Bandra West, Mumbai. We listen, explain every step, and guarantee honest, pressure-free treatment plans.
           </p>
 
           <div className="pt-2 text-xs text-white/60 space-y-1.5">
@@ -69,7 +69,7 @@ export default function Footer() {
             </p>
             <p className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-accent"></span>
-              <span><strong>Medical Reg:</strong> {CLINIC.doctor.registration}</span>
+              <span><strong>Dental Council Reg:</strong> {CLINIC.doctor.registration} ({CLINIC.doctor.council})</span>
             </p>
           </div>
         </div>
@@ -171,7 +171,7 @@ export default function Footer() {
           <div className="flex items-center gap-4">
             <Link to="/privacy" className="hover:underline">Privacy Policy</Link>
             <span>•</span>
-            <span className="text-accent">Metropolis Medical Council Reg. #{CLINIC.doctor.registration}</span>
+            <span className="text-accent">{CLINIC.doctor.council} Reg. #{CLINIC.doctor.registration}</span>
           </div>
         </div>
       </div>

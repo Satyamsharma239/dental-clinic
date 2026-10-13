@@ -6,11 +6,11 @@ import { DentalToothIcon } from '@/components/common/DentalToothIcon';
 
 const NAV_LINKS = [
   { to: '/', label: 'Home' },
-  { to: '/about', label: 'About' },
-  { to: '/services', label: 'Services' },
-  { to: '/gallery', label: 'Gallery' },
-  { to: '/contact', label: 'Contact' },
-  { to: '/faq', label: 'FAQ' },
+  { to: '/services', label: 'Treatments & Fees' },
+  { to: '/about', label: 'About Dr. Sharma' },
+  { to: '/gallery', label: 'Clinic Tour' },
+  { to: '/faq', label: 'Patient FAQs' },
+  { to: '/contact', label: 'Location & Hours' },
 ];
 
 export default function Header() {
@@ -20,25 +20,27 @@ export default function Header() {
   return (
     <>
       {/* Top Clinical Utility Bar */}
-      <div className="bg-primary-900 text-white/80 text-xs py-2 px-4 border-b border-primary/20 hidden sm:block">
+      <div className="bg-[#081D1A] text-white/80 text-[11px] py-2 px-4 border-b border-primary/20 hidden sm:block">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-6">
             <span className="inline-flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span className="text-white/90 font-medium">Clinic Open Today:</span> {CLINIC.hours.weekdays.split('(')[0]}
+              <span className="text-white/95 font-medium">Bandra West, Mumbai</span>
+              <span className="text-white/40">•</span>
+              <span className="text-white/80">Mon – Sat: 9:30 AM – 7:30 PM</span>
             </span>
-            <span className="text-white/60 hidden md:inline">
-              📍 {CLINIC.landmark}
+            <span className="text-white/60 hidden lg:inline">
+              📍 Near National College, Waterfield Road
             </span>
           </div>
           <div className="flex items-center gap-4">
-            <span className="text-white/70">Emergency Helpline:</span>
+            <span className="text-white/70 hidden md:inline">Emergency Helpline:</span>
             <a 
               href={`tel:${CLINIC.emergencyPhone}`} 
-              className="text-accent font-semibold hover:underline flex items-center gap-1"
+              className="text-accent font-semibold hover:underline flex items-center gap-1.5 transition-colors"
             >
-              <Phone size={12} />
-              {CLINIC.emergencyPhoneDisplay}
+              <Phone size={12} className="text-accent" />
+              <span>{CLINIC.emergencyPhoneDisplay}</span>
             </a>
           </div>
         </div>
@@ -130,7 +132,7 @@ export default function Header() {
               <div className="mb-4 pb-3 border-b border-primary/10 flex items-center justify-between text-xs text-text-muted">
               <span className="flex items-center gap-1.5">
                 <Clock size={13} className="text-accent" />
-                Open 9:00 AM – 6:00 PM
+                <span>Open 9:30 AM – 7:30 PM</span>
               </span>
               <a href={`tel:${CLINIC.emergencyPhone}`} className="text-accent font-semibold">
                 Emergency: {CLINIC.emergencyPhoneDisplay}

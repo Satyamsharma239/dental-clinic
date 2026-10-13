@@ -418,7 +418,7 @@ export default function BookingPage() {
                         required
                         value={phone}
                         onChange={handlePhoneChange}
-                        placeholder="98765 43210"
+                        placeholder="98201 44521"
                         className={`w-full p-3.5 pl-12 border rounded-xl bg-white text-xs text-text focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-shadow ${
                           errors.phone ? 'border-red-500' : 'border-primary/20'
                         }`}

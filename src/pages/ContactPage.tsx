@@ -42,13 +42,13 @@ export default function ContactPage() {
           <FadeIn>
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-primary/15 text-xs font-semibold text-primary mb-3 shadow-xs">
               <DentalToothIcon size={14} className="text-accent" />
-              <span>Metropolis City Center • Dr. Satyam Sharma</span>
+              <span>Waterfield Road, Bandra West, Mumbai • Dr. Satyam Sharma</span>
             </div>
             <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl text-primary font-bold tracking-tight">
               Contact & Clinic Visit Guide
             </h1>
             <p className="text-sm sm:text-base text-text-muted max-w-xl mx-auto mt-2 leading-relaxed">
-              We are centrally located in {CLINIC.city} with dedicated visitor parking and direct metro connectivity.
+              Centrally located on Waterfield Road in Bandra West, Mumbai with dedicated valet parking and easy railway connectivity.
             </p>
           </FadeIn>
         </div>
@@ -92,7 +92,7 @@ export default function ContactPage() {
                       <a href={`tel:${CLINIC.phone}`} className="text-sm font-bold text-primary hover:text-accent transition-colors block mt-0.5">
                         {CLINIC.phoneDisplay}
                       </a>
-                      <span className="text-[11px] text-text-muted">Mon – Sat, 9 AM – 6 PM</span>
+                      <span className="text-[11px] text-text-muted">Mon – Sat, 9:30 AM – 7:30 PM</span>
                     </div>
                   </div>
 
@@ -120,9 +120,9 @@ export default function ContactPage() {
                   <div className="space-y-1">
                     <h3 className="font-heading text-base font-bold text-primary">Consultation Timings</h3>
                     <div className="text-xs text-text-muted space-y-0.5 pt-0.5">
-                      <p><strong className="text-primary">Monday – Saturday:</strong> 9:00 AM – 6:00 PM</p>
-                      <p><strong className="text-primary">Lunch Recess:</strong> 1:00 PM – 2:00 PM</p>
-                      <p className="text-accent font-semibold">Sundays & Public Holidays: Closed</p>
+                      <p><strong className="text-primary">Monday – Saturday:</strong> 9:30 AM – 7:30 PM</p>
+                      <p><strong className="text-primary">Lunch Recess:</strong> 1:30 PM – 2:30 PM</p>
+                      <p className="text-accent font-semibold">{CLINIC.hours.closed}</p>
                     </div>
                   </div>
                 </div>
@@ -136,7 +136,7 @@ export default function ContactPage() {
                       <Navigation size={18} className="text-accent" />
                     </div>
                     <div>
-                      <h4 className="text-xs font-semibold text-primary">Metro Connectivity</h4>
+                      <h4 className="text-xs font-semibold text-primary">Railway & Transit Connectivity</h4>
                       <p className="text-xs text-text-muted mt-0.5 leading-relaxed">
                         {CLINIC.transit}
                       </p>
@@ -216,7 +216,7 @@ export default function ContactPage() {
                           required
                           value={inquiry.phone}
                           onChange={(e) => setInquiry({ ...inquiry, phone: e.target.value })}
-                          placeholder="+91 98765 43210"
+                          placeholder="+91 98201 44521"
                           className="w-full px-3.5 py-3 rounded-xl border border-primary/20 bg-white text-xs text-text focus:ring-2 focus:ring-primary focus:border-primary outline-none"
                         />
                       </div>
