@@ -268,10 +268,10 @@ export default function AboutPage() {
               </p>
             </div>
 
-            <div className="flex flex-wrap items-center gap-3 shrink-0">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0 w-full sm:w-auto">
               <Link
                 to="/book"
-                className="btn-primary bg-white text-teal-900 hover:bg-teal-50 border-white text-xs h-11 px-5"
+                className="btn-primary bg-white text-teal-900 hover:bg-teal-50 border-white text-xs h-11 px-5 justify-center"
               >
                 <Calendar size={15} />
                 <span>Book Consultation</span>
@@ -281,7 +281,7 @@ export default function AboutPage() {
                 href={waDoctorUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-whatsapp text-xs h-11 px-5"
+                className="btn-whatsapp text-xs h-11 px-5 justify-center"
               >
                 <MessageCircle size={15} />
                 <span>WhatsApp Dr. Sharma</span>

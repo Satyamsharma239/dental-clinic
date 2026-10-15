@@ -225,10 +225,10 @@ export default function HomePage() {
               We take the time to listen, explain every finding with chairside 3D optical scans, and ensure your treatment is completely comfortable and pain-free.
             </p>
 
-            <div className="flex flex-wrap items-center justify-center gap-3.5 pt-2">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-3 pt-2 max-w-sm sm:max-w-none mx-auto w-full sm:w-auto">
               <a
                 href="#book-section"
-                className="btn-primary"
+                className="btn-primary w-full sm:w-auto text-center"
               >
                 <Calendar size={17} />
                 <span>Book Appointment</span>
@@ -238,7 +238,7 @@ export default function HomePage() {
                 href={waGeneralUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-secondary"
+                className="btn-secondary w-full sm:w-auto text-center"
               >
                 <MessageCircle size={17} className="text-teal-700" />
                 <span>WhatsApp Dr. Sharma</span>
@@ -264,47 +264,47 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-12 bg-white border-b border-slate-200">
+      <section className="py-8 sm:py-12 bg-white border-b border-slate-200">
         <div className="max-w-container mx-auto px-4 sm:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
             
-            <div className="flex items-center gap-3.5 p-4 rounded-xl bg-slate-50 border border-slate-200/70">
-              <div className="w-12 h-12 rounded-xl bg-teal-100 text-teal-800 flex items-center justify-center shrink-0">
-                <Award size={24} />
+            <div className="flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-3.5 p-3.5 sm:p-4 rounded-xl bg-slate-50 border border-slate-200/70 text-center sm:text-left">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-teal-100 text-teal-800 flex items-center justify-center shrink-0">
+                <Award size={20} className="sm:w-6 sm:h-6" />
               </div>
-              <div>
-                <div className="text-2xl font-extrabold text-slate-900 leading-none">12+ Years</div>
-                <div className="text-xs text-slate-500 mt-1">Clinical Practice in Bandra</div>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3.5 p-4 rounded-xl bg-slate-50 border border-slate-200/70">
-              <div className="w-12 h-12 rounded-xl bg-teal-100 text-teal-800 flex items-center justify-center shrink-0">
-                <Heart size={24} />
-              </div>
-              <div>
-                <div className="text-2xl font-extrabold text-slate-900 leading-none">5,000+</div>
-                <div className="text-xs text-slate-500 mt-1">Happy Smiles Restored</div>
+              <div className="min-w-0">
+                <div className="text-lg sm:text-2xl font-extrabold text-slate-900 leading-tight">12+ Years</div>
+                <div className="text-[11px] sm:text-xs text-slate-500 mt-0.5 leading-tight">Clinical Practice</div>
               </div>
             </div>
 
-            <div className="flex items-center gap-3.5 p-4 rounded-xl bg-slate-50 border border-slate-200/70">
-              <div className="w-12 h-12 rounded-xl bg-teal-100 text-teal-800 flex items-center justify-center shrink-0">
-                <Star size={24} className="fill-teal-700 text-teal-700" />
+            <div className="flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-3.5 p-3.5 sm:p-4 rounded-xl bg-slate-50 border border-slate-200/70 text-center sm:text-left">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-teal-100 text-teal-800 flex items-center justify-center shrink-0">
+                <Heart size={20} className="sm:w-6 sm:h-6" />
               </div>
-              <div>
-                <div className="text-2xl font-extrabold text-slate-900 leading-none">4.9 ★</div>
-                <div className="text-xs text-slate-500 mt-1">Google Patient Reviews</div>
+              <div className="min-w-0">
+                <div className="text-lg sm:text-2xl font-extrabold text-slate-900 leading-tight">5,000+</div>
+                <div className="text-[11px] sm:text-xs text-slate-500 mt-0.5 leading-tight">Smiles Restored</div>
               </div>
             </div>
 
-            <div className="flex items-center gap-3.5 p-4 rounded-xl bg-slate-50 border border-slate-200/70">
-              <div className="w-12 h-12 rounded-xl bg-teal-100 text-teal-800 flex items-center justify-center shrink-0">
-                <ShieldCheck size={24} />
+            <div className="flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-3.5 p-3.5 sm:p-4 rounded-xl bg-slate-50 border border-slate-200/70 text-center sm:text-left">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-teal-100 text-teal-800 flex items-center justify-center shrink-0">
+                <Star size={20} className="fill-teal-700 text-teal-700 sm:w-6 sm:h-6" />
               </div>
-              <div>
-                <div className="text-2xl font-extrabold text-slate-900 leading-none">100%</div>
-                <div className="text-xs text-slate-500 mt-1">Pain-Free STA Anesthesia</div>
+              <div className="min-w-0">
+                <div className="text-lg sm:text-2xl font-extrabold text-slate-900 leading-tight">4.9 ★</div>
+                <div className="text-[11px] sm:text-xs text-slate-500 mt-0.5 leading-tight">Google Reviews</div>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-3.5 p-3.5 sm:p-4 rounded-xl bg-slate-50 border border-slate-200/70 text-center sm:text-left">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-teal-100 text-teal-800 flex items-center justify-center shrink-0">
+                <ShieldCheck size={20} className="sm:w-6 sm:h-6" />
+              </div>
+              <div className="min-w-0">
+                <div className="text-lg sm:text-2xl font-extrabold text-slate-900 leading-tight">100%</div>
+                <div className="text-[11px] sm:text-xs text-slate-500 mt-0.5 leading-tight">Pain-Free Care</div>
               </div>
             </div>
 
@@ -705,24 +705,17 @@ export default function HomePage() {
               />
             </div>
 
-            <div className="p-3.5 bg-white rounded-xl border border-slate-200">
-              <label className="flex items-start gap-3 cursor-pointer text-xs sm:text-sm text-slate-700 select-none">
-                <input
-                  type="checkbox"
-                  checked={isAnxious}
-                  onChange={(e) => setIsAnxious(e.target.checked)}
-                  className="mt-1 rounded text-teal-600 focus:ring-teal-600 w-4 h-4"
-                />
-                <div>
-                  <span className="font-bold text-slate-900 block">
-                    I feel nervous / anxious about dental visits
-                  </span>
-                  <span className="text-xs text-slate-500 block mt-0.5 leading-relaxed">
-                    We will set aside an extra 15-minute acclimatization window so Dr. Sharma can demonstrate instruments and confirm complete comfort beforehand.
-                  </span>
-                </div>
-              </label>
-            </div>
+            <label className="flex items-center gap-3 p-3 bg-white rounded-xl border border-slate-200 cursor-pointer select-none hover:border-slate-300 transition-colors">
+              <input
+                type="checkbox"
+                checked={isAnxious}
+                onChange={(e) => setIsAnxious(e.target.checked)}
+                className="rounded text-teal-600 focus:ring-teal-600 w-4 h-4 shrink-0"
+              />
+              <span className="text-xs text-slate-700">
+                First visit or feel nervous? <strong>Request gentle, unhurried care.</strong>
+              </span>
+            </label>
 
             <div className="space-y-2">
               <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
@@ -746,7 +739,7 @@ export default function HomePage() {
                 className="btn-whatsapp w-full sm:flex-1 h-12 text-sm"
               >
                 <MessageCircle size={18} />
-                <span>Book via WhatsApp (+91 98201 44521)</span>
+                <span>Book via WhatsApp</span>
               </a>
 
               <a

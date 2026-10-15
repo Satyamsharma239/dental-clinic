@@ -9,11 +9,13 @@
     -moz-osx-font-smoothing: grayscale;
     background-color: #ffffff;
     color: #0f172a;
+    overflow-x: hidden;
   }
   body {
     @apply bg-white text-slate-700 font-sans;
     font-size: 15px;
     line-height: 1.65;
+    overflow-x: hidden;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-heading tracking-tight text-slate-900;
