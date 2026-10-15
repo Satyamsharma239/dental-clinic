@@ -10,7 +10,7 @@ export default function TreatmentDetailPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   if (!treatment) {
-    return <Navigate to="/treatments" replace />;
+    return <Navigate to="/services" replace />;
   }
 
   const waTreatmentUrl = `https://wa.me/${CLINIC.whatsapp}?text=${encodeURIComponent(
@@ -23,11 +23,11 @@ export default function TreatmentDetailPage() {
         
         <div className="mb-6 font-sans">
           <Link
-            to="/treatments"
+            to="/services"
             className="inline-flex items-center gap-1.5 text-xs font-medium text-ink-muted hover:text-sage-800 transition-colors"
           >
             <ArrowLeft size={14} />
-            <span>Back to All Treatments</span>
+            <span>Back to All Services</span>
           </Link>
         </div>
 

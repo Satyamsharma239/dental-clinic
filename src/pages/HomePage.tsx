@@ -105,8 +105,8 @@ export default function HomePage() {
         <div className="max-w-container mx-auto px-4 sm:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             
-            <div className="lg:col-span-7 space-y-7 text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1 bg-white border border-border text-ink-muted text-xs font-mono tracking-wide rounded-sm">
+            <div className="lg:col-span-7 space-y-7 text-left font-sans">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-white border border-border text-ink-muted text-xs font-mono tracking-wide rounded-xs">
                 <MapPin size={12} className="text-sand-700" />
                 <span>Waterfield Road, Bandra West · Opposite Mini Punjab</span>
               </div>
@@ -115,7 +115,7 @@ export default function HomePage() {
                 A calm, conservative approach to dental care in Bandra West.
               </h1>
 
-              <p className="font-sans text-base sm:text-lg text-ink-secondary leading-relaxed max-w-xl">
+              <p className="text-base sm:text-lg text-ink-secondary leading-relaxed max-w-xl">
                 Dr. Satyam Sharma (MDS Orthodontics) provides unhurried checkups, clear aligners, pain-free root canals, and family dentistry. Every treatment is explained with chairside 3D optical scans before any work begins.
               </p>
 
@@ -125,7 +125,7 @@ export default function HomePage() {
                   className="btn-primary"
                 >
                   <Calendar size={16} />
-                  <span>Schedule Consultation</span>
+                  <span>Book Appointment</span>
                 </Link>
 
                 <a
@@ -139,7 +139,7 @@ export default function HomePage() {
                 </a>
               </div>
 
-              <div className="pt-4 flex flex-wrap items-center gap-6 text-xs text-ink-muted font-sans border-t border-hairline/80">
+              <div className="pt-4 flex flex-wrap items-center gap-6 text-xs text-ink-muted border-t border-hairline/80">
                 <span className="flex items-center gap-1.5">
                   <ShieldCheck size={14} className="text-sage-700" />
                   <span>Maharashtra State Dental Council (MSDC-42891)</span>
@@ -154,7 +154,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="lg:col-span-5">
+            <div className="lg:col-span-5 font-sans">
               <div className="p-3 bg-white border border-hairline rounded-sm shadow-xs space-y-3">
                 <div className="relative aspect-[4/3] rounded-xs overflow-hidden bg-canvas-subtle">
                   <img
@@ -163,12 +163,12 @@ export default function HomePage() {
                     className="w-full h-full object-cover"
                     loading="eager"
                   />
-                  <div className="absolute top-3 left-3 bg-ink/80 backdrop-blur-xs text-canvas text-[11px] font-mono px-2.5 py-1 rounded-xs">
+                  <div className="absolute top-3 left-3 bg-ink/80 text-white text-[10px] font-mono uppercase px-2.5 py-1 rounded-xs">
                     Suite 01 · Diagnostic Operatory
                   </div>
                 </div>
 
-                <div className="p-3 bg-canvas-subtle rounded-xs border border-border/60 text-xs text-ink-secondary leading-relaxed font-sans space-y-1.5">
+                <div className="p-3 bg-canvas-subtle rounded-xs border border-border/60 text-xs text-ink-secondary leading-relaxed space-y-1.5">
                   <div className="flex items-center justify-between text-ink font-medium">
                     <span>Clinical Director</span>
                     <span className="font-mono text-xs text-ink-muted">BDS, MDS Orthodontics</span>
@@ -196,7 +196,7 @@ export default function HomePage() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 font-sans">
             {CLINICAL_STANDARDS.map((standard) => (
               <div
                 key={standard.num}
@@ -208,7 +208,7 @@ export default function HomePage() {
                 <h3 className="font-serif text-lg font-medium text-ink leading-snug">
                   {standard.title}
                 </h3>
-                <p className="font-sans text-xs text-ink-secondary leading-relaxed">
+                <p className="text-xs text-ink-secondary leading-relaxed">
                   {standard.desc}
                 </p>
               </div>
@@ -221,10 +221,10 @@ export default function HomePage() {
       <section className="py-16 sm:py-24 border-b border-hairline">
         <div className="max-w-container mx-auto px-4 sm:px-8">
           
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 pb-6 border-b border-hairline">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 pb-6 border-b border-hairline font-sans">
             <div>
               <span className="text-xs font-mono uppercase tracking-[0.14em] text-sand-700 block mb-2">
-                Treatments & Procedures
+                Our Services
               </span>
               <h2 className="font-serif text-2xl sm:text-4xl text-ink font-normal">
                 Care planned for long-term health and comfort.
@@ -232,34 +232,34 @@ export default function HomePage() {
             </div>
 
             <Link
-              to="/treatments"
-              className="inline-flex items-center gap-1.5 text-xs font-sans font-medium text-sage-800 hover:text-sage-900 transition-colors"
+              to="/services"
+              className="inline-flex items-center gap-1.5 text-xs font-medium text-sage-800 hover:text-sage-900 transition-colors"
             >
-              <span>View complete treatment directory</span>
+              <span>View all services & fee guide</span>
               <ArrowRight size={14} />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start font-sans">
             
             <div className="lg:col-span-4 space-y-4">
-              <div className="bg-sage-900 text-canvas p-6 rounded-sm space-y-4">
-                <span className="text-[11px] font-mono uppercase tracking-widest text-sand-500 block">
+              <div className="bg-sage-900 text-white p-6 rounded-sm space-y-4">
+                <span className="text-[11px] font-mono uppercase tracking-widest text-sand-300 block">
                   First Step
                 </span>
-                <h3 className="font-serif text-xl sm:text-2xl font-normal leading-snug">
+                <h3 className="font-serif text-xl sm:text-2xl font-normal leading-snug text-white">
                   Comprehensive Diagnostic Checkup & 3D Scan
                 </h3>
-                <p className="font-sans text-xs text-canvas/80 leading-relaxed">
+                <p className="text-xs text-white/80 leading-relaxed">
                   A thorough 30-minute clinical examination with intraoral optical camera review and a transparent, itemized written treatment plan.
                 </p>
                 <div className="pt-2 flex items-baseline justify-between border-t border-white/10">
-                  <span className="text-xs font-sans text-canvas/60">Consultation Fee</span>
-                  <span className="text-xl font-mono font-medium text-sand-500">₹500</span>
+                  <span className="text-xs text-white/70">Consultation Fee</span>
+                  <span className="text-xl font-mono font-medium text-sand-300">₹500</span>
                 </div>
                 <Link
                   to="/book"
-                  className="btn-primary w-full text-xs h-10 bg-sage-700 hover:bg-sage-600 border-sage-600"
+                  className="btn-primary w-full text-xs h-10 bg-sand-600 hover:bg-sand-700 text-white border-sand-600"
                 >
                   <Calendar size={14} />
                   <span>Book Checkup (₹500)</span>
@@ -268,7 +268,7 @@ export default function HomePage() {
 
               <div className="p-5 bg-canvas-subtle border border-hairline rounded-sm space-y-2">
                 <h4 className="font-serif text-base font-medium text-ink">Have a quick dental question?</h4>
-                <p className="font-sans text-xs text-ink-muted leading-relaxed">
+                <p className="text-xs text-ink-muted leading-relaxed">
                   Send a photo or inquiry directly to Dr. Satyam Sharma on WhatsApp for initial guidance.
                 </p>
                 <a
@@ -299,21 +299,21 @@ export default function HomePage() {
                         <span className="text-[10px] font-mono uppercase px-2 py-0.5 bg-canvas-subtle text-ink-muted rounded-xs border border-border/60">
                           {treatment.category}
                         </span>
-                        <span className="text-xs text-ink-muted font-sans">
+                        <span className="text-xs text-ink-muted">
                           {treatment.durationLabel || `${treatment.durationMins} mins`}
                         </span>
                       </div>
                       <h4 className="font-serif text-lg font-medium text-ink">
                         {treatment.name}
                       </h4>
-                      <p className="font-sans text-xs text-ink-secondary max-w-lg">
+                      <p className="text-xs text-ink-secondary max-w-lg">
                         {treatment.shortDescription}
                       </p>
                     </div>
 
                     <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-3 shrink-0 pt-3 sm:pt-0 border-t sm:border-t-0 border-hairline">
                       <div className="text-right">
-                        <span className="text-[11px] text-ink-muted block font-sans">Starting fee</span>
+                        <span className="text-[11px] text-ink-muted block">Starting fee</span>
                         <span className="font-mono text-sm font-semibold text-ink">
                           {treatment.priceFormatted}
                         </span>
@@ -330,10 +330,10 @@ export default function HomePage() {
                           <MessageCircle size={13} className="text-[#1EBE5D]" />
                         </a>
                         <Link
-                          to={`/book?service=${treatment.slug}`}
-                          className="h-8 px-3.5 inline-flex items-center justify-center rounded-sm bg-sage-800 hover:bg-sage-900 text-white text-xs font-sans font-medium transition-colors"
+                          to={`/services/${treatment.slug}`}
+                          className="h-8 px-3.5 inline-flex items-center justify-center rounded-sm bg-sage-800 hover:bg-sage-900 text-white text-xs font-medium transition-colors"
                         >
-                          <span>Book</span>
+                          <span>Details</span>
                         </Link>
                       </div>
                     </div>
@@ -351,7 +351,7 @@ export default function HomePage() {
         <div className="max-w-container mx-auto px-4 sm:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             
-            <div className="lg:col-span-5 space-y-4">
+            <div className="lg:col-span-5 space-y-4 font-sans">
               <div className="p-3 bg-white border border-hairline rounded-sm space-y-3">
                 <img
                   src={CLINIC_PHOTOS.interiorWide}
@@ -359,7 +359,7 @@ export default function HomePage() {
                   className="w-full aspect-[4/3] object-cover rounded-xs"
                   loading="lazy"
                 />
-                <div className="p-3 bg-canvas-subtle rounded-xs border border-border/60 text-xs font-sans space-y-1">
+                <div className="p-3 bg-canvas-subtle rounded-xs border border-border/60 text-xs space-y-1">
                   <div className="font-mono text-ink font-medium">Maharashtra State Dental Council</div>
                   <div className="text-ink-muted text-[11px]">
                     Registration No: <span className="font-mono font-bold text-ink">MSDC-42891</span> · Dr. Satyam Sharma
@@ -368,7 +368,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="lg:col-span-7 space-y-6 text-left">
+            <div className="lg:col-span-7 space-y-6 text-left font-sans">
               <div>
                 <span className="text-xs font-mono uppercase tracking-[0.14em] text-sand-700 block mb-2">
                   Clinical Director Dossier
@@ -376,12 +376,12 @@ export default function HomePage() {
                 <h2 className="font-serif text-3xl sm:text-4xl text-ink font-normal leading-tight">
                   Dr. Satyam Sharma
                 </h2>
-                <div className="text-xs sm:text-sm text-ink-muted font-sans mt-1">
+                <div className="text-xs sm:text-sm text-ink-muted mt-1">
                   BDS (Nair Hospital Dental College) · MDS Orthodontics (Govt Dental College Mumbai)
                 </div>
               </div>
 
-              <div className="space-y-4 font-sans text-sm text-ink-secondary leading-relaxed">
+              <div className="space-y-4 text-sm text-ink-secondary leading-relaxed">
                 <p>
                   Dr. Satyam Sharma has practiced orthodontics, micro-endodontics, and conservative restorative dentistry in Bandra West for over 12 years. His clinical philosophy centers on listening carefully to patients, explaining anatomical findings clearly, and conserving natural tooth structure wherever possible.
                 </p>
@@ -390,7 +390,7 @@ export default function HomePage() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 font-sans text-xs">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
                 <div className="p-3 bg-white border border-hairline rounded-sm">
                   <span className="font-mono text-sand-700 block mb-0.5">Undergraduate Training</span>
                   <span className="font-medium text-ink">BDS — Nair Hospital Dental College</span>
@@ -405,10 +405,10 @@ export default function HomePage() {
 
               <div className="pt-2 flex flex-wrap items-center gap-3">
                 <Link
-                  to="/doctor"
+                  to="/about"
                   className="btn-secondary text-xs h-10 px-4"
                 >
-                  <span>Read complete credentials & timeline</span>
+                  <span>Read complete background & credentials</span>
                   <ArrowRight size={14} />
                 </Link>
 
@@ -440,19 +440,19 @@ export default function HomePage() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 font-sans">
             {PATIENT_STEPS.map((item) => (
               <div
                 key={item.step}
                 className="p-6 bg-canvas-subtle border border-hairline rounded-sm space-y-3"
               >
-                <div className="w-8 h-8 rounded-xs bg-sage-800 text-canvas font-mono text-xs flex items-center justify-center font-bold">
+                <div className="w-8 h-8 rounded-xs bg-sage-800 text-white font-mono text-xs flex items-center justify-center font-bold">
                   {item.step}
                 </div>
                 <h3 className="font-serif text-lg font-medium text-ink">
                   {item.title}
                 </h3>
-                <p className="font-sans text-xs text-ink-secondary leading-relaxed">
+                <p className="text-xs text-ink-secondary leading-relaxed">
                   {item.desc}
                 </p>
               </div>
@@ -462,7 +462,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-12 bg-amber-50/50 border-b border-amber-200/60">
+      <section className="py-12 bg-amber-50/50 border-b border-amber-200/60 font-sans">
         <div className="max-w-container mx-auto px-4 sm:px-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="space-y-1">
@@ -473,7 +473,7 @@ export default function HomePage() {
               <h3 className="font-serif text-xl sm:text-2xl text-ink font-medium">
                 Severe toothache, broken restoration, or sudden dental trauma?
               </h3>
-              <p className="font-sans text-xs sm:text-sm text-ink-secondary max-w-xl">
+              <p className="text-xs sm:text-sm text-ink-secondary max-w-xl">
                 We maintain dedicated daily emergency slots for immediate pain relief. Contact our emergency line for priority same-day scheduling.
               </p>
             </div>
@@ -504,10 +504,10 @@ export default function HomePage() {
       <section className="py-16 sm:py-24 border-b border-hairline bg-canvas-subtle">
         <div className="max-w-container mx-auto px-4 sm:px-8">
           
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12 font-sans">
             <div>
               <span className="text-xs font-mono uppercase tracking-[0.14em] text-sand-700 block mb-2">
-                Verified Patient Accounts
+                Patient Experiences
               </span>
               <h2 className="font-serif text-2xl sm:text-4xl text-ink font-normal">
                 Notes from patients across Bandra West.
@@ -515,15 +515,15 @@ export default function HomePage() {
             </div>
 
             <Link
-              to="/reviews"
-              className="text-xs font-sans font-medium text-sage-800 hover:text-sage-900 flex items-center gap-1"
+              to="/about"
+              className="text-xs font-medium text-sage-800 hover:text-sage-900 flex items-center gap-1"
             >
-              <span>Read all patient reviews</span>
+              <span>Learn more about our practice</span>
               <ArrowRight size={14} />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-sans">
             {REVIEWS.slice(0, 3).map((review) => (
               <div
                 key={review.id}
@@ -533,7 +533,7 @@ export default function HomePage() {
                   "{review.quote}"
                 </p>
 
-                <div className="pt-3 border-t border-hairline flex items-center justify-between text-xs font-sans">
+                <div className="pt-3 border-t border-hairline flex items-center justify-between text-xs">
                   <div>
                     <span className="font-medium text-ink block">{review.patient}</span>
                     <span className="text-[11px] text-ink-muted">{review.location}</span>
@@ -549,7 +549,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 sm:py-24 border-b border-hairline">
+      <section className="py-16 sm:py-24 border-b border-hairline font-sans">
         <div className="max-w-container mx-auto px-4 sm:px-8">
           <div className="max-w-2xl mb-12">
             <span className="text-xs font-mono uppercase tracking-[0.14em] text-sand-700 block mb-2">
@@ -581,7 +581,7 @@ export default function HomePage() {
                     />
                   </button>
                   {isOpen && (
-                    <div className="pt-3 pr-8 font-sans text-xs sm:text-sm text-ink-secondary leading-relaxed">
+                    <div className="pt-3 pr-8 text-xs sm:text-sm text-ink-secondary leading-relaxed">
                       {faq.a}
                     </div>
                   )}
@@ -592,39 +592,39 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 sm:py-24 bg-sage-900 text-canvas">
+      <section className="py-16 sm:py-24 bg-white border-b border-hairline font-sans">
         <div className="max-w-container mx-auto px-4 sm:px-8 text-center space-y-6">
-          <span className="text-xs font-mono uppercase tracking-[0.16em] text-sand-500 block">
+          <span className="text-xs font-mono uppercase tracking-[0.16em] text-sand-700 block">
             Aura Dental Studio · Bandra West
           </span>
-          <h2 className="font-serif text-3xl sm:text-5xl font-normal leading-tight max-w-2xl mx-auto">
+          <h2 className="font-serif text-3xl sm:text-5xl font-normal text-ink leading-tight max-w-2xl mx-auto">
             Experience unhurried, gentle dental care.
           </h2>
-          <p className="font-sans text-sm sm:text-base text-canvas/80 max-w-lg mx-auto leading-relaxed">
+          <p className="text-sm sm:text-base text-ink-secondary max-w-lg mx-auto leading-relaxed">
             Schedule your comprehensive checkup and 3D optical scan (₹500), or reach out on WhatsApp to speak with Dr. Satyam Sharma directly.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4 pt-3">
             <Link
               to="/book"
-              className="btn-primary bg-sand-600 hover:bg-sand-700 text-white border-sand-600 h-11 px-6"
+              className="btn-primary h-11 px-6 shadow-xs"
             >
               <Calendar size={16} />
-              <span>Schedule Consultation (₹500)</span>
+              <span>Book Appointment (₹500)</span>
             </Link>
 
             <a
               href={waGeneralUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-whatsapp h-11 px-6"
+              className="btn-whatsapp h-11 px-6 shadow-xs"
             >
               <MessageCircle size={16} />
-              <span>WhatsApp Dr. Sharma</span>
+              <span>WhatsApp Consultation</span>
             </a>
           </div>
 
-          <div className="pt-6 text-xs text-canvas/60 font-sans">
+          <div className="pt-6 text-xs text-ink-muted">
             Studio 204, Sagar Fortune Building, Waterfield Road, Bandra West, Mumbai · Telephone: {CLINIC.phoneDisplay}
           </div>
         </div>

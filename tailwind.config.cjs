@@ -30,6 +30,7 @@ module.exports = {
           700: '#8C683D',
           600: '#B08753',
           500: '#C7A06F',
+          300: '#DEC6A5',
           200: '#EADEC7',
           100: '#F4EDE0',
           50: '#FAF6F0',
@@ -71,11 +72,16 @@ module.exports = {
         sans: ['"DM Sans"', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
         mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
+      boxShadow: {
+        '2xs': '0 1px 2px 0 rgba(0, 0, 0, 0.04)',
+        xs: '0 1px 3px 0 rgba(0, 0, 0, 0.06)',
+      },
       maxWidth: {
         container: '1240px',
       },
       borderRadius: {
         none: '0px',
+        xs: '2px',
         sm: '3px',
         DEFAULT: '4px',
         md: '6px',
