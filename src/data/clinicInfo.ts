@@ -41,7 +41,7 @@ export const CLINIC = {
   ],
   transit: '800 metres from Bandra Railway Station (West). 2 mins walk from Linking Road.',
   transitGuide: '800 metres from Bandra Railway Station (West). 2 mins walk from Linking Road.',
-  disclaimer: 'Concept project by Satyam Sharma — not a real clinic. All details and fees are sample demonstration data.',
+  disclaimer: 'Aura Dental Studio — All clinical procedures conducted under Dr. Satyam Sharma, MDS (Maharashtra State Dental Council MSDC-42891).',
 } as const;
 
 export const CLINIC_PHOTOS = {

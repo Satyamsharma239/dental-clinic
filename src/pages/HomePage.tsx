@@ -6,83 +6,117 @@ import {
   Phone, 
   Clock, 
   MapPin, 
-  CheckCircle2, 
-  ArrowRight,
   ChevronDown,
+  ArrowRight,
   ShieldCheck,
-  Sparkles,
-  FileText
+  CheckCircle2,
+  AlertCircle
 } from 'lucide-react';
 import { CLINIC, CLINIC_PHOTOS, REVIEWS } from '@/data/clinicInfo';
 import { TREATMENTS } from '@/data/services';
 
 const FAQS = [
   {
-    q: 'Is root canal treatment painful?',
-    a: 'No. We use computerized local anesthesia and topical numbing gels. The tooth is completely anesthetized before any work starts. Treatment is done to relieve pain, not cause it.',
+    q: 'Is root canal treatment really painless at your studio?',
+    a: 'Yes. We use computer-controlled local anesthesia that delivers numbing anesthetic slowly and gently, eliminating the initial stinging pressure. We test the tooth thoroughly to confirm complete numbness before touching it. If you ever feel sensation, we pause immediately.',
   },
   {
-    q: 'How much does the first consultation cost and what is included?',
-    a: 'The consultation fee is ₹500. This includes a comprehensive examination by Dr. Satyam Sharma, an intraoral digital camera review, and a written itemized treatment plan with transparent costs.',
+    q: 'How much does the initial consultation cost and what is included?',
+    a: 'The consultation fee is ₹500. This includes an unhurried 30-minute clinical examination with Dr. Satyam Sharma, chairside intraoral digital camera review, and an itemized written treatment plan with transparent costs before any procedure is scheduled.',
   },
   {
-    q: 'How do clear aligners compare to metal braces?',
-    a: 'Clear aligners are custom-molded transparent trays that gently shift your teeth into proper alignment without metal brackets or wires. They are removable for eating and brushing, making oral hygiene simple and comfortable.',
+    q: 'How do clear aligners compare to traditional ceramic braces?',
+    a: 'Clear aligners are custom-molded medical polymer trays that guide teeth into position without metal brackets or wires. Because they are removable for meals and brushing, oral hygiene is simpler. Ceramic braces remain fixed to the teeth and are ideal for certain complex skeletal bite corrections.',
   },
   {
-    q: 'Do you offer monthly payment options (EMI)?',
-    a: 'Yes. For treatments like clear aligners, dental implants, and smile makeovers, we provide 0% interest monthly installment plans across 3 to 12 months with leading banks.',
+    q: 'Do you offer monthly payment options (0% EMI)?',
+    a: 'Yes. For treatments like clear aligners, dental implants, and smile restorations, we offer 0% interest monthly installment plans across 3 to 12 months with leading Indian banks.',
   },
   {
-    q: 'What if I feel anxious about dental appointments?',
-    a: 'Dental apprehension is very common. We never rush. We explain every step before touching your teeth, agree on a hand signal so you can pause anytime, and prioritize your comfort throughout.',
+    q: 'What if I suffer from severe dental anxiety or past dental trauma?',
+    a: 'Most of our adult patients carry some degree of apprehension from past experiences. We never rush. We explain every instrument before using it, establish a simple hand-signal to pause at any second, and ensure you remain fully in control of your visit.',
   },
   {
-    q: 'Where is the clinic located and is parking available?',
-    a: 'We are located at Studio 204, Sagar Fortune Building on Waterfield Road, Bandra West (near National College junction, 800m from Bandra Station West). Building visitor parking is available.',
+    q: 'Where on Waterfield Road is the clinic and what about parking?',
+    a: 'We are located at Studio 204, 2nd Floor, Sagar Fortune Building on Waterfield Road, Bandra West (near National College junction, 800 metres from Bandra Railway Station West). Building visitor parking is available on arrival.',
   },
 ];
 
-const CLINICAL_PILLARS = [
+const CLINICAL_STANDARDS = [
   {
-    title: 'Computerized Painless Anesthesia',
-    desc: 'Gentle local numbing delivered slowly with computer-assisted flow. Zero stinging sensation.',
+    num: '01',
+    title: 'Conservative Preservation',
+    desc: 'We never recommend crowns or aggressive preparation when a tooth can be conserved with precision composite bonding and preventative care.',
   },
   {
-    title: '3D Intraoral Optical Scanning',
-    desc: 'High-definition digital scans replace messy impression goop. View your tooth structure chairside.',
+    num: '02',
+    title: 'Computerized Pain-Free Numbing',
+    desc: 'Local anesthesia is delivered with computer-assisted slow flow to eliminate stinging pressure. Complete numbness is verified before touching your tooth.',
   },
   {
-    title: 'Hospital-Grade Sterilization',
-    desc: 'Class-B fractional vacuum autoclave. Individual sealed barrier pouches opened in front of you.',
+    num: '03',
+    title: 'Chairside 3D Optical Staging',
+    desc: 'High-definition digital scanning replaces gag-inducing impression trays. You inspect your tooth structure and bite mechanics on screen beside Dr. Sharma.',
+  },
+  {
+    num: '04',
+    title: 'Upfront Itemized Fee Schedules',
+    desc: 'You receive a printed, itemized cost estimate with all clinical steps before any treatment begins. No surprise clinic overheads or unapproved additions.',
+  },
+];
+
+const PATIENT_STEPS = [
+  {
+    step: '1',
+    title: 'Arrival & Unhurried Consultation',
+    desc: 'No crowded waiting rooms or 5-minute doctor rushed visits. Dr. Sharma sits with you to understand your dental history, aesthetic goals, or specific tooth concerns.',
+  },
+  {
+    step: '2',
+    title: 'Digital Diagnostics & Screen Review',
+    desc: 'We take high-definition intraoral optical scans. You look at your teeth together with Dr. Sharma on the chairside monitor as he explains the anatomy.',
+  },
+  {
+    step: '3',
+    title: 'Transparent Treatment Roadmap',
+    desc: 'You receive an itemized written quote detailing procedure durations, alternative options, and exact fees. Zero pressure to decide on the spot.',
+  },
+  {
+    step: '4',
+    title: 'Treatment at Your Own Pace',
+    desc: 'Gentle, pain-free clinical delivery with continuous comfort check-ins. An agreed hand-signal lets you pause the procedure anytime you wish.',
   },
 ];
 
 export default function HomePage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
-  const waGeneralUrl = `https://wa.me/${CLINIC.whatsapp}?text=${encodeURIComponent('Hello Dr. Sharma, I would like to schedule a dental consultation at Aura Dental Studio.')}`;
-  const waEmergencyUrl = `https://wa.me/${CLINIC.whatsapp}?text=${encodeURIComponent('EMERGENCY: Hello, I have an urgent dental problem/pain and need a same-day appointment.')}`;
+  const waGeneralUrl = `https://wa.me/${CLINIC.whatsapp}?text=${encodeURIComponent(
+    'Hello Dr. Sharma, I would like to schedule a dental consultation at Aura Dental Studio Bandra West.'
+  )}`;
+  const waEmergencyUrl = `https://wa.me/${CLINIC.whatsapp}?text=${encodeURIComponent(
+    'EMERGENCY: Hello, I have an urgent dental problem or tooth pain and need a same-day appointment.'
+  )}`;
 
   return (
-    <div className="bg-surface text-slate">
+    <div className="bg-canvas text-ink">
       
-      <section className="py-12 md:py-20 bg-surface-subtle border-b border-border">
+      <section className="py-12 sm:py-20 lg:py-24 border-b border-hairline">
         <div className="max-w-container mx-auto px-4 sm:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             
-            <div className="lg:col-span-7 space-y-6 text-left">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-50 border border-brand-200 text-brand-700 text-xs font-semibold">
-                <MapPin size={13} />
-                <span>Bandra West, Mumbai · Waterfield Road</span>
+            <div className="lg:col-span-7 space-y-7 text-left">
+              <div className="inline-flex items-center gap-2 px-3 py-1 bg-white border border-border text-ink-muted text-xs font-mono tracking-wide rounded-sm">
+                <MapPin size={12} className="text-sand-700" />
+                <span>Waterfield Road, Bandra West · Opposite Mini Punjab</span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate leading-[1.15] tracking-tight">
-                A calmer, honest approach to dental care in Bandra West.
+              <h1 className="font-serif text-3xl sm:text-5xl lg:text-[54px] font-normal leading-[1.12] text-ink tracking-tight">
+                A calm, conservative approach to dental care in Bandra West.
               </h1>
 
-              <p className="text-base sm:text-lg text-slate-secondary leading-relaxed max-w-xl">
-                Dr. Satyam Sharma (MDS) provides pain-free dental checkups, clear aligners, and family dentistry in an unhurried, comfortable clinical setting. Every fee is explained upfront before any work starts.
+              <p className="font-sans text-base sm:text-lg text-ink-secondary leading-relaxed max-w-xl">
+                Dr. Satyam Sharma (MDS Orthodontics) provides unhurried checkups, clear aligners, pain-free root canals, and family dentistry. Every treatment is explained with chairside 3D optical scans before any work begins.
               </p>
 
               <div className="flex flex-wrap items-center gap-3 pt-2">
@@ -90,8 +124,8 @@ export default function HomePage() {
                   to="/book"
                   className="btn-primary"
                 >
-                  <Calendar size={17} />
-                  <span>Book Appointment</span>
+                  <Calendar size={16} />
+                  <span>Schedule Consultation</span>
                 </Link>
 
                 <a
@@ -100,47 +134,48 @@ export default function HomePage() {
                   rel="noopener noreferrer"
                   className="btn-whatsapp"
                 >
-                  <MessageCircle size={17} />
-                  <span>Chat on WhatsApp</span>
-                </a>
-
-                <a
-                  href={`tel:${CLINIC.phone}`}
-                  className="btn-secondary"
-                >
-                  <Phone size={15} className="text-brand-600" />
-                  <span>{CLINIC.phoneDisplay}</span>
+                  <MessageCircle size={16} />
+                  <span>WhatsApp Dr. Sharma</span>
                 </a>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4 border-t border-border">
-                <div className="flex items-center gap-2 text-xs text-slate-secondary font-medium">
-                  <CheckCircle2 size={15} className="text-brand-600 shrink-0" />
-                  <span>Painless Anesthesia</span>
-                </div>
-                <div className="flex items-center gap-2 text-xs text-slate-secondary font-medium">
-                  <CheckCircle2 size={15} className="text-brand-600 shrink-0" />
-                  <span>Transparent Pricing</span>
-                </div>
-                <div className="flex items-center gap-2 text-xs text-slate-secondary font-medium">
-                  <CheckCircle2 size={15} className="text-brand-600 shrink-0" />
-                  <span>Class-B Sterilization</span>
-                </div>
+              <div className="pt-4 flex flex-wrap items-center gap-6 text-xs text-ink-muted font-sans border-t border-hairline/80">
+                <span className="flex items-center gap-1.5">
+                  <ShieldCheck size={14} className="text-sage-700" />
+                  <span>Maharashtra State Dental Council (MSDC-42891)</span>
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <Clock size={14} className="text-sage-700" />
+                  <span>Mon–Sat: 9:30 AM – 7:30 PM</span>
+                </span>
+                <a href={`tel:${CLINIC.phone}`} className="hover:text-ink font-medium">
+                  Direct Line: {CLINIC.phoneDisplay}
+                </a>
               </div>
             </div>
 
             <div className="lg:col-span-5">
-              <div className="rounded-2xl overflow-hidden shadow-md border border-border bg-white">
-                <img
-                  src={CLINIC_PHOTOS.operatory}
-                  alt="Modern Dental Operatory Suite at Aura Dental Studio Bandra West"
-                  className="w-full aspect-[4/3] object-cover"
-                  loading="eager"
-                />
-                <div className="p-4 bg-white border-t border-border space-y-1">
-                  <div className="font-bold text-sm text-slate">Operatory Suite 204 · Waterfield Road</div>
-                  <div className="text-xs text-slate-muted">Digital 3D Intraoral Scanning & Painless Dental Suite</div>
-                  <div className="text-xs font-semibold text-brand-700 pt-0.5">Dr. Satyam Sharma, BDS, MDS · MSDC-42891</div>
+              <div className="p-3 bg-white border border-hairline rounded-sm shadow-xs space-y-3">
+                <div className="relative aspect-[4/3] rounded-xs overflow-hidden bg-canvas-subtle">
+                  <img
+                    src={CLINIC_PHOTOS.operatory}
+                    alt="Digital dental operatory suite at Aura Dental Studio Bandra West"
+                    className="w-full h-full object-cover"
+                    loading="eager"
+                  />
+                  <div className="absolute top-3 left-3 bg-ink/80 backdrop-blur-xs text-canvas text-[11px] font-mono px-2.5 py-1 rounded-xs">
+                    Suite 01 · Diagnostic Operatory
+                  </div>
+                </div>
+
+                <div className="p-3 bg-canvas-subtle rounded-xs border border-border/60 text-xs text-ink-secondary leading-relaxed font-sans space-y-1.5">
+                  <div className="flex items-center justify-between text-ink font-medium">
+                    <span>Clinical Director</span>
+                    <span className="font-mono text-xs text-ink-muted">BDS, MDS Orthodontics</span>
+                  </div>
+                  <p className="text-ink-muted text-[11px]">
+                    Nair Hospital Dental College & Government Dental College Mumbai alumni. Over 12 years of restorative & orthodontic practice in Bandra West.
+                  </p>
                 </div>
               </div>
             </div>
@@ -149,115 +184,407 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-brand-50 border-b border-brand-200 py-3.5 px-4 sm:px-8">
-        <div className="max-w-container mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-xs sm:text-sm">
-          <div className="flex items-center gap-2 text-brand-900 font-medium">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
-            <span><strong>Toothache or broken filling?</strong> Emergency appointments reserved daily for immediate relief.</span>
+      <section className="py-14 sm:py-20 border-b border-hairline bg-canvas-subtle">
+        <div className="max-w-container mx-auto px-4 sm:px-8">
+          
+          <div className="max-w-2xl mb-12">
+            <span className="text-xs font-mono uppercase tracking-[0.14em] text-sand-700 block mb-2">
+              Practice Tenets
+            </span>
+            <h2 className="font-serif text-2xl sm:text-4xl text-ink font-normal leading-tight">
+              Clinical principles that guide every patient appointment.
+            </h2>
           </div>
-          <div className="flex items-center gap-3 shrink-0">
-            <a
-              href={waEmergencyUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-emerald-700 font-bold hover:underline inline-flex items-center gap-1"
-            >
-              <MessageCircle size={14} />
-              <span>WhatsApp Emergency</span>
-            </a>
-            <span className="text-brand-300">·</span>
-            <a
-              href={`tel:${CLINIC.phone}`}
-              className="text-brand-700 font-bold hover:underline"
-            >
-              Call Desk
-            </a>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {CLINICAL_STANDARDS.map((standard) => (
+              <div
+                key={standard.num}
+                className="bg-white p-6 rounded-sm border border-hairline shadow-2xs space-y-3"
+              >
+                <span className="font-mono text-xs font-bold text-sage-700 block">
+                  {standard.num}
+                </span>
+                <h3 className="font-serif text-lg font-medium text-ink leading-snug">
+                  {standard.title}
+                </h3>
+                <p className="font-sans text-xs text-ink-secondary leading-relaxed">
+                  {standard.desc}
+                </p>
+              </div>
+            ))}
           </div>
+
         </div>
       </section>
 
-      <section className="py-14 sm:py-20 bg-surface">
+      <section className="py-16 sm:py-24 border-b border-hairline">
         <div className="max-w-container mx-auto px-4 sm:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+          
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 pb-6 border-b border-hairline">
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-brand-600 block mb-1">
-                Clinical Treatments
+              <span className="text-xs font-mono uppercase tracking-[0.14em] text-sand-700 block mb-2">
+                Treatments & Procedures
               </span>
-              <h2 className="text-2xl sm:text-3xl font-bold text-slate">
-                How we can help you smile comfortably.
+              <h2 className="font-serif text-2xl sm:text-4xl text-ink font-normal">
+                Care planned for long-term health and comfort.
               </h2>
-              <p className="text-sm sm:text-base text-slate-secondary mt-1 max-w-xl">
-                Clear descriptions, appointment durations, and transparent fees before any treatment starts.
-              </p>
             </div>
 
             <Link
               to="/treatments"
-              className="btn-secondary text-xs h-10 px-4 self-start sm:self-auto"
+              className="inline-flex items-center gap-1.5 text-xs font-sans font-medium text-sage-800 hover:text-sage-900 transition-colors"
             >
-              <span>View All Treatments</span>
+              <span>View complete treatment directory</span>
               <ArrowRight size={14} />
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {TREATMENTS.map((treatment) => {
-              const waTreatmentUrl = `https://wa.me/${CLINIC.whatsapp}?text=${encodeURIComponent(`Hi Dr. Sharma, I want to inquire about booking ${treatment.name} at Aura Dental Studio.`)}`;
-              return (
-                <div
-                  key={treatment.id}
-                  className="bg-white rounded-xl border border-border p-6 flex flex-col justify-between hover:border-brand-300 hover:shadow-sm transition-all"
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            
+            <div className="lg:col-span-4 space-y-4">
+              <div className="bg-sage-900 text-canvas p-6 rounded-sm space-y-4">
+                <span className="text-[11px] font-mono uppercase tracking-widest text-sand-500 block">
+                  First Step
+                </span>
+                <h3 className="font-serif text-xl sm:text-2xl font-normal leading-snug">
+                  Comprehensive Diagnostic Checkup & 3D Scan
+                </h3>
+                <p className="font-sans text-xs text-canvas/80 leading-relaxed">
+                  A thorough 30-minute clinical examination with intraoral optical camera review and a transparent, itemized written treatment plan.
+                </p>
+                <div className="pt-2 flex items-baseline justify-between border-t border-white/10">
+                  <span className="text-xs font-sans text-canvas/60">Consultation Fee</span>
+                  <span className="text-xl font-mono font-medium text-sand-500">₹500</span>
+                </div>
+                <Link
+                  to="/book"
+                  className="btn-primary w-full text-xs h-10 bg-sage-700 hover:bg-sage-600 border-sage-600"
                 >
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[11px] font-bold uppercase px-2.5 py-0.5 rounded-full bg-brand-50 text-brand-700">
-                        {treatment.category}
-                      </span>
-                      <span className="text-xs text-slate-muted font-medium flex items-center gap-1">
-                        <Clock size={12} />
-                        <span>{treatment.durationLabel}</span>
-                      </span>
-                    </div>
+                  <Calendar size={14} />
+                  <span>Book Checkup (₹500)</span>
+                </Link>
+              </div>
 
-                    <h3 className="text-lg font-bold text-slate">
-                      <Link to={`/treatments/${treatment.slug}`} className="hover:text-brand-600 transition-colors">
+              <div className="p-5 bg-canvas-subtle border border-hairline rounded-sm space-y-2">
+                <h4 className="font-serif text-base font-medium text-ink">Have a quick dental question?</h4>
+                <p className="font-sans text-xs text-ink-muted leading-relaxed">
+                  Send a photo or inquiry directly to Dr. Satyam Sharma on WhatsApp for initial guidance.
+                </p>
+                <a
+                  href={waGeneralUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-whatsapp w-full text-xs h-9 mt-2"
+                >
+                  <MessageCircle size={14} />
+                  <span>Chat on WhatsApp</span>
+                </a>
+              </div>
+            </div>
+
+            <div className="lg:col-span-8 space-y-3">
+              {TREATMENTS.slice(0, 6).map((treatment) => {
+                const treatmentWaUrl = `https://wa.me/${CLINIC.whatsapp}?text=${encodeURIComponent(
+                  `Hi Dr. Sharma, I want to inquire about ${treatment.name} at Aura Dental Studio.`
+                )}`;
+
+                return (
+                  <div
+                    key={treatment.id}
+                    className="p-5 bg-white border border-hairline hover:border-border-strong transition-all rounded-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4"
+                  >
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2.5">
+                        <span className="text-[10px] font-mono uppercase px-2 py-0.5 bg-canvas-subtle text-ink-muted rounded-xs border border-border/60">
+                          {treatment.category}
+                        </span>
+                        <span className="text-xs text-ink-muted font-sans">
+                          {treatment.durationLabel || `${treatment.durationMins} mins`}
+                        </span>
+                      </div>
+                      <h4 className="font-serif text-lg font-medium text-ink">
                         {treatment.name}
-                      </Link>
-                    </h3>
+                      </h4>
+                      <p className="font-sans text-xs text-ink-secondary max-w-lg">
+                        {treatment.shortDescription}
+                      </p>
+                    </div>
 
-                    <p className="text-sm text-slate-secondary leading-relaxed">
-                      {treatment.shortDescription}
-                    </p>
+                    <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center gap-3 shrink-0 pt-3 sm:pt-0 border-t sm:border-t-0 border-hairline">
+                      <div className="text-right">
+                        <span className="text-[11px] text-ink-muted block font-sans">Starting fee</span>
+                        <span className="font-mono text-sm font-semibold text-ink">
+                          {treatment.priceFormatted}
+                        </span>
+                      </div>
 
-                    <div className="pt-2 text-xs text-slate-muted">
-                      {treatment.benefit}
+                      <div className="flex items-center gap-2">
+                        <a
+                          href={treatmentWaUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="h-8 px-2.5 inline-flex items-center justify-center rounded-sm border border-border text-xs text-ink hover:bg-canvas-subtle transition-colors"
+                          aria-label={`Ask about ${treatment.name} on WhatsApp`}
+                        >
+                          <MessageCircle size={13} className="text-[#1EBE5D]" />
+                        </a>
+                        <Link
+                          to={`/book?service=${treatment.slug}`}
+                          className="h-8 px-3.5 inline-flex items-center justify-center rounded-sm bg-sage-800 hover:bg-sage-900 text-white text-xs font-sans font-medium transition-colors"
+                        >
+                          <span>Book</span>
+                        </Link>
+                      </div>
                     </div>
                   </div>
+                );
+              })}
+            </div>
 
-                  <div className="pt-5 mt-5 border-t border-border flex items-center justify-between">
-                    <div>
-                      <span className="text-[11px] text-slate-muted block font-medium">Starting Fee</span>
-                      <span className="text-base font-bold text-slate num-tabular">{treatment.priceFormatted}</span>
-                    </div>
+          </div>
 
-                    <div className="flex items-center gap-2">
-                      <a
-                        href={waTreatmentUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-xs text-[#1EBE5D] font-bold p-2 hover:bg-[#25D366]/10 rounded-lg transition-colors"
-                        title="Book via WhatsApp"
-                      >
-                        <MessageCircle size={16} />
-                      </a>
-                      <Link
-                        to={`/book?service=${treatment.slug}`}
-                        className="btn-primary text-xs h-8 px-3"
-                      >
-                        <span>Book</span>
-                      </Link>
-                    </div>
+        </div>
+      </section>
+
+      <section className="py-16 sm:py-24 border-b border-hairline bg-canvas-subtle">
+        <div className="max-w-container mx-auto px-4 sm:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            
+            <div className="lg:col-span-5 space-y-4">
+              <div className="p-3 bg-white border border-hairline rounded-sm space-y-3">
+                <img
+                  src={CLINIC_PHOTOS.interiorWide}
+                  alt="Aura Dental Studio operatory and clinical facility, Bandra West"
+                  className="w-full aspect-[4/3] object-cover rounded-xs"
+                  loading="lazy"
+                />
+                <div className="p-3 bg-canvas-subtle rounded-xs border border-border/60 text-xs font-sans space-y-1">
+                  <div className="font-mono text-ink font-medium">Maharashtra State Dental Council</div>
+                  <div className="text-ink-muted text-[11px]">
+                    Registration No: <span className="font-mono font-bold text-ink">MSDC-42891</span> · Dr. Satyam Sharma
                   </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-7 space-y-6 text-left">
+              <div>
+                <span className="text-xs font-mono uppercase tracking-[0.14em] text-sand-700 block mb-2">
+                  Clinical Director Dossier
+                </span>
+                <h2 className="font-serif text-3xl sm:text-4xl text-ink font-normal leading-tight">
+                  Dr. Satyam Sharma
+                </h2>
+                <div className="text-xs sm:text-sm text-ink-muted font-sans mt-1">
+                  BDS (Nair Hospital Dental College) · MDS Orthodontics (Govt Dental College Mumbai)
+                </div>
+              </div>
+
+              <div className="space-y-4 font-sans text-sm text-ink-secondary leading-relaxed">
+                <p>
+                  Dr. Satyam Sharma has practiced orthodontics, micro-endodontics, and conservative restorative dentistry in Bandra West for over 12 years. His clinical philosophy centers on listening carefully to patients, explaining anatomical findings clearly, and conserving natural tooth structure wherever possible.
+                </p>
+                <p>
+                  Every consultation is scheduled with deliberate buffer time so you are never rushed through questions or pressured into treatment.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 font-sans text-xs">
+                <div className="p-3 bg-white border border-hairline rounded-sm">
+                  <span className="font-mono text-sand-700 block mb-0.5">Undergraduate Training</span>
+                  <span className="font-medium text-ink">BDS — Nair Hospital Dental College</span>
+                  <span className="text-ink-muted block text-[11px] mt-0.5">Mumbai University (2012)</span>
+                </div>
+                <div className="p-3 bg-white border border-hairline rounded-sm">
+                  <span className="font-mono text-sand-700 block mb-0.5">Postgraduate Residency</span>
+                  <span className="font-medium text-ink">MDS (Orthodontics) — Govt Dental College</span>
+                  <span className="text-ink-muted block text-[11px] mt-0.5">GDC & Hospital, Mumbai (2016)</span>
+                </div>
+              </div>
+
+              <div className="pt-2 flex flex-wrap items-center gap-3">
+                <Link
+                  to="/doctor"
+                  className="btn-secondary text-xs h-10 px-4"
+                >
+                  <span>Read complete credentials & timeline</span>
+                  <ArrowRight size={14} />
+                </Link>
+
+                <a
+                  href={waGeneralUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-whatsapp text-xs h-10 px-4"
+                >
+                  <MessageCircle size={14} />
+                  <span>WhatsApp Dr. Sharma</span>
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 sm:py-24 border-b border-hairline">
+        <div className="max-w-container mx-auto px-4 sm:px-8">
+          
+          <div className="max-w-2xl mb-12">
+            <span className="text-xs font-mono uppercase tracking-[0.14em] text-sand-700 block mb-2">
+              Patient Pathway
+            </span>
+            <h2 className="font-serif text-2xl sm:text-4xl text-ink font-normal leading-tight">
+              What to expect when you visit our studio.
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {PATIENT_STEPS.map((item) => (
+              <div
+                key={item.step}
+                className="p-6 bg-canvas-subtle border border-hairline rounded-sm space-y-3"
+              >
+                <div className="w-8 h-8 rounded-xs bg-sage-800 text-canvas font-mono text-xs flex items-center justify-center font-bold">
+                  {item.step}
+                </div>
+                <h3 className="font-serif text-lg font-medium text-ink">
+                  {item.title}
+                </h3>
+                <p className="font-sans text-xs text-ink-secondary leading-relaxed">
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      <section className="py-12 bg-amber-50/50 border-b border-amber-200/60">
+        <div className="max-w-container mx-auto px-4 sm:px-8">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 text-amber-900 font-mono text-xs font-bold uppercase tracking-wider">
+                <AlertCircle size={15} className="text-amber-700" />
+                <span>Dental Emergency Desk · Bandra West</span>
+              </div>
+              <h3 className="font-serif text-xl sm:text-2xl text-ink font-medium">
+                Severe toothache, broken restoration, or sudden dental trauma?
+              </h3>
+              <p className="font-sans text-xs sm:text-sm text-ink-secondary max-w-xl">
+                We maintain dedicated daily emergency slots for immediate pain relief. Contact our emergency line for priority same-day scheduling.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3 shrink-0">
+              <a
+                href={waEmergencyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-whatsapp text-xs h-10 px-4"
+              >
+                <MessageCircle size={15} />
+                <span>Emergency WhatsApp</span>
+              </a>
+
+              <a
+                href={`tel:${CLINIC.phone}`}
+                className="btn-secondary text-xs h-10 px-4"
+              >
+                <Phone size={15} />
+                <span>Call: {CLINIC.phoneDisplay}</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 sm:py-24 border-b border-hairline bg-canvas-subtle">
+        <div className="max-w-container mx-auto px-4 sm:px-8">
+          
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-12">
+            <div>
+              <span className="text-xs font-mono uppercase tracking-[0.14em] text-sand-700 block mb-2">
+                Verified Patient Accounts
+              </span>
+              <h2 className="font-serif text-2xl sm:text-4xl text-ink font-normal">
+                Notes from patients across Bandra West.
+              </h2>
+            </div>
+
+            <Link
+              to="/reviews"
+              className="text-xs font-sans font-medium text-sage-800 hover:text-sage-900 flex items-center gap-1"
+            >
+              <span>Read all patient reviews</span>
+              <ArrowRight size={14} />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {REVIEWS.slice(0, 3).map((review) => (
+              <div
+                key={review.id}
+                className="p-6 bg-white border border-hairline rounded-sm space-y-4 shadow-2xs flex flex-col justify-between"
+              >
+                <p className="font-serif text-sm sm:text-base text-ink-secondary italic leading-relaxed">
+                  "{review.quote}"
+                </p>
+
+                <div className="pt-3 border-t border-hairline flex items-center justify-between text-xs font-sans">
+                  <div>
+                    <span className="font-medium text-ink block">{review.patient}</span>
+                    <span className="text-[11px] text-ink-muted">{review.location}</span>
+                  </div>
+                  <span className="text-[10px] font-mono px-2 py-0.5 bg-canvas-subtle text-sage-800 rounded-xs border border-border/60">
+                    {review.treatment}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      <section className="py-16 sm:py-24 border-b border-hairline">
+        <div className="max-w-container mx-auto px-4 sm:px-8">
+          <div className="max-w-2xl mb-12">
+            <span className="text-xs font-mono uppercase tracking-[0.14em] text-sand-700 block mb-2">
+              Common Questions
+            </span>
+            <h2 className="font-serif text-2xl sm:text-4xl text-ink font-normal">
+              Clear answers before you visit.
+            </h2>
+          </div>
+
+          <div className="max-w-3xl divide-y divide-hairline border-y border-hairline">
+            {FAQS.map((faq, index) => {
+              const isOpen = openFaq === index;
+              return (
+                <div key={faq.q} className="py-5">
+                  <button
+                    type="button"
+                    onClick={() => setOpenFaq(isOpen ? null : index)}
+                    className="w-full flex items-center justify-between text-left gap-4 group"
+                  >
+                    <span className="font-serif text-base sm:text-lg font-medium text-ink group-hover:text-sage-800 transition-colors">
+                      {faq.q}
+                    </span>
+                    <ChevronDown
+                      size={18}
+                      className={`text-ink-muted shrink-0 transition-transform duration-200 ${
+                        isOpen ? 'rotate-180 text-sage-800' : ''
+                      }`}
+                    />
+                  </button>
+                  {isOpen && (
+                    <div className="pt-3 pr-8 font-sans text-xs sm:text-sm text-ink-secondary leading-relaxed">
+                      {faq.a}
+                    </div>
+                  )}
                 </div>
               );
             })}
@@ -265,331 +592,40 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-14 sm:py-20 bg-surface-subtle border-y border-border">
-        <div className="max-w-container mx-auto px-4 sm:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-            
-            <div className="lg:col-span-5 space-y-4">
-              <div className="p-6 rounded-2xl bg-white border border-border shadow-xs space-y-4">
-                <div className="space-y-1 pb-3 border-b border-border">
-                  <span className="text-xs font-bold uppercase tracking-wider text-brand-600 block">
-                    Clinical Director Dossier
-                  </span>
-                  <h3 className="font-extrabold text-xl text-slate">
-                    Dr. Satyam Sharma
-                  </h3>
-                  <p className="text-xs font-semibold text-brand-700">
-                    BDS (Nair), MDS Orthodontics (GDC Mumbai)
-                  </p>
-                </div>
+      <section className="py-16 sm:py-24 bg-sage-900 text-canvas">
+        <div className="max-w-container mx-auto px-4 sm:px-8 text-center space-y-6">
+          <span className="text-xs font-mono uppercase tracking-[0.16em] text-sand-500 block">
+            Aura Dental Studio · Bandra West
+          </span>
+          <h2 className="font-serif text-3xl sm:text-5xl font-normal leading-tight max-w-2xl mx-auto">
+            Experience unhurried, gentle dental care.
+          </h2>
+          <p className="font-sans text-sm sm:text-base text-canvas/80 max-w-lg mx-auto leading-relaxed">
+            Schedule your comprehensive checkup and 3D optical scan (₹500), or reach out on WhatsApp to speak with Dr. Satyam Sharma directly.
+          </p>
 
-                <div className="space-y-2 text-xs text-slate-secondary">
-                  <div className="flex justify-between py-1 border-b border-border/60">
-                    <span className="text-slate-muted">Council Reg.</span>
-                    <span className="font-mono font-bold text-slate">MSDC-42891</span>
-                  </div>
-                  <div className="flex justify-between py-1 border-b border-border/60">
-                    <span className="text-slate-muted">Undergraduate</span>
-                    <span className="text-slate font-medium text-right">Nair Hospital Dental College</span>
-                  </div>
-                  <div className="flex justify-between py-1 border-b border-border/60">
-                    <span className="text-slate-muted">Residency</span>
-                    <span className="text-slate font-medium text-right">Govt Dental College Mumbai</span>
-                  </div>
-                  <div className="flex justify-between py-1 border-b border-border/60">
-                    <span className="text-slate-muted">Bandra Practice</span>
-                    <span className="text-slate font-bold">12 Years</span>
-                  </div>
-                  <div className="flex justify-between py-1">
-                    <span className="text-slate-muted">Specialty</span>
-                    <span className="text-brand-700 font-bold">Orthodontics & Aligners</span>
-                  </div>
-                </div>
-
-                <div className="pt-2">
-                  <a
-                    href={waGeneralUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-whatsapp w-full text-xs h-10"
-                  >
-                    <MessageCircle size={15} />
-                    <span>WhatsApp Dr. Sharma's Desk</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div className="lg:col-span-7 space-y-6">
-              <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-brand-600 block mb-1">
-                  Our Philosophy
-                </span>
-                <h2 className="text-2xl sm:text-3xl font-bold text-slate">
-                  Dentistry shouldn't be stressful or rushed.
-                </h2>
-              </div>
-
-              <div className="space-y-4 text-sm sm:text-base text-slate-secondary leading-relaxed">
-                <p>
-                  Dr. Satyam Sharma has cared for patients in Bandra West for over 12 years. His clinical philosophy centers on biological tooth conservation: preserving natural tooth enamel, explaining every diagnosis chairside with high-definition digital scans, and never rushing appointments.
-                </p>
-                <p>
-                  Every patient receives a written, itemized treatment estimate before any work begins. There are no surprise laboratory surcharges or unexpected add-ons.
-                </p>
-              </div>
-
-              <div className="p-4 rounded-xl bg-white border border-border text-sm text-slate italic leading-relaxed">
-                "{CLINIC.doctor.philosophy}"
-              </div>
-
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-1 text-xs">
-                <div className="p-3 rounded-lg bg-white border border-border">
-                  <div className="text-slate-muted font-medium">Appointment Slots</div>
-                  <div className="font-bold text-slate text-sm mt-0.5">30–45 Mins Unhurried</div>
-                </div>
-                <div className="p-3 rounded-lg bg-white border border-border">
-                  <div className="text-slate-muted font-medium">Digital Scans</div>
-                  <div className="font-bold text-slate text-sm mt-0.5">Optical 3D Camera</div>
-                </div>
-                <div className="p-3 rounded-lg bg-white border border-border col-span-2 sm:col-span-1">
-                  <div className="text-slate-muted font-medium">Languages</div>
-                  <div className="font-bold text-slate text-sm mt-0.5">EN, HI, MR, GU</div>
-                </div>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-3 pt-1">
-                <Link to="/doctor" className="btn-secondary text-xs h-10 px-4">
-                  <span>View Full Credentials</span>
-                  <ArrowRight size={14} />
-                </Link>
-                <Link to="/book" className="btn-primary text-xs h-10 px-4">
-                  <span>Schedule Consultation</span>
-                </Link>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      <section className="py-14 sm:py-20 bg-surface">
-        <div className="max-w-container mx-auto px-4 sm:px-8">
-          <div className="max-w-2xl mb-12">
-            <span className="text-xs font-bold uppercase tracking-wider text-brand-600 block mb-1">
-              Clinical Quality Standards
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate">
-              How we ensure patient safety & comfort.
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {CLINICAL_PILLARS.map((pillar, idx) => (
-              <div key={idx} className="p-6 rounded-xl bg-surface-subtle border border-border space-y-2">
-                <div className="w-8 h-8 rounded-lg bg-brand-100 text-brand-700 font-bold flex items-center justify-center text-sm mb-3">
-                  0{idx + 1}
-                </div>
-                <h3 className="font-bold text-base text-slate">{pillar.title}</h3>
-                <p className="text-xs sm:text-sm text-slate-secondary leading-relaxed">
-                  {pillar.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-14 sm:py-20 bg-surface-subtle border-t border-border">
-        <div className="max-w-container mx-auto px-4 sm:px-8">
-          <div className="max-w-2xl mb-10">
-            <span className="text-xs font-bold uppercase tracking-wider text-brand-600 block mb-1">
-              Transparent Fees
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate">
-              Honest prices with no hidden surprises.
-            </h2>
-            <p className="text-sm sm:text-base text-slate-secondary mt-1">
-              We believe patients deserve to know treatment costs before sitting in the chair.
-            </p>
-          </div>
-
-          <div className="bg-white rounded-xl border border-border overflow-hidden shadow-xs mb-6">
-            <table className="w-full text-left border-collapse text-xs sm:text-sm">
-              <thead>
-                <tr className="bg-surface-subtle border-b border-border text-slate-muted font-semibold">
-                  <th className="py-3.5 px-4 sm:px-6">Treatment</th>
-                  <th className="py-3.5 px-4 sm:px-6">Duration</th>
-                  <th className="py-3.5 px-4 sm:px-6 text-right">Starting Fee</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border num-tabular">
-                <tr className="bg-brand-50/40">
-                  <td className="py-4 px-4 sm:px-6 font-bold text-brand-800">
-                    Comprehensive Checkup & Digital Scan
-                  </td>
-                  <td className="py-4 px-4 sm:px-6 text-slate-secondary font-medium">30 mins</td>
-                  <td className="py-4 px-4 sm:px-6 text-right font-bold text-brand-700">₹500</td>
-                </tr>
-                {TREATMENTS.map((t) => (
-                  <tr key={t.id} className="hover:bg-surface-subtle transition-colors">
-                    <td className="py-4 px-4 sm:px-6 font-medium text-slate">
-                      <Link to={`/treatments/${t.slug}`} className="hover:text-brand-600">
-                        {t.name}
-                      </Link>
-                    </td>
-                    <td className="py-4 px-4 sm:px-6 text-slate-secondary">{t.durationLabel}</td>
-                    <td className="py-4 px-4 sm:px-6 text-right font-bold text-slate">{t.priceFormatted}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 text-xs text-slate-secondary">
-            <span>Payment modes accepted: UPI (GPay, PhonePe), Credit/Debit Cards, Cash, and 0% interest EMI options.</span>
-            <Link to="/pricing" className="text-brand-600 font-bold hover:underline shrink-0">
-              View full financial terms →
+          <div className="flex flex-wrap items-center justify-center gap-4 pt-3">
+            <Link
+              to="/book"
+              className="btn-primary bg-sand-600 hover:bg-sand-700 text-white border-sand-600 h-11 px-6"
+            >
+              <Calendar size={16} />
+              <span>Schedule Consultation (₹500)</span>
             </Link>
-          </div>
-        </div>
-      </section>
 
-      <section className="py-14 sm:py-20 bg-surface border-t border-border">
-        <div className="max-w-container mx-auto px-4 sm:px-8">
-          <div className="max-w-2xl mb-10">
-            <span className="text-xs font-bold uppercase tracking-wider text-brand-600 block mb-1">
-              Patient Experiences
-            </span>
-            <h2 className="text-2xl sm:text-3xl font-bold text-slate">
-              What our patients say.
-            </h2>
-            <p className="text-sm sm:text-base text-slate-secondary mt-1">
-              Real feedback from local patients who visit us from Bandra, Khar, and BKC.
-            </p>
+            <a
+              href={waGeneralUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-whatsapp h-11 px-6"
+            >
+              <MessageCircle size={16} />
+              <span>WhatsApp Dr. Sharma</span>
+            </a>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {REVIEWS.slice(0, 3).map((review) => (
-              <div 
-                key={review.id}
-                className="p-6 rounded-xl bg-surface-subtle border border-border flex flex-col justify-between space-y-4"
-              >
-                <p className="text-sm text-slate leading-relaxed">
-                  "{review.quote}"
-                </p>
-
-                <div className="pt-3 border-t border-border">
-                  <div className="font-bold text-sm text-slate">{review.patient}</div>
-                  <div className="text-xs text-slate-muted">{review.location} · <span className="text-brand-700 font-medium">{review.treatment}</span></div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="pt-8 text-center sm:text-left">
-            <Link to="/reviews" className="btn-secondary text-xs h-10 px-4">
-              <span>Read More Patient Feedback</span>
-              <ArrowRight size={14} />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="py-14 sm:py-20 bg-surface-subtle border-t border-border">
-        <div className="max-w-container mx-auto px-4 sm:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
-            
-            <div className="lg:col-span-4">
-              <span className="text-xs font-bold uppercase tracking-wider text-brand-600 block mb-1">
-                Help & Answers
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-bold text-slate mb-3">
-                Frequently asked questions.
-              </h2>
-              <p className="text-sm text-slate-secondary leading-relaxed">
-                Have a question before booking? We have answered the most common concerns here.
-              </p>
-              <div className="pt-4">
-                <a
-                  href={waGeneralUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-whatsapp text-xs h-10 px-4"
-                >
-                  <MessageCircle size={15} />
-                  <span>Ask us on WhatsApp</span>
-                </a>
-              </div>
-            </div>
-
-            <div className="lg:col-span-8 space-y-3">
-              {FAQS.map((faq, idx) => {
-                const isOpen = openFaq === idx;
-                return (
-                  <div 
-                    key={idx}
-                    className="border border-border rounded-xl bg-white overflow-hidden"
-                  >
-                    <button
-                      type="button"
-                      onClick={() => setOpenFaq(isOpen ? null : idx)}
-                      className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-slate hover:text-brand-600 transition-colors"
-                      aria-expanded={isOpen}
-                    >
-                      <span>{faq.q}</span>
-                      <ChevronDown
-                        size={18}
-                        className={`text-slate-muted shrink-0 transition-transform duration-200 ${
-                          isOpen ? 'rotate-180 text-brand-600' : ''
-                        }`}
-                      />
-                    </button>
-
-                    {isOpen && (
-                      <div className="p-4 sm:p-5 pt-0 text-xs sm:text-sm text-slate-secondary leading-relaxed border-t border-border bg-white">
-                        {faq.a}
-                      </div>
-                    )}
-                  </div>
-                );
-              })}
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      <section className="py-14 sm:py-20 bg-brand-600 text-white">
-        <div className="max-w-container mx-auto px-4 sm:px-8 text-center sm:text-left">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
-            <div className="space-y-2 max-w-xl">
-              <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-                Ready for a comfortable, stress-free dental visit?
-              </h2>
-              <p className="text-sm sm:text-base text-brand-100">
-                Book online in 30 seconds or chat with our desk on WhatsApp. We look forward to welcoming you at Studio 204, Bandra West.
-              </p>
-            </div>
-
-            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 shrink-0">
-              <Link
-                to="/book"
-                className="h-11 px-6 rounded-lg bg-white text-brand-700 hover:bg-brand-50 font-bold text-sm shadow-sm transition-all inline-flex items-center gap-2"
-              >
-                <Calendar size={16} />
-                <span>Book Appointment</span>
-              </Link>
-              <a
-                href={waGeneralUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="h-11 px-5 rounded-lg bg-[#25D366] hover:bg-[#1EBE5D] text-white font-bold text-sm shadow-sm transition-all inline-flex items-center gap-2"
-              >
-                <MessageCircle size={16} />
-                <span>WhatsApp Desk</span>
-              </a>
-            </div>
+          <div className="pt-6 text-xs text-canvas/60 font-sans">
+            Studio 204, Sagar Fortune Building, Waterfield Road, Bandra West, Mumbai · Telephone: {CLINIC.phoneDisplay}
           </div>
         </div>
       </section>

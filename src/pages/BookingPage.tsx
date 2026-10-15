@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { Calendar, Clock, MessageCircle, Mail, CheckCircle, ArrowRight, Phone } from 'lucide-react';
+import { Calendar, Clock, MessageCircle, Mail, CheckCircle2, ArrowRight, Phone } from 'lucide-react';
 import { TREATMENTS, Treatment, generateTimeSlots, getMockBookedSlots } from '@/data/services';
 import { CLINIC } from '@/data/clinicInfo';
 
@@ -136,70 +136,70 @@ export default function BookingPage() {
     const googleCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${calTitle}&details=${calDetails}&location=${calLocation}`;
 
     return (
-      <div className="bg-surface-subtle py-12 md:py-20 text-slate">
-        <div className="max-w-xl mx-auto px-4">
-          <div className="bg-white rounded-2xl border border-border p-6 sm:p-10 shadow-sm space-y-6">
+      <div className="bg-canvas py-12 sm:py-20 text-ink">
+        <div className="max-w-xl mx-auto px-4 sm:px-6">
+          <div className="bg-white rounded-sm border border-hairline p-6 sm:p-10 shadow-2xs space-y-6 font-sans">
             
             <div className="text-center space-y-2">
-              <div className="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-3">
-                <CheckCircle size={32} />
+              <div className="w-12 h-12 rounded-xs bg-sage-100 text-sage-900 flex items-center justify-center mx-auto mb-3">
+                <CheckCircle2 size={28} />
               </div>
-              <span className="text-xs font-bold uppercase tracking-wider text-brand-600 block">
-                Appointment Received
+              <span className="text-[10px] font-mono uppercase tracking-widest text-sand-700 block">
+                Appointment Scheduled
               </span>
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate">
-                Booking Confirmed!
+              <h1 className="font-serif text-2xl sm:text-3xl font-medium text-ink">
+                Consultation Confirmed
               </h1>
-              <p className="text-sm text-slate-secondary">
+              <p className="text-xs sm:text-sm text-ink-secondary leading-relaxed">
                 Thank you, <strong>{confirmedBooking.name}</strong>. Your consultation has been received at our Bandra West studio.
               </p>
             </div>
 
-            <div className="bg-surface-subtle rounded-xl p-5 border border-border space-y-3 text-xs sm:text-sm num-tabular">
-              <div className="flex justify-between items-center pb-2 border-b border-border">
-                <span className="text-slate-muted font-medium">Reference ID</span>
-                <span className="font-mono font-bold text-brand-700 bg-brand-50 px-2.5 py-1 rounded-md">
+            <div className="bg-canvas-subtle rounded-xs p-5 border border-hairline space-y-3 text-xs num-tabular">
+              <div className="flex justify-between items-center pb-2 border-b border-hairline">
+                <span className="text-ink-muted">Reference ID</span>
+                <span className="font-mono font-medium text-sage-800 bg-white px-2.5 py-0.5 rounded-xs border border-border">
                   {confirmedBooking.id}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-muted">Treatment</span>
-                <span className="font-bold text-slate">{confirmedBooking.treatment.name}</span>
+                <span className="text-ink-muted">Treatment</span>
+                <span className="font-medium text-ink">{confirmedBooking.treatment.name}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-muted">Scheduled Date</span>
-                <span className="font-semibold text-slate">{confirmedBooking.date}</span>
+                <span className="text-ink-muted">Scheduled Date</span>
+                <span className="font-medium text-ink">{confirmedBooking.date}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-muted">Time Slot</span>
-                <span className="font-semibold text-slate">{confirmedBooking.time}</span>
+                <span className="text-ink-muted">Time Slot</span>
+                <span className="font-medium text-sage-800">{confirmedBooking.time}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-slate-muted">Starting Fee</span>
-                <span className="font-bold text-brand-700">{confirmedBooking.treatment.priceFormatted}</span>
+                <span className="text-ink-muted">Estimated Starting Fee</span>
+                <span className="font-mono font-medium text-ink">{confirmedBooking.treatment.priceFormatted}</span>
               </div>
-              <div className="flex justify-between pt-2 border-t border-border text-xs text-slate-muted">
+              <div className="flex justify-between pt-2 border-t border-hairline text-xs text-ink-muted">
                 <span>Location</span>
-                <span className="text-slate">Studio 204, Waterfield Rd, Bandra (W)</span>
+                <span className="text-ink">Studio 204, Waterfield Rd, Bandra (W)</span>
               </div>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-2.5">
               <a
                 href={`https://wa.me/${CLINIC.whatsapp}?text=${waText}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-whatsapp w-full text-sm h-11"
+                className="btn-whatsapp w-full text-xs h-11"
               >
-                <MessageCircle size={18} />
-                <span>Send Confirmation via WhatsApp</span>
+                <MessageCircle size={16} />
+                <span>Confirm on WhatsApp (Instant)</span>
               </a>
 
               <a
                 href={`mailto:${CLINIC.email}?subject=${mailtoSubject}&body=${mailtoBody}`}
-                className="btn-secondary w-full text-sm h-11"
+                className="btn-secondary w-full text-xs h-11"
               >
-                <Mail size={16} className="text-brand-600" />
+                <Mail size={14} className="text-ink-muted" />
                 <span>Email Booking Details to Clinic</span>
               </a>
 
@@ -207,15 +207,15 @@ export default function BookingPage() {
                 href={googleCalUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full h-11 rounded-lg border border-border bg-surface-subtle text-slate-secondary hover:bg-slate-100 font-semibold text-xs inline-flex items-center justify-center gap-2 transition-colors"
+                className="w-full h-11 rounded-xs border border-border bg-canvas-subtle text-ink-secondary hover:bg-canvas-muted text-xs font-medium inline-flex items-center justify-center gap-2 transition-colors"
               >
-                <Calendar size={15} />
+                <Calendar size={14} />
                 <span>Add to Google Calendar</span>
               </a>
             </div>
 
             <div className="pt-2 text-center">
-              <Link to="/" className="text-xs text-brand-600 hover:underline font-semibold">
+              <Link to="/" className="text-xs text-sage-800 hover:underline">
                 ← Return to Homepage
               </Link>
             </div>
@@ -227,28 +227,28 @@ export default function BookingPage() {
   }
 
   return (
-    <div className="bg-surface-subtle py-10 md:py-16 text-slate">
+    <div className="bg-canvas py-12 sm:py-20 text-ink">
       <div className="max-w-container mx-auto px-4 sm:px-8">
         
-        <div className="max-w-2xl mb-8 space-y-2">
-          <span className="text-xs font-bold uppercase tracking-wider text-brand-600 block">
+        <div className="max-w-2xl mb-10 space-y-3">
+          <span className="text-xs font-mono uppercase tracking-[0.14em] text-sand-700 block">
             Appointment Booking
           </span>
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate tracking-tight">
-            Schedule your visit in 30 seconds.
+          <h1 className="font-serif text-3xl sm:text-5xl font-normal text-ink tracking-tight leading-tight">
+            Schedule your visit in Bandra West.
           </h1>
-          <p className="text-sm sm:text-base text-slate-secondary">
-            Select your service, choose an available date and time, and enter your contact details. No advance payment required.
+          <p className="font-sans text-sm sm:text-base text-ink-secondary leading-relaxed">
+            Select your service, choose an available date and time, and enter your contact details. No advance deposit required.
           </p>
         </div>
 
         <form onSubmit={handleSubmit} noValidate>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start font-sans">
             
-            <div className="lg:col-span-7 space-y-8 bg-white p-6 sm:p-8 rounded-2xl border border-border shadow-xs">
+            <div className="lg:col-span-7 space-y-8 bg-white p-6 sm:p-8 rounded-sm border border-hairline shadow-2xs">
               
               <div className="space-y-3">
-                <label className="block text-sm font-bold text-slate">
+                <label className="block text-xs font-mono uppercase tracking-wider text-ink-muted">
                   1. Choose Treatment
                 </label>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -259,17 +259,17 @@ export default function BookingPage() {
                         key={t.id}
                         type="button"
                         onClick={() => setSelectedTreatment(t)}
-                        className={`p-3.5 rounded-xl text-left border transition-all ${
+                        className={`p-3.5 rounded-xs text-left border transition-all ${
                           isSelected
-                            ? 'bg-brand-50 border-brand-500 ring-2 ring-brand-500/20'
-                            : 'bg-white border-border hover:bg-surface-subtle'
+                            ? 'bg-sage-50 border-sage-700 ring-1 ring-sage-700'
+                            : 'bg-white border-border hover:bg-canvas-subtle'
                         }`}
                       >
-                        <div className="font-bold text-sm text-slate">{t.name}</div>
-                        <div className="text-xs text-slate-muted mt-0.5">{t.shortDescription}</div>
-                        <div className="flex items-center justify-between mt-2 pt-2 border-t border-border/60 text-xs num-tabular">
-                          <span className="text-slate-muted font-medium">{t.durationLabel}</span>
-                          <span className="font-bold text-brand-700">{t.priceFormatted}</span>
+                        <div className="font-serif text-base font-medium text-ink">{t.name}</div>
+                        <div className="text-xs text-ink-muted mt-0.5 line-clamp-1">{t.shortDescription}</div>
+                        <div className="flex items-center justify-between mt-2 pt-2 border-t border-hairline text-xs num-tabular">
+                          <span className="text-ink-muted">{t.durationLabel}</span>
+                          <span className="font-mono font-medium text-sage-800">{t.priceFormatted}</span>
                         </div>
                       </button>
                     );
@@ -277,8 +277,8 @@ export default function BookingPage() {
                 </div>
               </div>
 
-              <div className="space-y-3 pt-4 border-t border-border">
-                <label className="block text-sm font-bold text-slate">
+              <div className="space-y-3 pt-6 border-t border-hairline">
+                <label className="block text-xs font-mono uppercase tracking-wider text-ink-muted">
                   2. Select Consultation Date
                 </label>
                 <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2 num-tabular">
@@ -289,16 +289,16 @@ export default function BookingPage() {
                         key={d.toISOString()}
                         type="button"
                         onClick={() => setSelectedDate(d)}
-                        className={`h-14 rounded-xl text-center border transition-all ${
+                        className={`h-14 rounded-xs text-center border transition-all ${
                           isSelected
-                            ? 'bg-brand-600 text-white border-brand-600 shadow-sm'
-                            : 'bg-white border-border text-slate hover:bg-surface-subtle'
+                            ? 'bg-sage-800 text-canvas border-sage-800 shadow-2xs'
+                            : 'bg-white border-border text-ink hover:bg-canvas-subtle'
                         }`}
                       >
-                        <div className="text-[11px] font-medium uppercase opacity-80 leading-tight">
+                        <div className="text-[10px] font-mono uppercase opacity-70 leading-tight">
                           {d.toLocaleDateString('en-IN', { weekday: 'short' })}
                         </div>
-                        <div className="text-sm font-bold leading-tight mt-0.5">
+                        <div className="text-xs font-medium leading-tight mt-0.5 font-mono">
                           {d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
                         </div>
                       </button>
@@ -307,8 +307,8 @@ export default function BookingPage() {
                 </div>
               </div>
 
-              <div className="space-y-3 pt-4 border-t border-border">
-                <label className="block text-sm font-bold text-slate">
+              <div className="space-y-3 pt-6 border-t border-hairline">
+                <label className="block text-xs font-mono uppercase tracking-wider text-ink-muted">
                   3. Select Time Slot
                 </label>
                 <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 num-tabular">
@@ -320,12 +320,12 @@ export default function BookingPage() {
                         type="button"
                         disabled={!s.available}
                         onClick={() => setSelectedTime(s.time)}
-                        className={`h-11 rounded-lg text-xs font-semibold border transition-all ${
+                        className={`h-10 rounded-xs text-xs font-mono border transition-all ${
                           !s.available
-                            ? 'bg-surface-muted text-slate-muted/40 border-border line-through cursor-not-allowed'
+                            ? 'bg-canvas-muted text-ink-muted/40 border-hairline line-through cursor-not-allowed'
                             : isSelected
-                            ? 'bg-brand-600 text-white border-brand-600 shadow-sm font-bold'
-                            : 'bg-white border-border text-slate hover:bg-surface-subtle'
+                            ? 'bg-sage-800 text-canvas border-sage-800 font-medium'
+                            : 'bg-white border-border text-ink hover:bg-canvas-subtle'
                         }`}
                       >
                         {s.label}
@@ -334,79 +334,88 @@ export default function BookingPage() {
                   })}
                 </div>
                 {errors.time && (
-                  <p className="text-xs text-rose-600 font-medium">{errors.time}</p>
+                  <p className="text-xs text-rose-600 mt-1">{errors.time}</p>
                 )}
               </div>
 
-              <div className="space-y-4 pt-4 border-t border-border">
-                <label className="block text-sm font-bold text-slate">
-                  4. Your Details
+              <div className="space-y-4 pt-6 border-t border-hairline">
+                <label className="block text-xs font-mono uppercase tracking-wider text-ink-muted">
+                  4. Patient Contact Details
                 </label>
 
                 <div>
-                  <label htmlFor="name" className="block text-xs font-semibold text-slate-secondary mb-1">
+                  <label htmlFor="name" className="block text-xs font-medium text-ink mb-1">
                     Full Name *
                   </label>
                   <input
                     id="name"
                     type="text"
                     value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Enter your name"
-                    className="w-full h-11 px-3.5 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
+                    onChange={(e) => {
+                      setName(e.target.value);
+                      if (errors.name) setErrors({ ...errors, name: '' });
+                    }}
+                    placeholder="e.g. Meera Desai"
+                    className="w-full h-11 px-3.5 rounded-xs border border-border bg-canvas-subtle text-sm text-ink focus:bg-white focus:outline-none focus:ring-1 focus:ring-sage-700"
                   />
                   {errors.name && (
-                    <p className="text-xs text-rose-600 mt-1 font-medium">{errors.name}</p>
+                    <p className="text-xs text-rose-600 mt-1">{errors.name}</p>
                   )}
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="phone" className="block text-xs font-semibold text-slate-secondary mb-1">
+                    <label htmlFor="phone" className="block text-xs font-medium text-ink mb-1">
                       Mobile Number (WhatsApp) *
                     </label>
                     <input
                       id="phone"
                       type="tel"
                       value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      placeholder="10-digit Indian mobile"
-                      className="w-full h-11 px-3.5 rounded-lg border border-border bg-white text-sm num-tabular focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
+                      onChange={(e) => {
+                        setPhone(e.target.value);
+                        if (errors.phone) setErrors({ ...errors, phone: '' });
+                      }}
+                      placeholder="e.g. 98201 44521"
+                      className="w-full h-11 px-3.5 rounded-xs border border-border bg-canvas-subtle text-sm text-ink num-tabular focus:bg-white focus:outline-none focus:ring-1 focus:ring-sage-700"
                     />
                     {errors.phone && (
-                      <p className="text-xs text-rose-600 mt-1 font-medium">{errors.phone}</p>
+                      <p className="text-xs text-rose-600 mt-1">{errors.phone}</p>
                     )}
                   </div>
 
                   <div>
-                    <label htmlFor="email" className="block text-xs font-semibold text-slate-secondary mb-1">
+                    <label htmlFor="email" className="block text-xs font-medium text-ink mb-1">
                       Email Address (Optional)
                     </label>
                     <input
                       id="email"
                       type="email"
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="name@example.com"
-                      className="w-full h-11 px-3.5 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
+                      onChange={(e) => {
+                        setEmail(e.target.value);
+                        if (errors.email) setErrors({ ...errors, email: '' });
+                      }}
+                      placeholder="e.g. meera@gmail.com"
+                      className="w-full h-11 px-3.5 rounded-xs border border-border bg-canvas-subtle text-sm text-ink focus:bg-white focus:outline-none focus:ring-1 focus:ring-sage-700"
                     />
                     {errors.email && (
-                      <p className="text-xs text-rose-600 mt-1 font-medium">{errors.email}</p>
+                      <p className="text-xs text-rose-600 mt-1">{errors.email}</p>
                     )}
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="notes" className="block text-xs font-semibold text-slate-secondary mb-1">
-                    Any specific dental concern or pain? (Optional)
+                  <label htmlFor="notes" className="block text-xs font-medium text-ink mb-1">
+                    Specific tooth concerns or dental history (Optional)
                   </label>
                   <textarea
                     id="notes"
                     rows={2}
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
-                    placeholder="e.g. Tooth sensitivity in lower left molar..."
-                    className="w-full p-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
+                    placeholder="e.g. Tooth sensitivity in upper right molar..."
+                    className="w-full p-3 rounded-xs border border-border bg-canvas-subtle text-sm text-ink focus:bg-white focus:outline-none focus:ring-1 focus:ring-sage-700"
                   />
                 </div>
               </div>
@@ -414,68 +423,68 @@ export default function BookingPage() {
             </div>
 
             <div className="lg:col-span-5 lg:sticky lg:top-24 space-y-4">
-              <div className="bg-white p-6 rounded-2xl border border-border shadow-xs space-y-4">
-                <h3 className="font-bold text-base text-slate pb-3 border-b border-border">
+              <div className="bg-white p-6 rounded-sm border border-hairline shadow-2xs space-y-4">
+                <h3 className="font-serif text-lg font-medium text-ink pb-3 border-b border-hairline">
                   Appointment Summary
                 </h3>
 
-                <div className="space-y-3 text-xs sm:text-sm num-tabular">
+                <div className="space-y-3 text-xs num-tabular">
                   <div>
-                    <span className="text-slate-muted block text-xs">Selected Treatment</span>
-                    <span className="font-bold text-slate text-sm">{selectedTreatment.name}</span>
+                    <span className="text-ink-muted block text-[11px]">Selected Procedure</span>
+                    <span className="font-serif text-base font-medium text-ink">{selectedTreatment.name}</span>
                   </div>
 
-                  <div className="flex justify-between py-1 border-t border-border/60">
-                    <span className="text-slate-muted">Duration</span>
-                    <span className="font-medium text-slate">{selectedTreatment.durationLabel}</span>
+                  <div className="flex justify-between py-1 border-t border-hairline">
+                    <span className="text-ink-muted">Duration</span>
+                    <span className="font-medium text-ink">{selectedTreatment.durationLabel}</span>
                   </div>
 
-                  <div className="flex justify-between py-1 border-t border-border/60">
-                    <span className="text-slate-muted">Date</span>
-                    <span className="font-semibold text-slate">
+                  <div className="flex justify-between py-1 border-t border-hairline">
+                    <span className="text-ink-muted">Date</span>
+                    <span className="font-medium text-ink">
                       {selectedDate.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' })}
                     </span>
                   </div>
 
-                  <div className="flex justify-between py-1 border-t border-border/60">
-                    <span className="text-slate-muted">Time Slot</span>
-                    <span className="font-semibold text-brand-700">{selectedTime || 'Please select a slot'}</span>
+                  <div className="flex justify-between py-1 border-t border-hairline">
+                    <span className="text-ink-muted">Time Slot</span>
+                    <span className="font-mono font-medium text-sage-800">{selectedTime || 'Please select a slot'}</span>
                   </div>
 
-                  <div className="flex justify-between py-1 border-t border-border/60">
-                    <span className="text-slate-muted">Estimated Starting Fee</span>
-                    <span className="font-bold text-slate text-base">{selectedTreatment.priceFormatted}</span>
+                  <div className="flex justify-between py-1 border-t border-hairline">
+                    <span className="text-ink-muted">Starting Fee</span>
+                    <span className="font-mono font-semibold text-ink text-sm">{selectedTreatment.priceFormatted}</span>
                   </div>
                 </div>
 
                 <div className="pt-2">
                   <button
                     type="submit"
-                    className="btn-primary w-full h-12 text-sm font-bold shadow-md"
+                    className="btn-primary w-full h-11 text-xs"
                   >
-                    <span>Confirm Booking</span>
-                    <ArrowRight size={16} />
+                    <span>Confirm Consultation</span>
+                    <ArrowRight size={14} />
                   </button>
                 </div>
 
-                <div className="text-[11px] text-slate-muted text-center pt-1">
-                  🔒 No advance deposit needed. Payment is made at clinic.
+                <div className="text-[11px] text-ink-muted text-center pt-1 font-sans">
+                  No advance deposit required. Pay at clinic after consultation.
                 </div>
               </div>
 
-              <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-xs space-y-1.5 text-emerald-900">
-                <div className="font-bold flex items-center gap-1.5 text-emerald-800">
-                  <MessageCircle size={15} />
+              <div className="p-4 rounded-sm bg-sand-50/70 border border-sand-200 text-xs space-y-1.5 text-sand-800">
+                <div className="font-medium flex items-center gap-1.5 text-sand-800">
+                  <MessageCircle size={14} className="text-[#1EBE5D]" />
                   <span>Prefer booking directly on WhatsApp?</span>
                 </div>
-                <p className="text-emerald-700 leading-relaxed">
-                  You can chat directly with Dr. Satyam Sharma's front desk on WhatsApp for immediate confirmation.
+                <p className="text-xs text-ink-secondary leading-relaxed">
+                  You can chat directly with Dr. Satyam Sharma's front desk on WhatsApp for instant slot confirmation.
                 </p>
                 <a
                   href={`https://wa.me/${CLINIC.whatsapp}?text=${encodeURIComponent('Hi Dr. Sharma, I want to book an appointment directly through WhatsApp.')}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-bold text-emerald-800 underline block pt-1"
+                  className="font-medium text-sage-800 hover:underline block pt-1"
                 >
                   Click here to WhatsApp us →
                 </a>

@@ -35,44 +35,50 @@ export default function DoctorPage() {
   )}`;
 
   return (
-    <div className="bg-surface-subtle py-10 md:py-16 text-slate">
+    <div className="bg-canvas py-12 sm:py-20 text-ink">
       <div className="max-w-container mx-auto px-4 sm:px-8">
         
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start mb-14">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start mb-16">
           
-          <div className="lg:col-span-5 space-y-4">
-            <div className="rounded-2xl overflow-hidden border border-border bg-white shadow-xs">
-              <img
-                src={CLINIC_PHOTOS.operatory}
-                alt="Operatory Suite at Aura Dental Studio Bandra West"
-                className="w-full aspect-[4/3] object-cover"
-                loading="eager"
-              />
-              <div className="p-5 bg-white border-t border-border space-y-3">
+          <div className="lg:col-span-5 space-y-4 font-sans">
+            <div className="rounded-sm overflow-hidden border border-hairline bg-white shadow-2xs">
+              <div className="relative aspect-[4/3] bg-canvas-subtle overflow-hidden">
+                <img
+                  src={CLINIC_PHOTOS.operatory}
+                  alt="Operatory Suite at Aura Dental Studio Bandra West"
+                  className="w-full h-full object-cover"
+                  loading="eager"
+                />
+                <div className="absolute top-3 left-3 bg-ink/80 text-canvas text-[10px] font-mono uppercase px-2.5 py-1 rounded-xs">
+                  Clinical Operatory Suite
+                </div>
+              </div>
+
+              <div className="p-6 bg-white border-t border-hairline space-y-4">
                 <div>
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-brand-700 bg-brand-50 px-2.5 py-0.5 rounded-full inline-block mb-1.5">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-sand-700 bg-sand-50 px-2.5 py-0.5 rounded-xs inline-block mb-2 border border-sand-200">
                     Official Council Record
                   </span>
-                  <div className="font-extrabold text-lg text-slate">{CLINIC.doctor.name}</div>
-                  <div className="text-xs text-slate-muted">{CLINIC.doctor.credentials}</div>
+                  <div className="font-serif text-xl font-medium text-ink">{CLINIC.doctor.name}</div>
+                  <div className="text-xs text-ink-muted mt-0.5">{CLINIC.doctor.credentials}</div>
                 </div>
 
-                <div className="space-y-1.5 text-xs text-slate-secondary pt-2 border-t border-border/80">
+                <div className="space-y-2 text-xs text-ink-secondary pt-3 border-t border-hairline num-tabular">
                   <div className="flex justify-between py-0.5">
-                    <span className="text-slate-muted">Registration</span>
-                    <span className="font-mono font-bold text-slate">{CLINIC.doctor.registration}</span>
+                    <span className="text-ink-muted">Registration</span>
+                    <span className="font-mono font-medium text-ink">{CLINIC.doctor.registration}</span>
                   </div>
                   <div className="flex justify-between py-0.5">
-                    <span className="text-slate-muted">Council</span>
-                    <span className="text-slate font-medium">Maharashtra State Dental Council</span>
+                    <span className="text-ink-muted">Dental Council</span>
+                    <span className="text-ink font-medium">Maharashtra State Dental Council</span>
                   </div>
                   <div className="flex justify-between py-0.5">
-                    <span className="text-slate-muted">Practice</span>
-                    <span className="text-slate font-bold">12 Years in Bandra West</span>
+                    <span className="text-ink-muted">Practice History</span>
+                    <span className="text-ink font-medium">12 Years in Bandra West</span>
                   </div>
                   <div className="flex justify-between py-0.5">
-                    <span className="text-slate-muted">Clinic Address</span>
-                    <span className="text-slate font-medium text-right">Studio 204, Waterfield Road</span>
+                    <span className="text-ink-muted">Studio Address</span>
+                    <span className="text-ink font-medium text-right">Studio 204, Waterfield Road</span>
                   </div>
                 </div>
 
@@ -84,7 +90,7 @@ export default function DoctorPage() {
                     className="btn-whatsapp w-full text-xs h-10"
                   >
                     <MessageCircle size={15} />
-                    <span>WhatsApp Direct Line</span>
+                    <span>WhatsApp Dr. Sharma</span>
                   </a>
                 </div>
               </div>
@@ -93,67 +99,65 @@ export default function DoctorPage() {
 
           <div className="lg:col-span-7 space-y-6">
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-brand-600 block mb-1">
+              <span className="text-xs font-mono uppercase tracking-[0.14em] text-sand-700 block mb-2">
                 Lead Clinician Profile
               </span>
-              <h1 className="text-3xl sm:text-4xl font-extrabold text-slate tracking-tight">
+              <h1 className="font-serif text-3xl sm:text-5xl font-normal text-ink tracking-tight">
                 Dr. Satyam Sharma
               </h1>
-              <p className="text-sm font-semibold text-brand-700 mt-1">
-                BDS (Nair), MDS Orthodontics (GDC Mumbai) · 12 Years in Bandra West
+              <p className="font-sans text-xs sm:text-sm text-ink-muted mt-1">
+                BDS (Nair), MDS Orthodontics (GDC Mumbai) · Reg. No: MSDC-42891
               </p>
             </div>
 
-            <div className="space-y-4 text-sm sm:text-base text-slate-secondary leading-relaxed">
+            <div className="space-y-4 font-sans text-sm text-ink-secondary leading-relaxed">
               <p>
-                Dr. Satyam Sharma has practiced orthodontics and restorative dentistry in Bandra West for over 12 years. His approach is built around natural tooth preservation: keeping healthy tooth structure intact, taking the time to explain every scan on screen, and ensuring that no patient feels rushed.
+                Dr. Satyam Sharma has practiced orthodontics and family dentistry in Bandra West for over 12 years. He completed his undergraduate Bachelor of Dental Surgery from the historic Nair Hospital Dental College, followed by his Master of Dental Surgery in Orthodontics and Dentofacial Orthopedics at Government Dental College & Hospital, Mumbai.
               </p>
               <p>
-                Having completed his BDS at Nair Hospital Dental College and his MDS residency at Government Dental College & Hospital, Mumbai, Dr. Sharma combines academic surgical rigor with a gentle, calming chairside manner.
+                His clinical practice is anchored in conservative dentistry: prioritizing natural tooth preservation, minimally invasive restorations, and clear, respectful patient communication.
               </p>
             </div>
 
-            <div className="p-5 rounded-xl bg-white border border-border shadow-xs border-l-4 border-l-brand-600">
-              <p className="text-xs sm:text-sm text-slate italic leading-relaxed">
-                "{CLINIC.doctor.philosophy}"
-              </p>
+            <div className="p-6 rounded-sm bg-white border border-hairline shadow-2xs space-y-3 font-sans">
+              <h3 className="font-serif text-lg font-medium text-ink">
+                Practice Philosophy & Values
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-ink-secondary pt-1">
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 size={14} className="text-sage-700 shrink-0 mt-0.5" />
+                  <span>Always explain options with chairside 3D optical scans.</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 size={14} className="text-sage-700 shrink-0 mt-0.5" />
+                  <span>Computerized slow-delivery anesthesia for zero stinging.</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 size={14} className="text-sage-700 shrink-0 mt-0.5" />
+                  <span>Full written itemized cost breakdown before treatment starts.</span>
+                </div>
+                <div className="flex items-start gap-2">
+                  <CheckCircle2 size={14} className="text-sage-700 shrink-0 mt-0.5" />
+                  <span>Buffer time between visits so you are never rushed.</span>
+                </div>
+              </div>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-1 text-xs">
-              <div className="p-3 rounded-lg bg-white border border-border">
-                <span className="text-slate-muted block font-medium">Bandra Practice</span>
-                <span className="font-bold text-slate text-sm">12 Years</span>
-              </div>
-              <div className="p-3 rounded-lg bg-white border border-border">
-                <span className="text-slate-muted block font-medium">Focus</span>
-                <span className="font-bold text-slate text-sm">Aligners & Painless Care</span>
-              </div>
-              <div className="p-3 rounded-lg bg-white border border-border col-span-2 sm:col-span-1">
-                <span className="text-slate-muted block font-medium">Languages</span>
-                <span className="font-bold text-slate text-sm">EN, HI, MR, GU</span>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-3 pt-2">
-              <Link to="/book" className="btn-primary text-xs h-11 px-5">
-                <Calendar size={15} />
-                <span>Book Consultation</span>
-              </Link>
-              <a
-                href={waDoctorUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-whatsapp text-xs h-11 px-5"
+            <div className="pt-2 flex flex-wrap items-center gap-3 font-sans">
+              <Link
+                to="/book"
+                className="btn-primary text-xs h-11 px-5"
               >
-                <MessageCircle size={16} />
-                <span>Message on WhatsApp</span>
-              </a>
+                <Calendar size={15} />
+                <span>Schedule Consultation (₹500)</span>
+              </Link>
+
               <a
                 href={`tel:${CLINIC.phone}`}
-                className="btn-secondary text-xs h-11 px-4"
+                className="btn-secondary text-xs h-11 px-5"
               >
-                <Phone size={14} className="text-brand-600" />
-                <span>Call Desk</span>
+                <Phone size={14} className="text-ink-muted" />
+                <span>Call Clinic: {CLINIC.phoneDisplay}</span>
               </a>
             </div>
 
@@ -161,29 +165,34 @@ export default function DoctorPage() {
 
         </div>
 
-        <div className="bg-white p-6 sm:p-8 rounded-2xl border border-border shadow-xs space-y-6">
-          <div className="space-y-1">
-            <span className="text-xs font-bold uppercase tracking-wider text-brand-600 block">
-              Education & Residency
+        <div className="pt-12 border-t border-hairline font-sans">
+          <div className="max-w-2xl mb-8">
+            <span className="text-xs font-mono uppercase tracking-[0.14em] text-sand-700 block mb-2">
+              Academic Background
             </span>
-            <h2 className="text-xl font-bold text-slate">
-              Academic Background & Training
+            <h2 className="font-serif text-2xl sm:text-3xl text-ink font-normal">
+              Education & Clinical Milestones
             </h2>
           </div>
 
-          <div className="divide-y divide-border">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {TIMELINE.map((item) => (
-              <div key={item.year} className="py-4 sm:py-5 grid grid-cols-1 sm:grid-cols-12 gap-3 items-baseline">
-                <div className="sm:col-span-2 text-xs font-mono font-bold text-brand-700">
+              <div
+                key={item.year}
+                className="p-6 bg-white border border-hairline rounded-sm space-y-2 shadow-2xs"
+              >
+                <span className="font-mono text-xs text-sand-700 font-bold block">
                   {item.year}
+                </span>
+                <h3 className="font-serif text-lg font-medium text-ink">
+                  {item.degree}
+                </h3>
+                <div className="text-xs font-medium text-ink-muted">
+                  {item.institution}
                 </div>
-                <div className="sm:col-span-5 space-y-0.5">
-                  <h3 className="font-bold text-sm text-slate">{item.degree}</h3>
-                  <p className="text-xs text-slate-muted">{item.institution}</p>
-                </div>
-                <div className="sm:col-span-5 text-xs text-slate-secondary leading-relaxed">
+                <p className="text-xs text-ink-secondary leading-relaxed pt-1">
                   {item.desc}
-                </div>
+                </p>
               </div>
             ))}
           </div>
