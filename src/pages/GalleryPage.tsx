@@ -45,7 +45,6 @@ export default function GalleryPage() {
 
   return (
     <div className="flex flex-col bg-bg">
-      {/* 1. Header */}
       <section className="pt-16 pb-20 lg:pt-24 lg:pb-28 border-b border-border bg-white">
         <div className="max-w-5xl mx-auto px-5 sm:px-8 text-center space-y-6">
           <FadeIn>
@@ -65,7 +64,6 @@ export default function GalleryPage() {
         </div>
       </section>
 
-      {/* 2. Gallery Grid */}
       <section className="section-padding bg-bg">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <FadeIn>
@@ -102,7 +100,6 @@ export default function GalleryPage() {
               ))}
             </div>
 
-            {/* Bottom Callout */}
             <div className="mt-16 bg-white border border-border rounded-2xl p-8 sm:p-12 text-center max-w-3xl mx-auto space-y-4">
               <span className="mint-pill">
                 <Sparkles size={13} />

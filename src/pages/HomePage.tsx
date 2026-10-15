@@ -1,601 +1,594 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import FadeIn from '@/components/FadeIn';
-import { CLINIC, CLINIC_PHOTOS, PATIENT_EXPERIENCES } from '@/data/clinicInfo';
-import { SERVICES, Service } from '@/data/services';
-import { DentalToothIcon } from '@/components/common/DentalToothIcon';
 import { 
-  ArrowRight, 
-  ArrowUpRight, 
   Calendar, 
-  Sparkles, 
-  Check, 
+  MessageCircle, 
+  Phone, 
   Clock, 
   MapPin, 
-  Eye, 
-  ShieldCheck, 
-  SlidersHorizontal 
+  CheckCircle2, 
+  ArrowRight,
+  ChevronDown,
+  ShieldCheck,
+  Sparkles,
+  FileText
 } from 'lucide-react';
+import { CLINIC, CLINIC_PHOTOS, REVIEWS } from '@/data/clinicInfo';
+import { TREATMENTS } from '@/data/services';
+
+const FAQS = [
+  {
+    q: 'Is root canal treatment painful?',
+    a: 'No. We use computerized local anesthesia and topical numbing gels. The tooth is completely anesthetized before any work starts. Treatment is done to relieve pain, not cause it.',
+  },
+  {
+    q: 'How much does the first consultation cost and what is included?',
+    a: 'The consultation fee is ₹500. This includes a comprehensive examination by Dr. Satyam Sharma, an intraoral digital camera review, and a written itemized treatment plan with transparent costs.',
+  },
+  {
+    q: 'How do clear aligners compare to metal braces?',
+    a: 'Clear aligners are custom-molded transparent trays that gently shift your teeth into proper alignment without metal brackets or wires. They are removable for eating and brushing, making oral hygiene simple and comfortable.',
+  },
+  {
+    q: 'Do you offer monthly payment options (EMI)?',
+    a: 'Yes. For treatments like clear aligners, dental implants, and smile makeovers, we provide 0% interest monthly installment plans across 3 to 12 months with leading banks.',
+  },
+  {
+    q: 'What if I feel anxious about dental appointments?',
+    a: 'Dental apprehension is very common. We never rush. We explain every step before touching your teeth, agree on a hand signal so you can pause anytime, and prioritize your comfort throughout.',
+  },
+  {
+    q: 'Where is the clinic located and is parking available?',
+    a: 'We are located at Studio 204, Sagar Fortune Building on Waterfield Road, Bandra West (near National College junction, 800m from Bandra Station West). Building visitor parking is available.',
+  },
+];
+
+const CLINICAL_PILLARS = [
+  {
+    title: 'Computerized Painless Anesthesia',
+    desc: 'Gentle local numbing delivered slowly with computer-assisted flow. Zero stinging sensation.',
+  },
+  {
+    title: '3D Intraoral Optical Scanning',
+    desc: 'High-definition digital scans replace messy impression goop. View your tooth structure chairside.',
+  },
+  {
+    title: 'Hospital-Grade Sterilization',
+    desc: 'Class-B fractional vacuum autoclave. Individual sealed barrier pouches opened in front of you.',
+  },
+];
 
 export default function HomePage() {
-  const [activeCategory, setActiveCategory] = useState<'all' | 'orthodontics' | 'restorative' | 'preventive'>('all');
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
 
-  const featuredTreatment = SERVICES.find((s) => s.featured) || SERVICES[0];
-
-  const secondaryTreatments = SERVICES.filter((s) => {
-    if (s.id === featuredTreatment.id) return false;
-    if (activeCategory === 'all') return true;
-    return s.category === activeCategory;
-  });
+  const waGeneralUrl = `https://wa.me/${CLINIC.whatsapp}?text=${encodeURIComponent('Hello Dr. Sharma, I would like to schedule a dental consultation at Aura Dental Studio.')}`;
+  const waEmergencyUrl = `https://wa.me/${CLINIC.whatsapp}?text=${encodeURIComponent('EMERGENCY: Hello, I have an urgent dental problem/pain and need a same-day appointment.')}`;
 
   return (
-    <div className="flex flex-col bg-bg">
+    <div className="bg-surface text-slate">
       
-      {/* 1. HERO SECTION — ASYMMETRIC EDITORIAL COMPOSITION */}
-      <section className="relative pt-12 pb-20 lg:pt-20 lg:pb-32 border-b border-border overflow-hidden">
-        <div className="max-w-7xl mx-auto px-5 sm:px-8">
-          <FadeIn>
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-              
-              {/* Left Column: Expressive Headline & Thoughtful Narrative */}
-              <div className="lg:col-span-7 space-y-8">
-                
-                {/* Demonstration Project Tag */}
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-border text-xs text-text shadow-xs">
-                  <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-                  <span className="font-semibold text-primary">{CLINIC.shortName} Studio</span>
-                  <span className="text-border-dark">•</span>
-                  <span className="text-text-muted">Portfolio Showcase & Dental Concept</span>
-                </div>
-
-                {/* Primary Editorial Headline */}
-                <h1 className="font-heading text-4xl sm:text-6xl lg:text-7xl text-primary font-normal leading-[1.08] tracking-tight">
-                  Dentistry, <br />
-                  <span className="italic font-light text-primary-light">designed around you.</span>
-                </h1>
-
-                {/* Concise Supporting Direction */}
-                <p className="text-base sm:text-lg lg:text-xl text-text-muted max-w-xl font-normal leading-relaxed">
-                  Thoughtful care, clear choices, and a calmer experience at every step. We pair contemporary digital diagnostics with an unhurried, conservative approach.
-                </p>
-
-                {/* Clear Primary & Secondary Actions */}
-                <div className="flex flex-wrap items-center gap-4 pt-2">
-                  <Link
-                    to="/booking"
-                    className="btn-primary text-sm px-7 py-4 font-semibold shadow-sm"
-                  >
-                    <span>Book consultation</span>
-                    <ArrowRight size={16} className="text-accent" />
-                  </Link>
-
-                  <a
-                    href="#treatments"
-                    className="btn-outline text-sm px-6 py-4 font-medium"
-                  >
-                    <span>Explore treatments</span>
-                  </a>
-                </div>
-
-                {/* Studio Architectural Core Pillars */}
-                <div className="pt-6 border-t border-border grid grid-cols-1 sm:grid-cols-3 gap-6">
-                  <div>
-                    <span className="text-xs font-mono font-semibold text-primary block">01 / Digital Scans</span>
-                    <p className="text-xs text-text-muted mt-1 leading-normal">
-                      High-resolution 3D intraoral imaging before any treatment.
-                    </p>
-                  </div>
-                  <div>
-                    <span className="text-xs font-mono font-semibold text-primary block">02 / Conservative</span>
-                    <p className="text-xs text-text-muted mt-1 leading-normal">
-                      Preserving natural tooth structure with minimal intervention.
-                    </p>
-                  </div>
-                  <div>
-                    <span className="text-xs font-mono font-semibold text-primary block">03 / Upfront Estimates</span>
-                    <p className="text-xs text-text-muted mt-1 leading-normal">
-                      Transparent, itemized pricing guides with zero hidden additions.
-                    </p>
-                  </div>
-                </div>
-
+      <section className="py-12 md:py-20 bg-surface-subtle border-b border-border">
+        <div className="max-w-container mx-auto px-4 sm:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            
+            <div className="lg:col-span-7 space-y-6 text-left">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-50 border border-brand-200 text-brand-700 text-xs font-semibold">
+                <MapPin size={13} />
+                <span>Bandra West, Mumbai · Waterfield Road</span>
               </div>
 
-              {/* Right Column: Architectural Interior Photography */}
-              <div className="lg:col-span-5">
-                <div className="relative">
-                  <div className="aspect-[4/5] sm:aspect-[3/4] lg:aspect-[4/5] rounded-2xl overflow-hidden border border-border bg-white shadow-card">
-                    <img
-                      src={CLINIC_PHOTOS.hero}
-                      alt="Aura Dental Studio Architectural Interior"
-                      className="w-full h-full object-cover"
-                      loading="eager"
-                      fetchPriority="high"
-                    />
-                  </div>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate leading-[1.15] tracking-tight">
+                A calmer, honest approach to dental care in Bandra West.
+              </h1>
 
-                  {/* Restrained Architectural Caption */}
-                  <div className="mt-3 flex items-center justify-between text-xs text-text-muted px-1">
-                    <span>Clinical Suite • Bandra West, Mumbai</span>
-                    <span className="font-mono text-[11px]">Natural daylight & acoustic design</span>
-                  </div>
-                </div>
+              <p className="text-base sm:text-lg text-slate-secondary leading-relaxed max-w-xl">
+                Dr. Satyam Sharma (MDS) provides pain-free dental checkups, clear aligners, and family dentistry in an unhurried, comfortable clinical setting. Every fee is explained upfront before any work starts.
+              </p>
+
+              <div className="flex flex-wrap items-center gap-3 pt-2">
+                <Link
+                  to="/book"
+                  className="btn-primary"
+                >
+                  <Calendar size={17} />
+                  <span>Book Appointment</span>
+                </Link>
+
+                <a
+                  href={waGeneralUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-whatsapp"
+                >
+                  <MessageCircle size={17} />
+                  <span>Chat on WhatsApp</span>
+                </a>
+
+                <a
+                  href={`tel:${CLINIC.phone}`}
+                  className="btn-secondary"
+                >
+                  <Phone size={15} className="text-brand-600" />
+                  <span>{CLINIC.phoneDisplay}</span>
+                </a>
               </div>
 
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-4 border-t border-border">
+                <div className="flex items-center gap-2 text-xs text-slate-secondary font-medium">
+                  <CheckCircle2 size={15} className="text-brand-600 shrink-0" />
+                  <span>Painless Anesthesia</span>
+                </div>
+                <div className="flex items-center gap-2 text-xs text-slate-secondary font-medium">
+                  <CheckCircle2 size={15} className="text-brand-600 shrink-0" />
+                  <span>Transparent Pricing</span>
+                </div>
+                <div className="flex items-center gap-2 text-xs text-slate-secondary font-medium">
+                  <CheckCircle2 size={15} className="text-brand-600 shrink-0" />
+                  <span>Class-B Sterilization</span>
+                </div>
+              </div>
             </div>
-          </FadeIn>
-        </div>
-      </section>
 
-      {/* 2. RESTRAINED DEMONSTRATION DISCIPLINE STRIP (NO FAKE METRICS) */}
-      <section className="py-6 bg-white border-b border-border">
-        <div className="max-w-7xl mx-auto px-5 sm:px-8">
-          <div className="flex flex-wrap items-center justify-between gap-4 text-xs">
-            <span className="font-mono uppercase tracking-wider text-text-light font-semibold">
-              Clinical Disciplines
-            </span>
-            <div className="flex flex-wrap items-center gap-x-8 gap-y-2 text-text font-medium">
-              <span className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-                Comprehensive 3D Diagnostics
-              </span>
-              <span className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-                Aesthetic Clear Aligners
-              </span>
-              <span className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-                Biomimetic Ceramic Restorations
-              </span>
-              <span className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent" />
-                Gentle Ultrasonic Hygiene
-              </span>
+            <div className="lg:col-span-5">
+              <div className="rounded-2xl overflow-hidden shadow-md border border-border bg-white">
+                <img
+                  src={CLINIC_PHOTOS.operatory}
+                  alt="Modern Dental Operatory Suite at Aura Dental Studio Bandra West"
+                  className="w-full aspect-[4/3] object-cover"
+                  loading="eager"
+                />
+                <div className="p-4 bg-white border-t border-border space-y-1">
+                  <div className="font-bold text-sm text-slate">Operatory Suite 204 · Waterfield Road</div>
+                  <div className="text-xs text-slate-muted">Digital 3D Intraoral Scanning & Painless Dental Suite</div>
+                  <div className="text-xs font-semibold text-brand-700 pt-0.5">Dr. Satyam Sharma, BDS, MDS · MSDC-42891</div>
+                </div>
+              </div>
             </div>
-            <span className="text-text-muted text-[11px] font-mono hidden xl:inline">
-              Portfolio Demo
-            </span>
+
           </div>
         </div>
       </section>
 
-      {/* 3. EDITORIAL PHILOSOPHY — REPLACING IDENTICAL CARDS */}
-      <section className="section-padding bg-bg border-b border-border">
-        <div className="max-w-7xl mx-auto px-5 sm:px-8">
-          <FadeIn>
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-              
-              {/* Left: Section Framing */}
-              <div className="lg:col-span-5 space-y-4">
-                <span className="editorial-badge">
-                  Our Care Philosophy
-                </span>
-                <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl text-primary font-normal leading-tight">
-                  A quieter, more deliberate way to care for teeth.
-                </h2>
-                <p className="text-text-muted text-base leading-relaxed">
-                  Most dental visits feel transactional or hurried. We built this studio concept around conversational clarity, evidence-based dentistry, and complete clinical transparency.
-                </p>
-                <div className="pt-2">
-                  <Link
-                    to="/about"
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-accent-hover transition-colors"
-                  >
-                    <span>Read about our clinical framework</span>
-                    <ArrowRight size={15} />
-                  </Link>
-                </div>
-              </div>
-
-              {/* Right: Editorial Narrative Principles (Numbered layout with fine rules) */}
-              <div className="lg:col-span-7 divide-y divide-border">
-                
-                <div className="py-8 first:pt-0">
-                  <div className="flex items-baseline justify-between mb-3">
-                    <span className="font-mono text-xs font-bold text-accent uppercase tracking-widest">
-                      Principle 01
-                    </span>
-                    <span className="text-xs text-text-light font-mono">Diagnosis First</span>
-                  </div>
-                  <h3 className="font-heading text-2xl text-primary font-semibold mb-2">
-                    Unhurried Consultations & Intraoral Visibility
-                  </h3>
-                  <p className="text-text-muted text-sm sm:text-base leading-relaxed">
-                    We project high-definition digital scans onto a chairside display before recommending any procedure. You see exactly what we see, understanding the rationale before giving consent.
-                  </p>
-                </div>
-
-                <div className="py-8">
-                  <div className="flex items-baseline justify-between mb-3">
-                    <span className="font-mono text-xs font-bold text-accent uppercase tracking-widest">
-                      Principle 02
-                    </span>
-                    <span className="text-xs text-text-light font-mono">Structure Conservation</span>
-                  </div>
-                  <h3 className="font-heading text-2xl text-primary font-semibold mb-2">
-                    Conservative Biomimetic Techniques
-                  </h3>
-                  <p className="text-text-muted text-sm sm:text-base leading-relaxed">
-                    We preserve as much natural enamel and dentin as modern adhesive dentistry allows. Inlays and bonded composites are favored over aggressive, full-coverage reductions whenever clinically viable.
-                  </p>
-                </div>
-
-                <div className="py-8 last:pb-0">
-                  <div className="flex items-baseline justify-between mb-3">
-                    <span className="font-mono text-xs font-bold text-accent uppercase tracking-widest">
-                      Principle 03
-                    </span>
-                    <span className="text-xs text-text-light font-mono">Honest Economics</span>
-                  </div>
-                  <h3 className="font-heading text-2xl text-primary font-semibold mb-2">
-                    Upfront Itemized Estimates
-                  </h3>
-                  <p className="text-text-muted text-sm sm:text-base leading-relaxed">
-                    Healthcare estimates should never be ambiguous. Every treatment plan is provided with clear line items, duration estimates, and no unexpected post-treatment charges.
-                  </p>
-                </div>
-
-              </div>
-
-            </div>
-          </FadeIn>
+      <section className="bg-brand-50 border-b border-brand-200 py-3.5 px-4 sm:px-8">
+        <div className="max-w-container mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-xs sm:text-sm">
+          <div className="flex items-center gap-2 text-brand-900 font-medium">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse shrink-0" />
+            <span><strong>Toothache or broken filling?</strong> Emergency appointments reserved daily for immediate relief.</span>
+          </div>
+          <div className="flex items-center gap-3 shrink-0">
+            <a
+              href={waEmergencyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-emerald-700 font-bold hover:underline inline-flex items-center gap-1"
+            >
+              <MessageCircle size={14} />
+              <span>WhatsApp Emergency</span>
+            </a>
+            <span className="text-brand-300">·</span>
+            <a
+              href={`tel:${CLINIC.phone}`}
+              className="text-brand-700 font-bold hover:underline"
+            >
+              Call Desk
+            </a>
+          </div>
         </div>
       </section>
 
-      {/* 4. TREATMENTS SHOWCASE — ASYMMETRIC HIERARCHY (NO REPETITIVE GRID) */}
-      <section id="treatments" className="section-padding bg-white border-b border-border">
-        <div className="max-w-7xl mx-auto px-5 sm:px-8">
-          <FadeIn>
-            
-            {/* Header & Category Controls */}
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 border-b border-border">
-              <div>
-                <span className="editorial-badge mb-3">
-                  Clinical Services
-                </span>
-                <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl text-primary font-normal">
-                  Focused care disciplines.
-                </h2>
-                <p className="text-text-muted text-sm sm:text-base mt-2 max-w-lg">
-                  Explore our core dental treatments. Pricing is presented as sample guide ranges for portfolio demonstration.
-                </p>
-              </div>
-
-              {/* Accessible Filter Controls */}
-              <div className="flex flex-wrap items-center gap-2" role="tablist" aria-label="Treatment categories">
-                {[
-                  { id: 'all', label: 'All Disciplines' },
-                  { id: 'orthodontics', label: 'Orthodontics' },
-                  { id: 'restorative', label: 'Restorative' },
-                  { id: 'preventive', label: 'Preventive' },
-                ].map((cat) => (
-                  <button
-                    key={cat.id}
-                    type="button"
-                    role="tab"
-                    aria-selected={activeCategory === cat.id}
-                    onClick={() => setActiveCategory(cat.id as any)}
-                    className={`text-xs font-semibold px-4 py-2.5 rounded-lg transition-all duration-150 ${
-                      activeCategory === cat.id
-                        ? 'bg-primary text-white shadow-xs'
-                        : 'bg-bg text-text-muted hover:text-primary hover:bg-border/60'
-                    }`}
-                  >
-                    {cat.label}
-                  </button>
-                ))}
-              </div>
+      <section className="py-14 sm:py-20 bg-surface">
+        <div className="max-w-container mx-auto px-4 sm:px-8">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
+            <div>
+              <span className="text-xs font-bold uppercase tracking-wider text-brand-600 block mb-1">
+                Clinical Treatments
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate">
+                How we can help you smile comfortably.
+              </h2>
+              <p className="text-sm sm:text-base text-slate-secondary mt-1 max-w-xl">
+                Clear descriptions, appointment durations, and transparent fees before any treatment starts.
+              </p>
             </div>
 
-            {/* Asymmetric Showcase: 1 Large Featured Composition + Secondary List */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 pt-12 items-start">
-              
-              {/* Featured Treatment Card (Hero Treatment) */}
-              <div className="lg:col-span-5 bg-bg border border-border rounded-2xl p-7 sm:p-8 space-y-6">
-                <div className="flex items-center justify-between">
-                  <span className="mint-pill">
-                    <Sparkles size={13} />
-                    Featured Discipline
-                  </span>
-                  <span className="text-xs font-mono text-text-light">
-                    {featuredTreatment.durationMins} min session
-                  </span>
-                </div>
+            <Link
+              to="/treatments"
+              className="btn-secondary text-xs h-10 px-4 self-start sm:self-auto"
+            >
+              <span>View All Treatments</span>
+              <ArrowRight size={14} />
+            </Link>
+          </div>
 
-                <div className="aspect-[16/10] rounded-xl overflow-hidden border border-border bg-white">
-                  <img
-                    src={CLINIC_PHOTOS.aligners}
-                    alt={featuredTreatment.name}
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                </div>
-
-                <div>
-                  <h3 className="font-heading text-2xl sm:text-3xl font-semibold text-primary">
-                    {featuredTreatment.name}
-                  </h3>
-                  <p className="text-text-muted text-sm mt-2 leading-relaxed">
-                    {featuredTreatment.description}
-                  </p>
-                </div>
-
-                <div className="pt-2 flex items-center justify-between border-t border-border/80">
-                  <div>
-                    <span className="text-[11px] font-mono uppercase tracking-wider text-text-light block">
-                      Fee Guide
-                    </span>
-                    <span className="text-sm font-semibold text-primary">
-                      {featuredTreatment.priceRange}
-                    </span>
-                  </div>
-
-                  <Link
-                    to={`/booking?service=${featuredTreatment.slug}`}
-                    className="btn-primary text-xs py-2.5 px-4 font-semibold"
-                  >
-                    <span>Reserve consult</span>
-                    <ArrowRight size={13} className="text-accent" />
-                  </Link>
-                </div>
-              </div>
-
-              {/* Secondary Treatments: Editorial List with fine separators */}
-              <div className="lg:col-span-7 divide-y divide-border">
-                {secondaryTreatments.map((service) => (
-                  <div
-                    key={service.id}
-                    className="py-6 first:pt-0 group transition-colors duration-150"
-                  >
-                    <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mb-2">
-                      <div className="flex items-center gap-3">
-                        <h4 className="font-heading text-xl font-semibold text-primary group-hover:text-primary-light transition-colors">
-                          {service.name}
-                        </h4>
-                        <span className="text-[11px] font-mono text-text-light uppercase tracking-wider bg-bg px-2 py-0.5 rounded border border-border">
-                          {service.category}
-                        </span>
-                      </div>
-
-                      <div className="flex items-center gap-3 shrink-0">
-                        <span className="text-xs text-text-muted font-medium">
-                          {service.priceRange}
-                        </span>
-                        <Link
-                          to={`/booking?service=${service.slug}`}
-                          className="w-8 h-8 rounded-full bg-bg border border-border flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all"
-                          aria-label={`Book ${service.name}`}
-                        >
-                          <ArrowUpRight size={15} />
-                        </Link>
-                      </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {TREATMENTS.map((treatment) => {
+              const waTreatmentUrl = `https://wa.me/${CLINIC.whatsapp}?text=${encodeURIComponent(`Hi Dr. Sharma, I want to inquire about booking ${treatment.name} at Aura Dental Studio.`)}`;
+              return (
+                <div
+                  key={treatment.id}
+                  className="bg-white rounded-xl border border-border p-6 flex flex-col justify-between hover:border-brand-300 hover:shadow-sm transition-all"
+                >
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[11px] font-bold uppercase px-2.5 py-0.5 rounded-full bg-brand-50 text-brand-700">
+                        {treatment.category}
+                      </span>
+                      <span className="text-xs text-slate-muted font-medium flex items-center gap-1">
+                        <Clock size={12} />
+                        <span>{treatment.durationLabel}</span>
+                      </span>
                     </div>
 
-                    <p className="text-text-muted text-sm leading-relaxed max-w-xl">
-                      {service.shortDescription}
+                    <h3 className="text-lg font-bold text-slate">
+                      <Link to={`/treatments/${treatment.slug}`} className="hover:text-brand-600 transition-colors">
+                        {treatment.name}
+                      </Link>
+                    </h3>
+
+                    <p className="text-sm text-slate-secondary leading-relaxed">
+                      {treatment.shortDescription}
                     </p>
 
-                    <div className="mt-3 flex items-center gap-4 text-xs text-text-light">
-                      <span className="flex items-center gap-1.5 font-mono">
-                        <Clock size={13} />
-                        ~{service.durationMins} mins
-                      </span>
-                      <span>•</span>
-                      <Link
-                        to="/services"
-                        className="text-primary hover:text-accent-hover font-medium underline-offset-2 hover:underline"
+                    <div className="pt-2 text-xs text-slate-muted">
+                      {treatment.benefit}
+                    </div>
+                  </div>
+
+                  <div className="pt-5 mt-5 border-t border-border flex items-center justify-between">
+                    <div>
+                      <span className="text-[11px] text-slate-muted block font-medium">Starting Fee</span>
+                      <span className="text-base font-bold text-slate num-tabular">{treatment.priceFormatted}</span>
+                    </div>
+
+                    <div className="flex items-center gap-2">
+                      <a
+                        href={waTreatmentUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-[#1EBE5D] font-bold p-2 hover:bg-[#25D366]/10 rounded-lg transition-colors"
+                        title="Book via WhatsApp"
                       >
-                        Clinical overview & FAQs
+                        <MessageCircle size={16} />
+                      </a>
+                      <Link
+                        to={`/book?service=${treatment.slug}`}
+                        className="btn-primary text-xs h-8 px-3"
+                      >
+                        <span>Book</span>
                       </Link>
                     </div>
                   </div>
-                ))}
-
-                <div className="pt-6">
-                  <Link
-                    to="/services"
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-accent-hover transition-colors"
-                  >
-                    <span>Browse full treatment catalog & fee guide</span>
-                    <ArrowRight size={15} />
-                  </Link>
                 </div>
-              </div>
-
-            </div>
-
-          </FadeIn>
+              );
+            })}
+          </div>
         </div>
       </section>
 
-      {/* 5. CLINICAL LEAD & STORY SECTION — HONEST SAMPLE PRESENTATION */}
-      <section className="section-padding bg-bg border-b border-border">
-        <div className="max-w-7xl mx-auto px-5 sm:px-8">
-          <FadeIn>
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-              
-              {/* Doctor Portrait Composition */}
-              <div className="lg:col-span-5">
-                <div className="relative">
-                  <div className="aspect-[4/5] rounded-2xl overflow-hidden border border-border bg-white shadow-card">
-                    <img
-                      src={CLINIC_PHOTOS.doctor}
-                      alt={`${CLINIC.doctor.name} — Clinical Director`}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                    />
+      <section className="py-14 sm:py-20 bg-surface-subtle border-y border-border">
+        <div className="max-w-container mx-auto px-4 sm:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+            
+            <div className="lg:col-span-5 space-y-4">
+              <div className="p-6 rounded-2xl bg-white border border-border shadow-xs space-y-4">
+                <div className="space-y-1 pb-3 border-b border-border">
+                  <span className="text-xs font-bold uppercase tracking-wider text-brand-600 block">
+                    Clinical Director Dossier
+                  </span>
+                  <h3 className="font-extrabold text-xl text-slate">
+                    Dr. Satyam Sharma
+                  </h3>
+                  <p className="text-xs font-semibold text-brand-700">
+                    BDS (Nair), MDS Orthodontics (GDC Mumbai)
+                  </p>
+                </div>
+
+                <div className="space-y-2 text-xs text-slate-secondary">
+                  <div className="flex justify-between py-1 border-b border-border/60">
+                    <span className="text-slate-muted">Council Reg.</span>
+                    <span className="font-mono font-bold text-slate">MSDC-42891</span>
                   </div>
-                  <div className="mt-3 flex items-center justify-between text-xs text-text-muted px-1">
-                    <span>{CLINIC.doctor.name}</span>
-                    <span className="font-mono text-[11px] text-text-light">Portfolio Demonstration Profile</span>
+                  <div className="flex justify-between py-1 border-b border-border/60">
+                    <span className="text-slate-muted">Undergraduate</span>
+                    <span className="text-slate font-medium text-right">Nair Hospital Dental College</span>
                   </div>
+                  <div className="flex justify-between py-1 border-b border-border/60">
+                    <span className="text-slate-muted">Residency</span>
+                    <span className="text-slate font-medium text-right">Govt Dental College Mumbai</span>
+                  </div>
+                  <div className="flex justify-between py-1 border-b border-border/60">
+                    <span className="text-slate-muted">Bandra Practice</span>
+                    <span className="text-slate font-bold">12 Years</span>
+                  </div>
+                  <div className="flex justify-between py-1">
+                    <span className="text-slate-muted">Specialty</span>
+                    <span className="text-brand-700 font-bold">Orthodontics & Aligners</span>
+                  </div>
+                </div>
+
+                <div className="pt-2">
+                  <a
+                    href={waGeneralUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-whatsapp w-full text-xs h-10"
+                  >
+                    <MessageCircle size={15} />
+                    <span>WhatsApp Dr. Sharma's Desk</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-7 space-y-6">
+              <div>
+                <span className="text-xs font-bold uppercase tracking-wider text-brand-600 block mb-1">
+                  Our Philosophy
+                </span>
+                <h2 className="text-2xl sm:text-3xl font-bold text-slate">
+                  Dentistry shouldn't be stressful or rushed.
+                </h2>
+              </div>
+
+              <div className="space-y-4 text-sm sm:text-base text-slate-secondary leading-relaxed">
+                <p>
+                  Dr. Satyam Sharma has cared for patients in Bandra West for over 12 years. His clinical philosophy centers on biological tooth conservation: preserving natural tooth enamel, explaining every diagnosis chairside with high-definition digital scans, and never rushing appointments.
+                </p>
+                <p>
+                  Every patient receives a written, itemized treatment estimate before any work begins. There are no surprise laboratory surcharges or unexpected add-ons.
+                </p>
+              </div>
+
+              <div className="p-4 rounded-xl bg-white border border-border text-sm text-slate italic leading-relaxed">
+                "{CLINIC.doctor.philosophy}"
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-1 text-xs">
+                <div className="p-3 rounded-lg bg-white border border-border">
+                  <div className="text-slate-muted font-medium">Appointment Slots</div>
+                  <div className="font-bold text-slate text-sm mt-0.5">30–45 Mins Unhurried</div>
+                </div>
+                <div className="p-3 rounded-lg bg-white border border-border">
+                  <div className="text-slate-muted font-medium">Digital Scans</div>
+                  <div className="font-bold text-slate text-sm mt-0.5">Optical 3D Camera</div>
+                </div>
+                <div className="p-3 rounded-lg bg-white border border-border col-span-2 sm:col-span-1">
+                  <div className="text-slate-muted font-medium">Languages</div>
+                  <div className="font-bold text-slate text-sm mt-0.5">EN, HI, MR, GU</div>
                 </div>
               </div>
 
-              {/* Story Narrative */}
-              <div className="lg:col-span-7 space-y-6">
-                <span className="editorial-badge">
-                  Clinical Director
-                </span>
+              <div className="flex flex-wrap items-center gap-3 pt-1">
+                <Link to="/doctor" className="btn-secondary text-xs h-10 px-4">
+                  <span>View Full Credentials</span>
+                  <ArrowRight size={14} />
+                </Link>
+                <Link to="/book" className="btn-primary text-xs h-10 px-4">
+                  <span>Schedule Consultation</span>
+                </Link>
+              </div>
+            </div>
 
-                <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl text-primary font-normal leading-tight">
-                  A calm approach to modern clinical practice.
-                </h2>
+          </div>
+        </div>
+      </section>
 
-                <p className="text-text font-medium text-base sm:text-lg">
-                  {CLINIC.doctor.title} • {CLINIC.doctor.credentials}
+      <section className="py-14 sm:py-20 bg-surface">
+        <div className="max-w-container mx-auto px-4 sm:px-8">
+          <div className="max-w-2xl mb-12">
+            <span className="text-xs font-bold uppercase tracking-wider text-brand-600 block mb-1">
+              Clinical Quality Standards
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate">
+              How we ensure patient safety & comfort.
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {CLINICAL_PILLARS.map((pillar, idx) => (
+              <div key={idx} className="p-6 rounded-xl bg-surface-subtle border border-border space-y-2">
+                <div className="w-8 h-8 rounded-lg bg-brand-100 text-brand-700 font-bold flex items-center justify-center text-sm mb-3">
+                  0{idx + 1}
+                </div>
+                <h3 className="font-bold text-base text-slate">{pillar.title}</h3>
+                <p className="text-xs sm:text-sm text-slate-secondary leading-relaxed">
+                  {pillar.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-14 sm:py-20 bg-surface-subtle border-t border-border">
+        <div className="max-w-container mx-auto px-4 sm:px-8">
+          <div className="max-w-2xl mb-10">
+            <span className="text-xs font-bold uppercase tracking-wider text-brand-600 block mb-1">
+              Transparent Fees
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate">
+              Honest prices with no hidden surprises.
+            </h2>
+            <p className="text-sm sm:text-base text-slate-secondary mt-1">
+              We believe patients deserve to know treatment costs before sitting in the chair.
+            </p>
+          </div>
+
+          <div className="bg-white rounded-xl border border-border overflow-hidden shadow-xs mb-6">
+            <table className="w-full text-left border-collapse text-xs sm:text-sm">
+              <thead>
+                <tr className="bg-surface-subtle border-b border-border text-slate-muted font-semibold">
+                  <th className="py-3.5 px-4 sm:px-6">Treatment</th>
+                  <th className="py-3.5 px-4 sm:px-6">Duration</th>
+                  <th className="py-3.5 px-4 sm:px-6 text-right">Starting Fee</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-border num-tabular">
+                <tr className="bg-brand-50/40">
+                  <td className="py-4 px-4 sm:px-6 font-bold text-brand-800">
+                    Comprehensive Checkup & Digital Scan
+                  </td>
+                  <td className="py-4 px-4 sm:px-6 text-slate-secondary font-medium">30 mins</td>
+                  <td className="py-4 px-4 sm:px-6 text-right font-bold text-brand-700">₹500</td>
+                </tr>
+                {TREATMENTS.map((t) => (
+                  <tr key={t.id} className="hover:bg-surface-subtle transition-colors">
+                    <td className="py-4 px-4 sm:px-6 font-medium text-slate">
+                      <Link to={`/treatments/${t.slug}`} className="hover:text-brand-600">
+                        {t.name}
+                      </Link>
+                    </td>
+                    <td className="py-4 px-4 sm:px-6 text-slate-secondary">{t.durationLabel}</td>
+                    <td className="py-4 px-4 sm:px-6 text-right font-bold text-slate">{t.priceFormatted}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 text-xs text-slate-secondary">
+            <span>Payment modes accepted: UPI (GPay, PhonePe), Credit/Debit Cards, Cash, and 0% interest EMI options.</span>
+            <Link to="/pricing" className="text-brand-600 font-bold hover:underline shrink-0">
+              View full financial terms →
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-14 sm:py-20 bg-surface border-t border-border">
+        <div className="max-w-container mx-auto px-4 sm:px-8">
+          <div className="max-w-2xl mb-10">
+            <span className="text-xs font-bold uppercase tracking-wider text-brand-600 block mb-1">
+              Patient Experiences
+            </span>
+            <h2 className="text-2xl sm:text-3xl font-bold text-slate">
+              What our patients say.
+            </h2>
+            <p className="text-sm sm:text-base text-slate-secondary mt-1">
+              Real feedback from local patients who visit us from Bandra, Khar, and BKC.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {REVIEWS.slice(0, 3).map((review) => (
+              <div 
+                key={review.id}
+                className="p-6 rounded-xl bg-surface-subtle border border-border flex flex-col justify-between space-y-4"
+              >
+                <p className="text-sm text-slate leading-relaxed">
+                  "{review.quote}"
                 </p>
 
-                <div className="text-text-muted text-sm sm:text-base space-y-4 leading-relaxed max-w-prose">
-                  <p>{CLINIC.doctor.bio}</p>
-                  <p className="italic text-primary border-l-2 border-accent pl-4 py-1">
-                    "{CLINIC.doctor.philosophy}"
-                  </p>
-                </div>
-
-                <div className="pt-2 flex flex-wrap items-center gap-4">
-                  <Link
-                    to="/booking"
-                    className="btn-primary text-xs py-3 px-6 font-semibold shadow-xs"
-                  >
-                    <span>Schedule consultation</span>
-                    <ArrowRight size={14} className="text-accent" />
-                  </Link>
-
-                  <Link
-                    to="/about"
-                    className="btn-outline text-xs py-3 px-5 font-medium"
-                  >
-                    <span>View clinical philosophy</span>
-                  </Link>
+                <div className="pt-3 border-t border-border">
+                  <div className="font-bold text-sm text-slate">{review.patient}</div>
+                  <div className="text-xs text-slate-muted">{review.location} · <span className="text-brand-700 font-medium">{review.treatment}</span></div>
                 </div>
               </div>
+            ))}
+          </div>
 
-            </div>
-          </FadeIn>
+          <div className="pt-8 text-center sm:text-left">
+            <Link to="/reviews" className="btn-secondary text-xs h-10 px-4">
+              <span>Read More Patient Feedback</span>
+              <ArrowRight size={14} />
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* 6. PATIENT EXPERIENCES — CLEARLY LABELLED SAMPLE VIGNETTES (NO FAKE METRICS) */}
-      <section className="section-padding bg-white border-b border-border">
-        <div className="max-w-7xl mx-auto px-5 sm:px-8">
-          <FadeIn>
+      <section className="py-14 sm:py-20 bg-surface-subtle border-t border-border">
+        <div className="max-w-container mx-auto px-4 sm:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
             
-            <div className="max-w-2xl mb-12">
-              <span className="editorial-badge mb-3">
-                Patient Perspectives
+            <div className="lg:col-span-4">
+              <span className="text-xs font-bold uppercase tracking-wider text-brand-600 block mb-1">
+                Help & Answers
               </span>
-              <h2 className="font-heading text-3xl sm:text-4xl text-primary font-normal">
-                Reflections on the studio experience.
+              <h2 className="text-2xl sm:text-3xl font-bold text-slate mb-3">
+                Frequently asked questions.
               </h2>
-              <p className="text-text-muted text-sm sm:text-base mt-2">
-                Illustrative sample narratives representing typical patient journeys. For portfolio showcase only.
+              <p className="text-sm text-slate-secondary leading-relaxed">
+                Have a question before booking? We have answered the most common concerns here.
               </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {PATIENT_EXPERIENCES.map((exp) => (
-                <div
-                  key={exp.id}
-                  className="bg-bg border border-border rounded-xl p-7 flex flex-col justify-between space-y-6"
+              <div className="pt-4">
+                <a
+                  href={waGeneralUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-whatsapp text-xs h-10 px-4"
                 >
-                  <p className="text-text text-sm sm:text-base leading-relaxed italic">
-                    "{exp.quote}"
-                  </p>
+                  <MessageCircle size={15} />
+                  <span>Ask us on WhatsApp</span>
+                </a>
+              </div>
+            </div>
 
-                  <div className="pt-4 border-t border-border/80 flex items-center justify-between text-xs">
-                    <div>
-                      <span className="font-semibold text-primary block">
-                        {exp.author}
-                      </span>
-                      <span className="text-text-muted text-[11px]">
-                        {exp.context}
-                      </span>
-                    </div>
-                    <span className="text-[10px] font-mono text-text-light uppercase tracking-wider bg-white px-2 py-1 rounded border border-border">
-                      Sample
-                    </span>
+            <div className="lg:col-span-8 space-y-3">
+              {FAQS.map((faq, idx) => {
+                const isOpen = openFaq === idx;
+                return (
+                  <div 
+                    key={idx}
+                    className="border border-border rounded-xl bg-white overflow-hidden"
+                  >
+                    <button
+                      type="button"
+                      onClick={() => setOpenFaq(isOpen ? null : idx)}
+                      className="w-full p-4 sm:p-5 text-left flex items-center justify-between gap-4 font-bold text-sm sm:text-base text-slate hover:text-brand-600 transition-colors"
+                      aria-expanded={isOpen}
+                    >
+                      <span>{faq.q}</span>
+                      <ChevronDown
+                        size={18}
+                        className={`text-slate-muted shrink-0 transition-transform duration-200 ${
+                          isOpen ? 'rotate-180 text-brand-600' : ''
+                        }`}
+                      />
+                    </button>
+
+                    {isOpen && (
+                      <div className="p-4 sm:p-5 pt-0 text-xs sm:text-sm text-slate-secondary leading-relaxed border-t border-border bg-white">
+                        {faq.a}
+                      </div>
+                    )}
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
-          </FadeIn>
+          </div>
         </div>
       </section>
 
-      {/* 7. NOT SURE WHERE TO START? — USEFUL GENERAL CTA (NO FAKE EMERGENCY HOTLINE) */}
-      <section className="py-20 lg:py-28 bg-primary text-white">
-        <div className="max-w-5xl mx-auto px-5 sm:px-8 text-center space-y-6">
-          <FadeIn>
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase bg-white/10 text-accent border border-white/15">
-              <Sparkles size={13} />
-              Personalized Guidance
-            </span>
+      <section className="py-14 sm:py-20 bg-brand-600 text-white">
+        <div className="max-w-container mx-auto px-4 sm:px-8 text-center sm:text-left">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+            <div className="space-y-2 max-w-xl">
+              <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+                Ready for a comfortable, stress-free dental visit?
+              </h2>
+              <p className="text-sm sm:text-base text-brand-100">
+                Book online in 30 seconds or chat with our desk on WhatsApp. We look forward to welcoming you at Studio 204, Bandra West.
+              </p>
+            </div>
 
-            <h2 className="font-heading text-3xl sm:text-5xl font-normal leading-tight text-white max-w-2xl mx-auto">
-              Not sure where to begin? Start with a comprehensive digital scan.
-            </h2>
-
-            <p className="text-white/80 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
-              Book a 30-minute introductory consultation. We map your smile with high-resolution 3D imaging and talk through conservative care options without pressure.
-            </p>
-
-            <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
+            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 shrink-0">
               <Link
-                to="/booking"
-                className="btn-mint text-sm px-8 py-4 font-semibold shadow-md"
+                to="/book"
+                className="h-11 px-6 rounded-lg bg-white text-brand-700 hover:bg-brand-50 font-bold text-sm shadow-sm transition-all inline-flex items-center gap-2"
               >
-                <span>Book consultation</span>
-                <ArrowRight size={16} />
+                <Calendar size={16} />
+                <span>Book Appointment</span>
               </Link>
-
-              <Link
-                to="/services"
-                className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-lg border border-white/20 text-white font-medium text-sm hover:bg-white/10 transition-colors"
+              <a
+                href={waGeneralUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="h-11 px-5 rounded-lg bg-[#25D366] hover:bg-[#1EBE5D] text-white font-bold text-sm shadow-sm transition-all inline-flex items-center gap-2"
               >
-                <span>View fee guide</span>
-              </Link>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
-
-      {/* 8. SAMPLE STUDIO LOCATION & CLOSING VISITOR DETAILS */}
-      <section className="py-16 bg-bg border-t border-border">
-        <div className="max-w-7xl mx-auto px-5 sm:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-xs text-text-muted">
-            <div className="space-y-2">
-              <span className="font-mono uppercase tracking-wider text-text font-semibold block">
-                Studio Location (Sample)
-              </span>
-              <p className="leading-relaxed">
-                {CLINIC.address.full}
-              </p>
-              <p className="text-text-light text-[11px]">
-                {CLINIC.transitGuide}
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <span className="font-mono uppercase tracking-wider text-text font-semibold block">
-                Consultation Hours
-              </span>
-              <p className="leading-relaxed">
-                {CLINIC.hours.weekdays}
-              </p>
-              <p className="text-text-light text-[11px]">
-                {CLINIC.hours.lunch}
-              </p>
-            </div>
-
-            <div className="space-y-2">
-              <span className="font-mono uppercase tracking-wider text-text font-semibold block">
-                Portfolio Demonstration
-              </span>
-              <p className="leading-relaxed">
-                This website is a digital portfolio project demonstrating contemporary healthcare UI/UX, responsive React engineering, and architectural design systems.
-              </p>
+                <MessageCircle size={16} />
+                <span>WhatsApp Desk</span>
+              </a>
             </div>
           </div>
         </div>

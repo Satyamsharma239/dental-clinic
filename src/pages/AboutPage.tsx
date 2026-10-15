@@ -7,7 +7,6 @@ export default function AboutPage() {
   return (
     <div className="flex flex-col bg-bg">
       
-      {/* 1. Hero Header */}
       <section className="pt-16 pb-20 lg:pt-24 lg:pb-28 border-b border-border bg-white">
         <div className="max-w-5xl mx-auto px-5 sm:px-8 text-center space-y-6">
           <FadeIn>
@@ -27,13 +26,11 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 2. Clinical Director Profile */}
       <section className="section-padding bg-bg border-b border-border">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <FadeIn>
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
               
-              {/* Portrait Composition */}
               <div className="lg:col-span-5">
                 <div className="aspect-[4/5] rounded-2xl overflow-hidden border border-border bg-white shadow-card">
                   <img 
@@ -49,7 +46,6 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              {/* Bio & Clinical Approach */}
               <div className="lg:col-span-7 space-y-6">
                 <span className="editorial-badge">
                   Clinical Lead
@@ -90,7 +86,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 3. Three Core Practice Commitments */}
       <section className="section-padding bg-white border-b border-border">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <FadeIn>
@@ -146,7 +141,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 4. Studio Environment Spaces */}
       <section className="section-padding bg-bg border-b border-border">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <FadeIn>
@@ -201,7 +195,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 5. Closing CTA */}
       <section className="py-20 bg-white text-center">
         <div className="max-w-3xl mx-auto px-5 sm:px-8 space-y-6">
           <FadeIn>

@@ -28,7 +28,6 @@ export const PatientForm: React.FC<PatientFormProps> = ({ formData, onChange, er
     let val = e.target.value.replace(/\D/g, '');
     if (val.length > 10) val = val.slice(0, 10);
     
-    // Auto-format: 98765 43210
     let formatted = val;
     if (val.length > 5) {
       formatted = `${val.slice(0, 5)} ${val.slice(5)}`;

@@ -1,17 +1,15 @@
 import { useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate, useParams } from 'react-router-dom';
 import Layout from '@/components/layout/Layout';
 
-// Public pages
 import HomePage from '@/pages/HomePage';
-import AboutPage from '@/pages/AboutPage';
-import ServicesPage from '@/pages/ServicesPage';
-import BookingPage from '@/pages/BookingPage';
-import BookingConfirmationPage from '@/pages/BookingConfirmationPage';
+import TreatmentsPage from '@/pages/TreatmentsPage';
+import TreatmentDetailPage from '@/pages/TreatmentDetailPage';
+import DoctorPage from '@/pages/DoctorPage';
+import PricingPage from '@/pages/PricingPage';
+import ReviewsPage from '@/pages/ReviewsPage';
 import ContactPage from '@/pages/ContactPage';
-import GalleryPage from '@/pages/GalleryPage';
-import FAQPage from '@/pages/FAQPage';
-import PrivacyPage from '@/pages/PrivacyPage';
+import BookingPage from '@/pages/BookingPage';
 import NotFoundPage from '@/pages/NotFoundPage';
 
 function ScrollToTop() {
@@ -24,6 +22,11 @@ function ScrollToTop() {
   return null;
 }
 
+function LegacyServiceRedirect() {
+  const { slug } = useParams<{ slug: string }>();
+  return <Navigate to={slug ? `/treatments/${slug}` : '/treatments'} replace />;
+}
+
 export default function App() {
   return (
     <>
@@ -31,14 +34,19 @@ export default function App() {
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/services" element={<ServicesPage />} />
-          <Route path="/booking" element={<BookingPage />} />
-          <Route path="/booking/confirmation/:bookingId" element={<BookingConfirmationPage />} />
+          <Route path="/treatments" element={<TreatmentsPage />} />
+          <Route path="/treatments/:slug" element={<TreatmentDetailPage />} />
+          <Route path="/doctor" element={<DoctorPage />} />
+          <Route path="/pricing" element={<PricingPage />} />
+          <Route path="/reviews" element={<ReviewsPage />} />
           <Route path="/contact" element={<ContactPage />} />
-          <Route path="/gallery" element={<GalleryPage />} />
-          <Route path="/faq" element={<FAQPage />} />
-          <Route path="/privacy" element={<PrivacyPage />} />
+          <Route path="/book" element={<BookingPage />} />
+
+          <Route path="/booking" element={<Navigate to="/book" replace />} />
+          <Route path="/about" element={<Navigate to="/doctor" replace />} />
+          <Route path="/services" element={<Navigate to="/treatments" replace />} />
+          <Route path="/services/:slug" element={<LegacyServiceRedirect />} />
+
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

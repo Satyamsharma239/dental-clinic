@@ -1,58 +1,50 @@
-/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
-        primary: {
-          DEFAULT: '#102A43', // Midnight Navy
-          light: '#1C3D5A',
-          dark: '#0B1D2F',
-          50: '#F0F4F8',
-          100: '#D9E2EC',
-          200: '#BCCCDC',
-          800: '#102A43',
-          900: '#0B1D2F',
+        brand: {
+          50: '#F0F9FF',
+          100: '#E0F2FE',
+          200: '#BAE6FD',
+          500: '#0EA5E9',
+          600: '#0284C7',
+          700: '#0369A1',
+          800: '#075985',
+          900: '#0C4A6E',
         },
-        bg: {
-          DEFAULT: '#F4F7FA', // Cool Off-White
-          card: '#FFFFFF',
-          muted: '#E4ECF3',
-          dark: '#102A43',
+        whatsapp: {
+          DEFAULT: '#25D366',
+          dark: '#1EBE5D',
+          light: '#DCFCE7',
         },
-        accent: {
-          DEFAULT: '#65E6C4', // Fresh Mint Accent
-          hover: '#38D9A9',
-          light: '#E6FCF5',
-          50: '#F0FDF9',
-        },
-        mint: {
-          DEFAULT: '#65E6C4',
-          soft: '#E6FCF5',
-          dark: '#0FA57E',
+        surface: {
+          DEFAULT: '#FFFFFF',
+          subtle: '#F8FAFC',
+          muted: '#F1F5F9',
         },
         border: {
-          DEFAULT: '#DCE6EF', // Soft Blue-Grey
-          light: '#EDF2F7',
-          dark: '#BCCCDC',
+          subtle: '#E2E8F0',
+          DEFAULT: '#CBD5E1',
         },
-        text: {
-          DEFAULT: '#17212B', // Deep Ink
-          muted: '#617181',   // Slate Muted
-          light: '#829AB1',   // Soft Ash
+        slate: {
+          DEFAULT: '#0F172A',
+          secondary: '#334155',
+          muted: '#64748B',
         },
       },
       fontFamily: {
-        heading: ['"Fraunces"', '"Playfair Display"', 'Georgia', 'serif'],
-        body: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
-      },
-      boxShadow: {
-        soft: '0 4px 20px -2px rgba(16, 42, 67, 0.05)',
-        card: '0 10px 30px -4px rgba(16, 42, 67, 0.08)',
-        hover: '0 20px 40px -8px rgba(16, 42, 67, 0.12)',
+        sans: ['"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
+        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
       maxWidth: {
-        prose: '65ch',
+        container: '1200px',
+      },
+      borderRadius: {
+        base: '8px',
+        lg: '12px',
+        xl: '16px',
+        '2xl': '20px',
       },
     },
   },

@@ -20,7 +20,6 @@ export default function ServicesPage() {
 
   return (
     <div className="flex flex-col bg-bg">
-      {/* 1. Page Header */}
       <section className="pt-16 pb-20 lg:pt-24 lg:pb-28 border-b border-border bg-white">
         <div className="max-w-5xl mx-auto px-5 sm:px-8 text-center space-y-6">
           <FadeIn>
@@ -37,7 +36,6 @@ export default function ServicesPage() {
               We practice conservative, evidence-based dentistry. Explore our clinical services below with sample fee guides and common clinical questions.
             </p>
 
-            {/* Category Filter Chips */}
             <div className="flex flex-wrap items-center justify-center gap-2 pt-4" role="tablist">
               {[
                 { id: 'all', label: 'All Services' },
@@ -66,7 +64,6 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* 2. Services Editorial Grid */}
       <section className="section-padding bg-bg">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
@@ -77,7 +74,6 @@ export default function ServicesPage() {
                 <FadeIn key={service.id} delay={index * 0.04}>
                   <div className="bg-white rounded-2xl border border-border p-7 sm:p-8 space-y-6 shadow-soft transition-all duration-200 hover:border-primary/30">
                     
-                    {/* Header */}
                     <div className="flex items-start justify-between gap-4">
                       <div>
                         <span className="text-[11px] font-mono uppercase tracking-wider text-text-light">
@@ -93,12 +89,10 @@ export default function ServicesPage() {
                       </span>
                     </div>
 
-                    {/* Short Description */}
                     <p className="text-text-muted text-sm sm:text-base leading-relaxed">
                       {service.shortDescription}
                     </p>
 
-                    {/* Fee & Action Bar */}
                     <div className="pt-4 border-t border-border flex items-center justify-between">
                       <div>
                         <span className="text-[10px] font-mono uppercase tracking-wider text-text-light block">
@@ -135,7 +129,6 @@ export default function ServicesPage() {
                       </div>
                     </div>
 
-                    {/* Expanded Clinical Narrative & FAQs */}
                     {isExpanded && (
                       <div className="pt-5 border-t border-border space-y-5 animate-fadeIn">
                         <div className="space-y-2">
@@ -176,7 +169,6 @@ export default function ServicesPage() {
             })}
           </div>
 
-          {/* Bottom Guidance Card */}
           <div className="mt-14 bg-white border border-border rounded-2xl p-8 sm:p-12 text-center max-w-3xl mx-auto space-y-4">
             <span className="mint-pill">
               <Sparkles size={13} />

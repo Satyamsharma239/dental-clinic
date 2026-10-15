@@ -66,7 +66,6 @@ export default function FAQPage() {
 
   return (
     <div className="flex flex-col bg-bg">
-      {/* 1. Header */}
       <section className="pt-16 pb-20 lg:pt-24 lg:pb-28 border-b border-border bg-white">
         <div className="max-w-5xl mx-auto px-5 sm:px-8 text-center space-y-6">
           <FadeIn>
@@ -83,7 +82,6 @@ export default function FAQPage() {
               We believe great dental experiences begin with clear communication. Here are candid answers to our most frequent patient inquiries.
             </p>
 
-            {/* Search Bar */}
             <div className="max-w-md mx-auto relative pt-2">
               <Search size={16} className="absolute left-4 top-5 text-text-light" />
               <input
@@ -95,7 +93,6 @@ export default function FAQPage() {
               />
             </div>
 
-            {/* Category Chips */}
             <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
               {[
                 { id: 'all', label: 'All Questions' },
@@ -122,7 +119,6 @@ export default function FAQPage() {
         </div>
       </section>
 
-      {/* 2. Accordion Section */}
       <section className="section-padding bg-bg">
         <div className="max-w-4xl mx-auto px-5 sm:px-8">
           <FadeIn>
@@ -169,7 +165,6 @@ export default function FAQPage() {
               )}
             </div>
 
-            {/* Bottom Support Callout */}
             <div className="mt-14 bg-white border border-border rounded-2xl p-8 sm:p-12 text-center max-w-2xl mx-auto space-y-4">
               <h3 className="font-heading text-2xl font-semibold text-primary">
                 Still have a question?

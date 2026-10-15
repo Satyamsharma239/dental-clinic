@@ -18,6 +18,8 @@ export const ServicePicker: React.FC<ServicePickerProps> = ({ services, selected
     description: 'A comprehensive oral consultation to assess your dental health and address any concerns.',
     durationMins: 30,
     priceRange: '₹500',
+    steps: ['Clinical oral examination and digital scan.', 'Discussion of findings and tailored treatment options.'],
+    aftercare: 'Follow individualized guidance discussed during consultation.',
     faqs: [],
   };
 

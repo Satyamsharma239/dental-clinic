@@ -1,20 +1,26 @@
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
-import StickyMobileBar from '@/components/StickyMobileBar';
+import FloatingWhatsApp from '@/components/common/FloatingWhatsApp';
 
 export default function Layout() {
-  const location = useLocation();
-  const isBookingFlow = location.pathname.startsWith('/booking');
-
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-surface text-slate">
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-brand-600 focus:text-white focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-700 text-sm font-sans font-semibold"
+      >
+        Skip to main content
+      </a>
+
       <Header />
-      <main className={`flex-1 ${isBookingFlow ? 'pb-8' : 'pb-24 md:pb-0'}`}>
+      
+      <main id="main-content" className="flex-1">
         <Outlet />
       </main>
+
       <Footer />
-      {!isBookingFlow && <StickyMobileBar />}
+      <FloatingWhatsApp />
     </div>
   );
 }

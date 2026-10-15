@@ -68,7 +68,6 @@ export default function BookingConfirmationPage() {
   
   const duration = booking.service?.durationMins || 30;
 
-  // Google Calendar URL construction
   const startDateTime = new Date(booking.date);
   if (booking.time) {
     const [h, m] = booking.time.split(':').map(Number);
@@ -83,7 +82,6 @@ export default function BookingConfirmationPage() {
     `Demonstration booking reference: ${booking.id}\nPatient: ${booking.patientName}\nDuration: ${duration} minutes\nNote: ${booking.notes || 'None'}`
   )}&location=${encodeURIComponent(CLINIC.address.full)}`;
 
-  // Formatted WhatsApp Receipt
   const whatsappMessage = `🦷 *CONSULTATION SLIP* — ${CLINIC.name}
 ━━━━━━━━━━━━━━━━━━━━
 • Reference: ${booking.id}
@@ -110,10 +108,8 @@ export default function BookingConfirmationPage() {
     <div className="min-h-screen bg-bg py-12 sm:py-16 px-4 sm:px-6">
       <div className="max-w-2xl mx-auto space-y-6">
         
-        {/* Printable Card */}
         <div className="bg-white rounded-2xl border border-border p-7 sm:p-10 shadow-soft print-clean space-y-6">
           
-          {/* Header */}
           <div className="flex items-start justify-between pb-6 border-b border-border">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-accent shadow-xs">
@@ -135,7 +131,6 @@ export default function BookingConfirmationPage() {
             </span>
           </div>
 
-          {/* Reference Banner */}
           <div className="bg-bg p-4 rounded-xl border border-border flex items-center justify-between">
             <div>
               <span className="text-[11px] font-mono uppercase tracking-wider text-text-light block">
@@ -156,7 +151,6 @@ export default function BookingConfirmationPage() {
             </button>
           </div>
 
-          {/* Consultation Details Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
             <div className="p-3.5 rounded-xl bg-bg border border-border/80">
               <span className="text-text-muted block text-[11px]">Patient Name</span>
@@ -181,7 +175,6 @@ export default function BookingConfirmationPage() {
             </div>
           </div>
 
-          {/* Studio Location Guide */}
           <div className="p-4 rounded-xl bg-bg border border-border text-xs space-y-1">
             <span className="font-mono uppercase tracking-wider text-text-light text-[10px] block">
               Studio Address
@@ -194,7 +187,6 @@ export default function BookingConfirmationPage() {
             </p>
           </div>
 
-          {/* Demonstration Notice */}
           <div className="p-4 rounded-xl bg-primary-50/50 border border-primary/10 text-xs text-text-muted space-y-1">
             <p className="font-semibold text-primary flex items-center gap-1.5">
               <Info size={14} className="text-accent" />
@@ -207,7 +199,6 @@ export default function BookingConfirmationPage() {
 
         </div>
 
-        {/* Action Buttons */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 print:hidden">
           <a
             href={googleCalUrl}

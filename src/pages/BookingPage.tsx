@@ -1,138 +1,96 @@
-import { useState, useEffect, useMemo } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { SERVICES, generateTimeSlots, getMockBookedSlots, Service } from '@/data/services';
+import { useState, useMemo, useEffect } from 'react';
+import { useSearchParams, Link } from 'react-router-dom';
+import { Calendar, Clock, MessageCircle, Mail, CheckCircle, ArrowRight, Phone } from 'lucide-react';
+import { TREATMENTS, Treatment, generateTimeSlots, getMockBookedSlots } from '@/data/services';
 import { CLINIC } from '@/data/clinicInfo';
-import { DentalToothIcon } from '@/components/common/DentalToothIcon';
-import { 
-  Check, 
-  Calendar as CalendarIcon, 
-  Clock, 
-  User, 
-  Phone, 
-  Mail, 
-  ArrowRight,
-  ShieldCheck,
-  CheckCircle2,
-  Sparkles,
-  Info,
-  Sun,
-  Sunset
-} from 'lucide-react';
 
 export default function BookingPage() {
-  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const preselectedSlug = searchParams.get('service');
 
-  // 1. All clinical services with General Consultation as default
-  const allServices = useMemo(() => {
-    const consultation: Service = {
-      id: 'svc-general',
-      slug: 'general-consultation',
-      category: 'preventive',
-      name: 'Comprehensive Digital Consultation',
-      shortDescription: 'Unhurried examination with 3D intraoral scan and conservative treatment roadmap.',
-      description: 'Comprehensive digital examination with 3D intraoral scan and conservative roadmap.',
-      durationMins: 30,
-      priceRange: '₹500 (Sample Guide)',
-      faqs: [],
-    };
-    return [consultation, ...SERVICES];
-  }, []);
-
-  // Initial service selection
-  const initialService = useMemo(() => {
+  const selectedTreatmentInitial = useMemo(() => {
     if (preselectedSlug) {
-      const found = allServices.find((s) => s.slug === preselectedSlug || s.id === preselectedSlug);
+      const found = TREATMENTS.find((t) => t.slug === preselectedSlug);
       if (found) return found;
     }
-    return allServices[0];
-  }, [preselectedSlug, allServices]);
+    return TREATMENTS[0];
+  }, [preselectedSlug]);
 
-  const [selectedService, setSelectedService] = useState<Service>(initialService);
+  const [selectedTreatment, setSelectedTreatment] = useState<Treatment>(selectedTreatmentInitial);
 
-  // 2. Upcoming available dates (Next 7 working days, excluding Sundays)
-  const upcomingDays = useMemo(() => {
-    const days: Date[] = [];
-    const curr = new Date();
-    curr.setHours(0, 0, 0, 0);
+  const availableDates = useMemo(() => {
+    const list: Date[] = [];
+    const current = new Date();
+    current.setHours(0, 0, 0, 0);
 
-    let safety = 0;
-    while (days.length < 7 && safety < 15) {
-      safety++;
-      if (curr.getDay() !== 0) { // 0 is Sunday
-        days.push(new Date(curr));
-      }
-      curr.setDate(curr.getDate() + 1);
+    const now = new Date();
+    if (now.getHours() >= 19) {
+      current.setDate(current.getDate() + 1);
     }
-    return days;
+
+    let count = 0;
+    while (list.length < 14 && count < 25) {
+      count++;
+      if (current.getDay() !== 0) {
+        list.push(new Date(current));
+      }
+      current.setDate(current.getDate() + 1);
+    }
+    return list;
   }, []);
 
-  const [selectedDate, setSelectedDate] = useState<Date>(upcomingDays[0] || new Date());
-
-  // 3. Time slots (Morning & Afternoon)
-  const [availableSlots, setAvailableSlots] = useState<{ time: string; label: string; available: boolean }[]>([]);
+  const [selectedDate, setSelectedDate] = useState<Date>(availableDates[0] || new Date());
+  const [slots, setSlots] = useState<{ time: string; label: string; available: boolean }[]>([]);
   const [selectedTime, setSelectedTime] = useState<string>('');
-  const [loadingSlots, setLoadingSlots] = useState(false);
 
   useEffect(() => {
-    if (selectedDate && selectedService) {
-      setLoadingSlots(true);
-      const dateStr = selectedDate.toISOString().split('T')[0];
-      const booked = getMockBookedSlots(dateStr);
-      const slots = generateTimeSlots(selectedDate, selectedService.durationMins || 30, booked);
-      
-      setAvailableSlots(slots);
-      const firstAvailable = slots.find((s) => s.available);
-      if (firstAvailable && (!selectedTime || !slots.some((s) => s.time === selectedTime && s.available))) {
-        setSelectedTime(firstAvailable.time);
-      }
-      setLoadingSlots(false);
+    const dateStr = selectedDate.toISOString().split('T')[0];
+    const booked = getMockBookedSlots(dateStr);
+    const generated = generateTimeSlots(selectedDate, selectedTreatment.durationMins, booked);
+    setSlots(generated);
+
+    const firstAvailable = generated.find((s) => s.available);
+    if (firstAvailable && (!selectedTime || !generated.some((s) => s.time === selectedTime && s.available))) {
+      setSelectedTime(firstAvailable.time);
+    } else if (!firstAvailable) {
+      setSelectedTime('');
     }
-  }, [selectedDate, selectedService]);
+  }, [selectedDate, selectedTreatment]);
 
-  // Group slots into Morning and Afternoon
-  const morningSlots = useMemo(() => {
-    return availableSlots.filter((slot) => {
-      const hour = parseInt(slot.time.split(':')[0], 10);
-      return hour < 13;
-    });
-  }, [availableSlots]);
-
-  const afternoonSlots = useMemo(() => {
-    return availableSlots.filter((slot) => {
-      const hour = parseInt(slot.time.split(':')[0], 10);
-      return hour >= 13;
-    });
-  }, [availableSlots]);
-
-  // 4. Guest / Patient Information
-  const [patientName, setPatientName] = useState('');
+  const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [notes, setNotes] = useState('');
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let val = e.target.value.replace(/\D/g, '');
-    if (val.length > 10) val = val.slice(0, 10);
-    setPhone(val);
-    if (errors.phone) setErrors((prev) => ({ ...prev, phone: '' }));
-  };
+  const [confirmedBooking, setConfirmedBooking] = useState<any>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const newErrors: Record<string, string> = {};
 
-    if (!patientName.trim() || patientName.trim().length < 2) {
-      newErrors.patientName = 'Please enter patient full name (at least 2 characters)';
+    if (!name.trim() || name.trim().length < 2) {
+      newErrors.name = 'Please enter your full name (minimum 2 characters).';
     }
-    if (!phone || phone.length !== 10) {
-      newErrors.phone = 'Please enter a valid 10-digit mobile number';
+
+    let cleanDigits = phone.replace(/\D/g, '');
+    if (cleanDigits.startsWith('91') && cleanDigits.length === 12) {
+      cleanDigits = cleanDigits.substring(2);
+    } else if (cleanDigits.startsWith('0') && cleanDigits.length === 11) {
+      cleanDigits = cleanDigits.substring(1);
     }
+
+    if (!cleanDigits || cleanDigits.length !== 10) {
+      newErrors.phone = 'Please enter a valid 10-digit mobile number.';
+    } else if (!/^[6-9]\d{9}$/.test(cleanDigits)) {
+      newErrors.phone = 'Mobile number must start with 6, 7, 8, or 9.';
+    }
+
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      newErrors.email = 'Please enter a valid email address.';
+    }
+
     if (!selectedTime) {
-      newErrors.time = 'Please select an available time slot';
+      newErrors.time = 'Please select a preferred time slot.';
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -140,401 +98,387 @@ export default function BookingPage() {
       return;
     }
 
-    setIsSubmitting(true);
+    const randomHex = Math.random().toString(36).substring(2, 8).toUpperCase();
+    const bookingId = `AURA-${randomHex}`;
 
-    const bookingId = 'AURA-' + Math.random().toString(36).substring(2, 8).toUpperCase();
-    const newBooking = {
+    const record = {
       id: bookingId,
-      service: selectedService,
-      date: selectedDate.toISOString(),
-      time: selectedTime,
-      patientName: patientName.trim(),
-      phone: phone,
+      name: name.trim(),
+      phone: cleanDigits,
       email: email.trim(),
       notes: notes.trim(),
-      isDemo: true,
-      createdAt: new Date().toISOString(),
+      treatment: selectedTreatment,
+      date: selectedDate.toLocaleDateString('en-IN', {
+        weekday: 'short',
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+      }),
+      time: selectedTime,
     };
 
-    const existing = JSON.parse(localStorage.getItem('bookings') || '[]');
-    localStorage.setItem('bookings', JSON.stringify([newBooking, ...existing]));
-
-    setTimeout(() => {
-      navigate(`/booking/confirmation/${bookingId}`);
-    }, 400);
+    setConfirmedBooking(record);
   };
 
-  const formatDayLabel = (date: Date, idx: number) => {
-    if (idx === 0) return 'Today';
-    if (idx === 1) return 'Tomorrow';
-    return date.toLocaleDateString('en-IN', { weekday: 'short' });
-  };
+  if (confirmedBooking) {
+    const waText = encodeURIComponent(
+      `Hello Dr. Sharma, I have scheduled an appointment at Aura Dental Studio:\n\n*Booking ID:* ${confirmedBooking.id}\n*Patient Name:* ${confirmedBooking.name}\n*Treatment:* ${confirmedBooking.treatment.name}\n*Date:* ${confirmedBooking.date}\n*Time:* ${confirmedBooking.time}\n*Phone:* +91 ${confirmedBooking.phone}\n\nPlease confirm my slot. Thank you!`
+    );
 
-  const formattedDateString = selectedDate.toLocaleDateString('en-IN', {
-    weekday: 'short',
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric'
-  });
+    const mailtoSubject = encodeURIComponent(`Dental Appointment ${confirmedBooking.id} - ${confirmedBooking.name}`);
+    const mailtoBody = encodeURIComponent(
+      `Hello Aura Dental Studio Team,\n\nI have booked an appointment on your website.\n\nBooking Reference: ${confirmedBooking.id}\nPatient Name: ${confirmedBooking.name}\nPhone: +91 ${confirmedBooking.phone}\nEmail: ${confirmedBooking.email || 'Not provided'}\nTreatment: ${confirmedBooking.treatment.name}\nDate: ${confirmedBooking.date}\nTime: ${confirmedBooking.time}\nNotes: ${confirmedBooking.notes || 'None'}\n\nPlease confirm availability.\n\nBest regards,\n${confirmedBooking.name}`
+    );
+
+    const calTitle = encodeURIComponent(`Dental Visit: ${confirmedBooking.treatment.name} (Dr. Satyam Sharma)`);
+    const calDetails = encodeURIComponent(`Booking ID: ${confirmedBooking.id}\nClinic: Aura Dental Studio\nPhone: +91 98201 44521`);
+    const calLocation = encodeURIComponent('Studio 204, Waterfield Road, Bandra West, Mumbai 400050');
+    const googleCalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${calTitle}&details=${calDetails}&location=${calLocation}`;
+
+    return (
+      <div className="bg-surface-subtle py-12 md:py-20 text-slate">
+        <div className="max-w-xl mx-auto px-4">
+          <div className="bg-white rounded-2xl border border-border p-6 sm:p-10 shadow-sm space-y-6">
+            
+            <div className="text-center space-y-2">
+              <div className="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-3">
+                <CheckCircle size={32} />
+              </div>
+              <span className="text-xs font-bold uppercase tracking-wider text-brand-600 block">
+                Appointment Received
+              </span>
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-slate">
+                Booking Confirmed!
+              </h1>
+              <p className="text-sm text-slate-secondary">
+                Thank you, <strong>{confirmedBooking.name}</strong>. Your consultation has been received at our Bandra West studio.
+              </p>
+            </div>
+
+            <div className="bg-surface-subtle rounded-xl p-5 border border-border space-y-3 text-xs sm:text-sm num-tabular">
+              <div className="flex justify-between items-center pb-2 border-b border-border">
+                <span className="text-slate-muted font-medium">Reference ID</span>
+                <span className="font-mono font-bold text-brand-700 bg-brand-50 px-2.5 py-1 rounded-md">
+                  {confirmedBooking.id}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-muted">Treatment</span>
+                <span className="font-bold text-slate">{confirmedBooking.treatment.name}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-muted">Scheduled Date</span>
+                <span className="font-semibold text-slate">{confirmedBooking.date}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-muted">Time Slot</span>
+                <span className="font-semibold text-slate">{confirmedBooking.time}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-slate-muted">Starting Fee</span>
+                <span className="font-bold text-brand-700">{confirmedBooking.treatment.priceFormatted}</span>
+              </div>
+              <div className="flex justify-between pt-2 border-t border-border text-xs text-slate-muted">
+                <span>Location</span>
+                <span className="text-slate">Studio 204, Waterfield Rd, Bandra (W)</span>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <a
+                href={`https://wa.me/${CLINIC.whatsapp}?text=${waText}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-whatsapp w-full text-sm h-11"
+              >
+                <MessageCircle size={18} />
+                <span>Send Confirmation via WhatsApp</span>
+              </a>
+
+              <a
+                href={`mailto:${CLINIC.email}?subject=${mailtoSubject}&body=${mailtoBody}`}
+                className="btn-secondary w-full text-sm h-11"
+              >
+                <Mail size={16} className="text-brand-600" />
+                <span>Email Booking Details to Clinic</span>
+              </a>
+
+              <a
+                href={googleCalUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full h-11 rounded-lg border border-border bg-surface-subtle text-slate-secondary hover:bg-slate-100 font-semibold text-xs inline-flex items-center justify-center gap-2 transition-colors"
+              >
+                <Calendar size={15} />
+                <span>Add to Google Calendar</span>
+              </a>
+            </div>
+
+            <div className="pt-2 text-center">
+              <Link to="/" className="text-xs text-brand-600 hover:underline font-semibold">
+                ← Return to Homepage
+              </Link>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-bg py-10 sm:py-16 px-4 sm:px-6">
-      <div className="max-w-6xl mx-auto">
+    <div className="bg-surface-subtle py-10 md:py-16 text-slate">
+      <div className="max-w-container mx-auto px-4 sm:px-8">
         
-        {/* Page Title & Demonstration Notice */}
-        <div className="text-center mb-10 sm:mb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-border text-xs text-text mb-3 shadow-xs">
-            <span className="w-2 h-2 rounded-full bg-accent" />
-            <span>Interactive Portfolio Experience • Demonstration Booking Wizard</span>
-          </div>
-          <h1 className="font-heading text-3xl sm:text-5xl font-normal text-primary tracking-tight">
-            Schedule a Studio Consultation
+        <div className="max-w-2xl mb-8 space-y-2">
+          <span className="text-xs font-bold uppercase tracking-wider text-brand-600 block">
+            Appointment Booking
+          </span>
+          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate tracking-tight">
+            Schedule your visit in 30 seconds.
           </h1>
-          <p className="text-sm text-text-muted mt-2 max-w-lg mx-auto leading-relaxed">
-            Select your discipline and preferred slot. Submitting this demonstration form generates a live summary slip and calendar sync.
+          <p className="text-sm sm:text-base text-slate-secondary">
+            Select your service, choose an available date and time, and enter your contact details. No advance payment required.
           </p>
         </div>
 
-        {/* 2-Column Responsive Form Layout */}
         <form onSubmit={handleSubmit} noValidate>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
-            {/* Left Column (7 cols): Step-by-Step Selection */}
-            <div className="lg:col-span-7 space-y-6">
+            <div className="lg:col-span-7 space-y-8 bg-white p-6 sm:p-8 rounded-2xl border border-border shadow-xs">
               
-              {/* Step 1: Discipline Selection */}
-              <div className="bg-white rounded-2xl p-6 sm:p-7 border border-border shadow-soft space-y-4">
-                <div className="flex items-center justify-between pb-3 border-b border-border">
-                  <div className="flex items-center gap-3">
-                    <span className="w-6 h-6 rounded-full bg-primary text-white text-xs font-bold flex items-center justify-center font-mono">1</span>
-                    <h2 className="font-heading text-lg font-semibold text-primary">Select Clinical Discipline</h2>
-                  </div>
-                  <span className="text-xs font-mono text-text-muted">
-                    {selectedService.durationMins}m session
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3" role="radiogroup" aria-label="Select clinical discipline">
-                  {allServices.map((service) => {
-                    const isSelected = selectedService.id === service.id;
+              <div className="space-y-3">
+                <label className="block text-sm font-bold text-slate">
+                  1. Choose Treatment
+                </label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                  {TREATMENTS.map((t) => {
+                    const isSelected = selectedTreatment.id === t.id;
                     return (
                       <button
-                        key={service.id}
+                        key={t.id}
                         type="button"
-                        role="radio"
-                        aria-checked={isSelected}
-                        onClick={() => setSelectedService(service)}
-                        className={`text-left p-3.5 rounded-xl border transition-all text-xs flex items-center justify-between min-h-[56px] ${
+                        onClick={() => setSelectedTreatment(t)}
+                        className={`p-3.5 rounded-xl text-left border transition-all ${
                           isSelected
-                            ? 'border-primary bg-primary-50 ring-2 ring-primary text-primary font-semibold shadow-xs'
-                            : 'border-border bg-white text-text hover:border-border-dark'
+                            ? 'bg-brand-50 border-brand-500 ring-2 ring-brand-500/20'
+                            : 'bg-white border-border hover:bg-surface-subtle'
                         }`}
                       >
-                        <div className="pr-2 space-y-0.5">
-                          <p className="leading-snug">{service.name}</p>
-                          <p className="text-[11px] text-text-muted font-normal">
-                            {service.durationMins}m • {service.priceRange}
-                          </p>
+                        <div className="font-bold text-sm text-slate">{t.name}</div>
+                        <div className="text-xs text-slate-muted mt-0.5">{t.shortDescription}</div>
+                        <div className="flex items-center justify-between mt-2 pt-2 border-t border-border/60 text-xs num-tabular">
+                          <span className="text-slate-muted font-medium">{t.durationLabel}</span>
+                          <span className="font-bold text-brand-700">{t.priceFormatted}</span>
                         </div>
-                        {isSelected && (
-                          <span className="w-5 h-5 rounded-full bg-primary text-accent flex items-center justify-center shrink-0">
-                            <Check size={12} strokeWidth={3} />
-                          </span>
-                        )}
                       </button>
                     );
                   })}
                 </div>
               </div>
 
-              {/* Step 2: Date & Time Slot Selection */}
-              <div className="bg-white rounded-2xl p-6 sm:p-7 border border-border shadow-soft space-y-5">
-                <div className="flex items-center justify-between pb-3 border-b border-border">
-                  <div className="flex items-center gap-3">
-                    <span className="w-6 h-6 rounded-full bg-primary text-white text-xs font-bold flex items-center justify-center font-mono">2</span>
-                    <h2 className="font-heading text-lg font-semibold text-primary">Select Date & Time Slot</h2>
-                  </div>
-                  <span className="text-xs font-mono text-text-muted">
-                    {formattedDateString}
-                  </span>
+              <div className="space-y-3 pt-4 border-t border-border">
+                <label className="block text-sm font-bold text-slate">
+                  2. Select Consultation Date
+                </label>
+                <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-2 num-tabular">
+                  {availableDates.map((d) => {
+                    const isSelected = selectedDate.toDateString() === d.toDateString();
+                    return (
+                      <button
+                        key={d.toISOString()}
+                        type="button"
+                        onClick={() => setSelectedDate(d)}
+                        className={`h-14 rounded-xl text-center border transition-all ${
+                          isSelected
+                            ? 'bg-brand-600 text-white border-brand-600 shadow-sm'
+                            : 'bg-white border-border text-slate hover:bg-surface-subtle'
+                        }`}
+                      >
+                        <div className="text-[11px] font-medium uppercase opacity-80 leading-tight">
+                          {d.toLocaleDateString('en-IN', { weekday: 'short' })}
+                        </div>
+                        <div className="text-sm font-bold leading-tight mt-0.5">
+                          {d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}
+                        </div>
+                      </button>
+                    );
+                  })}
                 </div>
+              </div>
 
-                {/* Day Selector */}
-                <div>
-                  <span className="text-xs font-mono uppercase tracking-wider text-text-light block mb-2.5">
-                    Consultation Calendar
-                  </span>
-                  <div className="grid grid-cols-4 sm:grid-cols-7 gap-2">
-                    {upcomingDays.map((d, idx) => {
-                      const isSelected =
-                        selectedDate.getDate() === d.getDate() &&
-                        selectedDate.getMonth() === d.getMonth();
-
-                      return (
-                        <button
-                          key={idx}
-                          type="button"
-                          onClick={() => setSelectedDate(d)}
-                          className={`py-2 px-1 rounded-xl text-center border transition-all min-h-[54px] flex flex-col items-center justify-center ${
-                            isSelected
-                              ? 'bg-primary text-white border-primary shadow-xs ring-2 ring-primary/20'
-                              : 'bg-white text-text border-border hover:border-border-dark'
-                          }`}
-                        >
-                          <span className="text-[10px] uppercase font-mono tracking-wider opacity-70">
-                            {formatDayLabel(d, idx)}
-                          </span>
-                          <span className="text-sm font-bold font-mono">
-                            {d.getDate()}
-                          </span>
-                        </button>
-                      );
-                    })}
-                  </div>
+              <div className="space-y-3 pt-4 border-t border-border">
+                <label className="block text-sm font-bold text-slate">
+                  3. Select Time Slot
+                </label>
+                <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 num-tabular">
+                  {slots.map((s) => {
+                    const isSelected = selectedTime === s.time;
+                    return (
+                      <button
+                        key={s.time}
+                        type="button"
+                        disabled={!s.available}
+                        onClick={() => setSelectedTime(s.time)}
+                        className={`h-11 rounded-lg text-xs font-semibold border transition-all ${
+                          !s.available
+                            ? 'bg-surface-muted text-slate-muted/40 border-border line-through cursor-not-allowed'
+                            : isSelected
+                            ? 'bg-brand-600 text-white border-brand-600 shadow-sm font-bold'
+                            : 'bg-white border-border text-slate hover:bg-surface-subtle'
+                        }`}
+                      >
+                        {s.label}
+                      </button>
+                    );
+                  })}
                 </div>
-
-                {/* Slots: Morning & Afternoon */}
-                {loadingSlots ? (
-                  <div className="py-8 text-center text-xs text-text-muted">
-                    Loading studio schedule...
-                  </div>
-                ) : (
-                  <div className="space-y-4 pt-2">
-                    {errors.time && (
-                      <p className="text-xs text-red-600 font-medium">
-                        {errors.time}
-                      </p>
-                    )}
-
-                    {/* Morning */}
-                    <div>
-                      <div className="flex items-center gap-1.5 text-xs font-semibold text-text-muted mb-2">
-                        <Sun size={13} className="text-accent" />
-                        <span>Morning Consultation Slots</span>
-                      </div>
-                      <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
-                        {morningSlots.map((slot) => {
-                          const isSelected = selectedTime === slot.time;
-                          return (
-                            <button
-                              key={slot.time}
-                              type="button"
-                              disabled={!slot.available}
-                              onClick={() => {
-                                setSelectedTime(slot.time);
-                                if (errors.time) setErrors((prev) => ({ ...prev, time: '' }));
-                              }}
-                              className={`py-2 px-2 text-xs rounded-lg border font-mono transition-all min-h-[44px] ${
-                                !slot.available
-                                  ? 'bg-bg text-border-dark border-border/60 cursor-not-allowed line-through'
-                                  : isSelected
-                                  ? 'bg-primary text-white border-primary shadow-xs font-bold'
-                                  : 'bg-white text-text border-border hover:border-primary'
-                              }`}
-                            >
-                              {slot.label}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
-
-                    {/* Afternoon */}
-                    <div>
-                      <div className="flex items-center gap-1.5 text-xs font-semibold text-text-muted mb-2">
-                        <Sunset size={13} className="text-accent" />
-                        <span>Afternoon Consultation Slots</span>
-                      </div>
-                      <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
-                        {afternoonSlots.map((slot) => {
-                          const isSelected = selectedTime === slot.time;
-                          return (
-                            <button
-                              key={slot.time}
-                              type="button"
-                              disabled={!slot.available}
-                              onClick={() => {
-                                setSelectedTime(slot.time);
-                                if (errors.time) setErrors((prev) => ({ ...prev, time: '' }));
-                              }}
-                              className={`py-2 px-2 text-xs rounded-lg border font-mono transition-all min-h-[44px] ${
-                                !slot.available
-                                  ? 'bg-bg text-border-dark border-border/60 cursor-not-allowed line-through'
-                                  : isSelected
-                                  ? 'bg-primary text-white border-primary shadow-xs font-bold'
-                                  : 'bg-white text-text border-border hover:border-primary'
-                              }`}
-                            >
-                              {slot.label}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  </div>
+                {errors.time && (
+                  <p className="text-xs text-rose-600 font-medium">{errors.time}</p>
                 )}
               </div>
 
-              {/* Step 3: Contact Details */}
-              <div className="bg-white rounded-2xl p-6 sm:p-7 border border-border shadow-soft space-y-4">
-                <div className="flex items-center justify-between pb-3 border-b border-border">
-                  <div className="flex items-center gap-3">
-                    <span className="w-6 h-6 rounded-full bg-primary text-white text-xs font-bold flex items-center justify-center font-mono">3</span>
-                    <h2 className="font-heading text-lg font-semibold text-primary">Guest Contact Details</h2>
-                  </div>
-                  <span className="text-xs text-text-muted">Step 3 of 3</span>
+              <div className="space-y-4 pt-4 border-t border-border">
+                <label className="block text-sm font-bold text-slate">
+                  4. Your Details
+                </label>
+
+                <div>
+                  <label htmlFor="name" className="block text-xs font-semibold text-slate-secondary mb-1">
+                    Full Name *
+                  </label>
+                  <input
+                    id="name"
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Enter your name"
+                    className="w-full h-11 px-3.5 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
+                  />
+                  {errors.name && (
+                    <p className="text-xs text-rose-600 mt-1 font-medium">{errors.name}</p>
+                  )}
                 </div>
 
-                <div className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="patientName" className="block text-xs font-semibold text-text mb-1">
-                      Full Name *
+                    <label htmlFor="phone" className="block text-xs font-semibold text-slate-secondary mb-1">
+                      Mobile Number (WhatsApp) *
                     </label>
                     <input
-                      id="patientName"
-                      type="text"
-                      value={patientName}
-                      onChange={(e) => {
-                        setPatientName(e.target.value);
-                        if (errors.patientName) setErrors((prev) => ({ ...prev, patientName: '' }));
-                      }}
-                      placeholder="e.g. Rohini Mehta"
-                      className={`w-full px-3.5 py-3 rounded-lg border text-sm text-text transition-colors focus:outline-none focus:ring-2 focus:ring-primary ${
-                        errors.patientName ? 'border-red-500 bg-red-50/20' : 'border-border bg-white'
-                      }`}
+                      id="phone"
+                      type="tel"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      placeholder="10-digit Indian mobile"
+                      className="w-full h-11 px-3.5 rounded-lg border border-border bg-white text-sm num-tabular focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
                     />
-                    {errors.patientName && (
-                      <p className="text-xs text-red-600 mt-1">{errors.patientName}</p>
+                    {errors.phone && (
+                      <p className="text-xs text-rose-600 mt-1 font-medium">{errors.phone}</p>
                     )}
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label htmlFor="phone" className="block text-xs font-semibold text-text mb-1">
-                        Mobile Number * (10 digits)
-                      </label>
-                      <div className="relative">
-                        <span className="absolute left-3.5 top-3 text-xs text-text-muted font-mono">+91</span>
-                        <input
-                          id="phone"
-                          type="tel"
-                          value={phone}
-                          onChange={handlePhoneChange}
-                          placeholder="98201 00000"
-                          maxLength={10}
-                          className={`w-full pl-12 pr-3.5 py-3 rounded-lg border text-sm text-text transition-colors focus:outline-none focus:ring-2 focus:ring-primary font-mono ${
-                            errors.phone ? 'border-red-500 bg-red-50/20' : 'border-border bg-white'
-                          }`}
-                        />
-                      </div>
-                      {errors.phone && (
-                        <p className="text-xs text-red-600 mt-1">{errors.phone}</p>
-                      )}
-                    </div>
-
-                    <div>
-                      <label htmlFor="email" className="block text-xs font-semibold text-text mb-1">
-                        Email Address (Optional)
-                      </label>
-                      <input
-                        id="email"
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="rohini@example.com"
-                        className="w-full px-3.5 py-3 rounded-lg border border-border bg-white text-sm text-text transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
-                      />
-                    </div>
-                  </div>
-
                   <div>
-                    <label htmlFor="notes" className="block text-xs font-semibold text-text mb-1">
-                      Consultation Goals or Concerns
+                    <label htmlFor="email" className="block text-xs font-semibold text-slate-secondary mb-1">
+                      Email Address (Optional)
                     </label>
-                    <textarea
-                      id="notes"
-                      rows={2}
-                      value={notes}
-                      onChange={(e) => setNotes(e.target.value)}
-                      placeholder="e.g. Inquiring about clear aligner duration or sensitivity..."
-                      className="w-full px-3.5 py-2.5 rounded-lg border border-border bg-white text-sm text-text transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
+                    <input
+                      id="email"
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="name@example.com"
+                      className="w-full h-11 px-3.5 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
                     />
+                    {errors.email && (
+                      <p className="text-xs text-rose-600 mt-1 font-medium">{errors.email}</p>
+                    )}
                   </div>
+                </div>
+
+                <div>
+                  <label htmlFor="notes" className="block text-xs font-semibold text-slate-secondary mb-1">
+                    Any specific dental concern or pain? (Optional)
+                  </label>
+                  <textarea
+                    id="notes"
+                    rows={2}
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                    placeholder="e.g. Tooth sensitivity in lower left molar..."
+                    className="w-full p-3 rounded-lg border border-border bg-white text-sm focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500"
+                  />
                 </div>
               </div>
 
             </div>
 
-            {/* Right Column (5 cols): Demonstration Summary Card */}
-            <div className="lg:col-span-5 sticky top-24 space-y-4">
-              <div className="bg-white rounded-2xl p-6 sm:p-7 border border-border shadow-soft space-y-5">
-                <div className="flex items-center justify-between pb-3 border-b border-border">
-                  <h3 className="font-heading text-lg font-semibold text-primary">
-                    Consultation Summary
-                  </h3>
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-text-light bg-bg px-2 py-0.5 rounded border border-border">
-                    Sample Slip
-                  </span>
-                </div>
+            <div className="lg:col-span-5 lg:sticky lg:top-24 space-y-4">
+              <div className="bg-white p-6 rounded-2xl border border-border shadow-xs space-y-4">
+                <h3 className="font-bold text-base text-slate pb-3 border-b border-border">
+                  Appointment Summary
+                </h3>
 
-                <div className="space-y-3.5 text-xs">
-                  <div className="flex justify-between py-1 border-b border-border/60">
-                    <span className="text-text-muted">Studio Practice:</span>
-                    <span className="font-medium text-primary text-right">{CLINIC.name}</span>
+                <div className="space-y-3 text-xs sm:text-sm num-tabular">
+                  <div>
+                    <span className="text-slate-muted block text-xs">Selected Treatment</span>
+                    <span className="font-bold text-slate text-sm">{selectedTreatment.name}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-border/60">
-                    <span className="text-text-muted">Selected Discipline:</span>
-                    <span className="font-medium text-primary text-right max-w-[200px] truncate">{selectedService.name}</span>
+
+                  <div className="flex justify-between py-1 border-t border-border/60">
+                    <span className="text-slate-muted">Duration</span>
+                    <span className="font-medium text-slate">{selectedTreatment.durationLabel}</span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-border/60">
-                    <span className="text-text-muted">Session Duration:</span>
-                    <span className="font-mono text-primary">{selectedService.durationMins} minutes</span>
-                  </div>
-                  <div className="flex justify-between py-1 border-b border-border/60">
-                    <span className="text-text-muted">Date & Time:</span>
-                    <span className="font-medium text-primary font-mono text-right">
-                      {formattedDateString} at {selectedTime || 'Pending selection'}
+
+                  <div className="flex justify-between py-1 border-t border-border/60">
+                    <span className="text-slate-muted">Date</span>
+                    <span className="font-semibold text-slate">
+                      {selectedDate.toLocaleDateString('en-IN', { weekday: 'short', day: 'numeric', month: 'short' })}
                     </span>
                   </div>
-                  <div className="flex justify-between py-1 border-b border-border/60">
-                    <span className="text-text-muted">Sample Fee Guide:</span>
-                    <span className="font-semibold text-primary">{selectedService.priceRange}</span>
+
+                  <div className="flex justify-between py-1 border-t border-border/60">
+                    <span className="text-slate-muted">Time Slot</span>
+                    <span className="font-semibold text-brand-700">{selectedTime || 'Please select a slot'}</span>
                   </div>
-                  <div className="flex justify-between py-1">
-                    <span className="text-text-muted">Consultation Desk:</span>
-                    <span className="text-primary">{CLINIC.area}, {CLINIC.city}</span>
+
+                  <div className="flex justify-between py-1 border-t border-border/60">
+                    <span className="text-slate-muted">Estimated Starting Fee</span>
+                    <span className="font-bold text-slate text-base">{selectedTreatment.priceFormatted}</span>
                   </div>
                 </div>
 
-                {/* Honest Portfolio Note */}
-                <div className="p-3.5 rounded-xl bg-bg border border-border text-xs text-text-muted space-y-1">
-                  <p className="flex items-center gap-1.5 font-semibold text-primary">
-                    <Info size={13} className="text-accent" />
-                    Demonstration Flow
-                  </p>
-                  <p className="text-[11px] leading-relaxed">
-                    Submitting this form stores a demonstration record locally in your browser, routes to a formatted printable confirmation slip, and provides 1-click Google Calendar sync.
-                  </p>
+                <div className="pt-2">
+                  <button
+                    type="submit"
+                    className="btn-primary w-full h-12 text-sm font-bold shadow-md"
+                  >
+                    <span>Confirm Booking</span>
+                    <ArrowRight size={16} />
+                  </button>
                 </div>
 
-                {/* Submit Action */}
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="btn-primary w-full text-xs font-semibold py-4 shadow-sm"
+                <div className="text-[11px] text-slate-muted text-center pt-1">
+                  🔒 No advance deposit needed. Payment is made at clinic.
+                </div>
+              </div>
+
+              <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-xs space-y-1.5 text-emerald-900">
+                <div className="font-bold flex items-center gap-1.5 text-emerald-800">
+                  <MessageCircle size={15} />
+                  <span>Prefer booking directly on WhatsApp?</span>
+                </div>
+                <p className="text-emerald-700 leading-relaxed">
+                  You can chat directly with Dr. Satyam Sharma's front desk on WhatsApp for immediate confirmation.
+                </p>
+                <a
+                  href={`https://wa.me/${CLINIC.whatsapp}?text=${encodeURIComponent('Hi Dr. Sharma, I want to book an appointment directly through WhatsApp.')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-bold text-emerald-800 underline block pt-1"
                 >
-                  {isSubmitting ? (
-                    <span className="flex items-center gap-2">
-                      <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                      Generating Confirmation Slip...
-                    </span>
-                  ) : (
-                    <span className="flex items-center justify-center gap-2">
-                      <span>Generate Confirmation Slip</span>
-                      <ArrowRight size={15} className="text-accent" />
-                    </span>
-                  )}
-                </button>
+                  Click here to WhatsApp us →
+                </a>
               </div>
             </div>
 

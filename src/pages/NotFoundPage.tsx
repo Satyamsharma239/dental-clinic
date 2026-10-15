@@ -1,37 +1,33 @@
 import { Link } from 'react-router-dom';
-import FadeIn from '@/components/FadeIn';
-import { DentalToothIcon } from '@/components/common/DentalToothIcon';
-import { Calendar, ArrowRight } from 'lucide-react';
+import { Calendar, Home, ArrowLeft } from 'lucide-react';
 
 export default function NotFoundPage() {
   return (
-    <div className="min-h-[70vh] flex flex-col items-center justify-center px-5 sm:px-8 text-center py-24 bg-bg">
-      <FadeIn>
-        <div className="w-14 h-14 rounded-2xl bg-white text-primary flex items-center justify-center mx-auto mb-6 shadow-soft border border-border">
-          <DentalToothIcon size={26} className="text-accent" />
+    <div className="bg-surface-subtle py-16 md:py-28 text-slate">
+      <div className="max-w-md mx-auto px-4 text-center space-y-6">
+        <div className="w-16 h-16 rounded-2xl bg-brand-100 text-brand-700 flex items-center justify-center mx-auto font-extrabold text-2xl">
+          404
         </div>
-        <div className="text-7xl font-heading text-primary font-light mb-3">404</div>
-        <h1 className="text-3xl sm:text-4xl font-heading text-primary font-normal mb-3">Page Not Located</h1>
-        <p className="text-sm text-text-muted max-w-md mx-auto mb-8 leading-relaxed">
-          The requested page could not be found. Explore our clinical disciplines or schedule a consultation below.
-        </p>
-        
-        <div className="flex flex-col sm:flex-row gap-3.5 justify-center">
-          <Link 
-            to="/" 
-            className="btn-outline text-xs py-3 px-6"
-          >
-            <span>Return to Studio Home</span>
+        <div className="space-y-2">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate">
+            Page Not Found
+          </h1>
+          <p className="text-sm text-slate-secondary leading-relaxed">
+            We couldn't find the page you were looking for. It may have been moved or the link was typed incorrectly.
+          </p>
+        </div>
+
+        <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+          <Link to="/" className="btn-primary text-xs h-10 px-5">
+            <Home size={14} />
+            <span>Go to Homepage</span>
           </Link>
-          <Link 
-            to="/booking" 
-            className="btn-primary text-xs py-3 px-6 shadow-xs"
-          >
-            <span>Book Consultation</span>
-            <ArrowRight size={14} className="text-accent" />
+          <Link to="/book" className="btn-secondary text-xs h-10 px-5">
+            <Calendar size={14} />
+            <span>Book Appointment</span>
           </Link>
         </div>
-      </FadeIn>
+      </div>
     </div>
   );
 }

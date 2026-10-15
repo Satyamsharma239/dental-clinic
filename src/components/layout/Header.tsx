@@ -1,36 +1,25 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, ArrowRight, Sparkles } from 'lucide-react';
+import { Menu, X, Phone, MessageCircle, Calendar, MapPin, Clock } from 'lucide-react';
 import { CLINIC } from '@/data/clinicInfo';
-import { DentalToothIcon } from '@/components/common/DentalToothIcon';
 
 const NAV_LINKS = [
-  { to: '/services', label: 'Treatments' },
-  { to: '/about', label: 'Philosophy' },
-  { to: '/gallery', label: 'Studio' },
-  { to: '/faq', label: 'FAQs' },
+  { to: '/', label: 'Home' },
+  { to: '/treatments', label: 'Treatments' },
+  { to: '/doctor', label: 'Doctor' },
+  { to: '/pricing', label: 'Pricing' },
+  { to: '/reviews', label: 'Reviews' },
   { to: '/contact', label: 'Contact' },
 ];
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 12);
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Close mobile menu on route change
   useEffect(() => {
     setMobileOpen(false);
   }, [location.pathname]);
 
-  // Lock body scroll when mobile menu is open
   useEffect(() => {
     if (mobileOpen) {
       document.body.style.overflow = 'hidden';
@@ -42,123 +31,191 @@ export default function Header() {
     };
   }, [mobileOpen]);
 
+  const waUrl = `https://wa.me/${CLINIC.whatsapp}?text=${encodeURIComponent('Hello Dr. Sharma, I would like to inquire about dental appointments at Aura Dental Studio.')}`;
+
   return (
-    <header
-      className={`sticky top-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-white/95 backdrop-blur-md border-b border-border shadow-soft'
-          : 'bg-bg/90 backdrop-blur-sm border-b border-border/60'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-5 sm:px-8 py-4">
-        
-        {/* Distinctive Architectural Dental Wordmark */}
-        <Link 
-          to="/" 
-          className="flex items-center gap-3 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-lg"
-          aria-label={`${CLINIC.name} — Home`}
-        >
-          <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center text-white shadow-sm transition-transform duration-200 group-hover:scale-105">
-            <DentalToothIcon size={19} className="text-accent" />
-          </div>
-          <div className="flex flex-col">
-            <span className="font-heading font-semibold text-lg tracking-tight text-primary leading-none">
-              {CLINIC.name}
+    <>
+      <div className="bg-brand-900 text-white text-xs py-2 px-4 sm:px-8">
+        <div className="max-w-container mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+          <div className="flex items-center gap-4 text-brand-100 flex-wrap justify-center sm:justify-start">
+            <span className="flex items-center gap-1.5">
+              <MapPin size={13} className="text-brand-200" />
+              <span>Studio 204, Waterfield Road, Bandra West, Mumbai</span>
             </span>
-            <span className="text-[11px] font-medium tracking-widest uppercase text-text-muted mt-1">
-              Contemporary Practice
+            <span className="hidden md:flex items-center gap-1.5">
+              <Clock size={13} className="text-brand-200" />
+              <span>Mon–Sat: 9:30 AM – 7:30 PM</span>
             </span>
           </div>
-        </Link>
 
-        {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-8" aria-label="Main Navigation">
-          {NAV_LINKS.map((link) => {
-            const isActive = location.pathname === link.to;
-            return (
-              <Link
-                key={link.to}
-                to={link.to}
-                className={`text-sm font-medium transition-colors duration-150 relative py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded ${
-                  isActive
-                    ? 'text-primary font-semibold'
-                    : 'text-text-muted hover:text-primary'
-                }`}
-              >
-                {link.label}
-                {isActive && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-accent rounded-full" />
-                )}
-              </Link>
-            );
-          })}
-        </nav>
-
-        {/* Primary Action Button */}
-        <div className="hidden md:flex items-center gap-4">
-          <Link
-            to="/booking"
-            className="btn-primary text-xs tracking-wide py-2.5 px-5 font-semibold"
-          >
-            <span>Book appointment</span>
-            <ArrowRight size={14} className="text-accent" />
-          </Link>
+          <div className="flex items-center gap-4 font-medium">
+            <a 
+              href={`tel:${CLINIC.phone}`} 
+              className="flex items-center gap-1.5 hover:text-brand-200 transition-colors"
+            >
+              <Phone size={13} />
+              <span>{CLINIC.phoneDisplay}</span>
+            </a>
+            <span className="text-brand-700">|</span>
+            <a
+              href={waUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1 text-[#25D366] hover:text-white transition-colors"
+            >
+              <MessageCircle size={13} />
+              <span>WhatsApp Us</span>
+            </a>
+          </div>
         </div>
-
-        {/* Accessible Mobile Menu Trigger */}
-        <button
-          type="button"
-          className="md:hidden p-2 text-primary hover:bg-primary-50 rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label={mobileOpen ? 'Close navigation menu' : 'Open navigation menu'}
-          aria-expanded={mobileOpen}
-        >
-          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
       </div>
 
-      {/* Mobile Navigation Drawer */}
-      {mobileOpen && (
-        <div className="md:hidden fixed inset-0 top-[65px] bg-bg/95 backdrop-blur-xl z-50 flex flex-col justify-between p-6 border-t border-border animate-fadeIn">
-          <div className="flex flex-col gap-2 pt-2">
-            <Link
-              to="/"
-              className={`text-lg font-heading py-3 px-3 rounded-lg transition-colors ${
-                location.pathname === '/' ? 'bg-white font-bold text-primary shadow-xs' : 'text-text-muted hover:text-primary'
-              }`}
-            >
-              Home
-            </Link>
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-border shadow-xs">
+        <div className="max-w-container mx-auto px-4 sm:px-8 h-18 sm:h-20 flex items-center justify-between gap-4">
+          
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="w-10 h-10 rounded-xl bg-brand-50 border border-brand-200 flex items-center justify-center text-brand-600 font-bold text-lg group-hover:bg-brand-600 group-hover:text-white transition-all">
+              A
+            </div>
+            <div>
+              <span className="font-bold text-lg sm:text-xl text-slate block leading-tight tracking-tight">
+                {CLINIC.name}
+              </span>
+              <span className="text-xs text-slate-muted block font-medium">
+                Dr. Satyam Sharma (MDS) · Bandra West
+              </span>
+            </div>
+          </Link>
+
+          <nav className="hidden lg:flex items-center gap-1" aria-label="Main navigation">
             {NAV_LINKS.map((link) => {
               const isActive = location.pathname === link.to;
               return (
                 <Link
                   key={link.to}
                   to={link.to}
-                  className={`text-lg font-heading py-3 px-3 rounded-lg transition-colors ${
-                    isActive ? 'bg-white font-bold text-primary shadow-xs' : 'text-text-muted hover:text-primary'
+                  className={`px-3.5 py-2 rounded-lg text-sm font-semibold transition-all ${
+                    isActive
+                      ? 'bg-brand-50 text-brand-700 font-bold'
+                      : 'text-slate-secondary hover:text-brand-600 hover:bg-surface-subtle'
                   }`}
                 >
                   {link.label}
                 </Link>
               );
             })}
+          </nav>
+
+          <div className="hidden sm:flex items-center gap-2.5">
+            <a
+              href={waUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="h-10 px-3.5 inline-flex items-center justify-center gap-1.5 rounded-lg border border-[#25D366] text-[#1EBE5D] hover:bg-[#25D366] hover:text-white text-xs font-bold transition-all"
+            >
+              <MessageCircle size={15} />
+              <span>WhatsApp</span>
+            </a>
+
+            <Link
+              to="/book"
+              className="h-10 px-4 inline-flex items-center justify-center gap-1.5 rounded-lg bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold shadow-sm transition-all"
+            >
+              <Calendar size={15} />
+              <span>Book Appointment</span>
+            </Link>
           </div>
 
-          <div className="pt-6 border-t border-border space-y-4">
-            <Link
-              to="/booking"
-              className="btn-primary w-full text-sm py-4 shadow-sm"
+          <div className="flex items-center gap-1 sm:hidden">
+            <a
+              href={waUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 text-[#25D366]"
+              aria-label="WhatsApp"
             >
-              <span>Book appointment</span>
-              <ArrowRight size={16} className="text-accent" />
-            </Link>
-            <p className="text-center text-xs text-text-muted">
-              {CLINIC.address.full}
-            </p>
+              <MessageCircle size={22} />
+            </a>
+            <button
+              type="button"
+              onClick={() => setMobileOpen(true)}
+              className="p-2 text-slate hover:text-brand-600"
+              aria-label="Open menu"
+            >
+              <Menu size={24} />
+            </button>
           </div>
+
         </div>
-      )}
-    </header>
+
+        {mobileOpen && (
+          <div className="fixed inset-0 z-50 bg-black/40 lg:hidden flex">
+            <div className="relative ml-auto w-full max-w-xs bg-white h-full p-6 flex flex-col justify-between shadow-2xl">
+              <div>
+                <div className="flex items-center justify-between pb-4 border-b border-border">
+                  <div>
+                    <span className="font-bold text-base text-slate block">{CLINIC.name}</span>
+                    <span className="text-xs text-slate-muted">Dr. Satyam Sharma</span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setMobileOpen(false)}
+                    className="p-1.5 text-slate-muted hover:text-slate"
+                    aria-label="Close menu"
+                  >
+                    <X size={22} />
+                  </button>
+                </div>
+
+                <nav className="py-6 flex flex-col gap-1">
+                  {NAV_LINKS.map((link) => {
+                    const isActive = location.pathname === link.to;
+                    return (
+                      <Link
+                        key={link.to}
+                        to={link.to}
+                        onClick={() => setMobileOpen(false)}
+                        className={`px-3 py-2.5 rounded-lg text-sm font-semibold transition-all ${
+                          isActive
+                            ? 'bg-brand-50 text-brand-700 font-bold'
+                            : 'text-slate-secondary hover:bg-surface-subtle'
+                        }`}
+                      >
+                        {link.label}
+                      </Link>
+                    );
+                  })}
+                </nav>
+              </div>
+
+              <div className="space-y-3 pt-6 border-t border-border">
+                <a
+                  href={waUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-whatsapp w-full text-sm"
+                >
+                  <MessageCircle size={16} />
+                  <span>Chat on WhatsApp</span>
+                </a>
+                <Link
+                  to="/book"
+                  onClick={() => setMobileOpen(false)}
+                  className="btn-primary w-full text-sm"
+                >
+                  <Calendar size={16} />
+                  <span>Book Appointment</span>
+                </Link>
+                <div className="text-center pt-2">
+                  <a href={`tel:${CLINIC.phone}`} className="text-xs text-slate-muted font-medium hover:text-slate">
+                    Call: {CLINIC.phoneDisplay}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+      </header>
+    </>
   );
 }
