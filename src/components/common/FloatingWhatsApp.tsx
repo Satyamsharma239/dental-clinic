@@ -27,7 +27,7 @@ export default function FloatingWhatsApp() {
         href={waUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="w-12 h-12 rounded-full bg-[#1EBE5D] text-white flex items-center justify-center shadow-md hover:bg-[#169C4B] transition-all"
+        className="w-12 h-12 rounded-full bg-[#128C7E] text-white flex items-center justify-center shadow-md hover:bg-[#0f766e] transition-all"
         aria-label="Chat on WhatsApp with Aura Dental Studio"
       >
         <MessageCircle size={24} />

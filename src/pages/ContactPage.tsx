@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { CLINIC } from '@/data/clinicInfo';
-import { MapPin, Clock, Phone, Mail, MessageCircle, Send, CheckCircle2 } from 'lucide-react';
+import { MapPin, Clock, Phone, Mail, MessageCircle, Send, CheckCircle2, Sparkles, Navigation, AlertCircle } from 'lucide-react';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', message: '' });
@@ -33,7 +33,7 @@ export default function ContactPage() {
     }
 
     if (!formData.message.trim() || formData.message.trim().length < 4) {
-      newErrors.message = 'Please enter your message or dental question.';
+      newErrors.message = 'Please enter your message or dental inquiry.';
     }
 
     if (Object.keys(newErrors).length > 0) {
@@ -55,261 +55,321 @@ export default function ContactPage() {
   )}`;
 
   return (
-    <div className="bg-canvas py-12 sm:py-20 text-ink">
-      <div className="max-w-container mx-auto px-4 sm:px-8">
-        
-        <div className="max-w-2xl mb-12 space-y-3">
-          <span className="text-xs font-mono uppercase tracking-[0.14em] text-sand-700 block">
-            Visit & Contact
-          </span>
-          <h1 className="font-serif text-3xl sm:text-5xl font-normal text-ink tracking-tight leading-tight">
-            We are here on Waterfield Road.
+    <div className="bg-slate-50 text-slate-800 font-sans">
+      
+      <section className="py-14 sm:py-20 bg-gradient-to-br from-teal-50 via-slate-50 to-emerald-50/50 border-b border-slate-200">
+        <div className="max-w-container mx-auto px-4 sm:px-8 text-center space-y-4">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-white border border-teal-200 text-teal-800 shadow-xs">
+            <Sparkles size={14} className="text-teal-600" />
+            <span>Studio Location & Direct Inquiries</span>
+          </div>
+          <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+            Visit Us on Waterfield Road, Bandra West
           </h1>
-          <p className="font-sans text-sm sm:text-base text-ink-secondary leading-relaxed">
-            Reach out by WhatsApp, telephone, email, or visit our studio in Bandra West. We respond quickly during practice hours.
+          <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
+            Reach out by WhatsApp, telephone, email, or visit our dental studio. We respond promptly within clinical practice hours.
           </p>
         </div>
+      </section>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16 font-sans">
+      <section className="py-16 sm:py-24 bg-white border-b border-slate-200">
+        <div className="max-w-container mx-auto px-4 sm:px-8">
           
-          <div className="lg:col-span-5 space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start mb-16">
             
-            <div className="p-6 rounded-sm bg-white border border-hairline shadow-2xs space-y-4">
-              <div className="flex items-center gap-2 text-sage-800 font-medium text-base">
-                <MapPin size={16} className="text-sand-700" />
-                <span>Studio Location</span>
-              </div>
+            <div className="lg:col-span-5 space-y-6">
               
-              <div className="space-y-1.5 text-xs text-ink-secondary leading-relaxed">
-                <p className="font-medium text-ink text-sm">
-                  {CLINIC.address.line1}
-                </p>
-                <p>{CLINIC.address.line2}</p>
-                <p>{CLINIC.address.city} — {CLINIC.address.pincode}</p>
-                <p className="text-ink-muted pt-1">
-                  Landmark: {CLINIC.address.landmark}
-                </p>
-                <p className="text-ink-muted">
-                  Transit: {CLINIC.transit}
-                </p>
-              </div>
-
-              <div className="pt-2">
-                <a
-                  href="https://maps.google.com/?q=Waterfield+Road+Bandra+West+Mumbai"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-secondary w-full text-xs h-9"
-                >
-                  <MapPin size={13} />
-                  <span>Open in Google Maps</span>
-                </a>
-              </div>
-            </div>
-
-            <div className="p-6 rounded-sm bg-white border border-hairline shadow-2xs space-y-4">
-              <div className="flex items-center gap-2 text-sage-800 font-medium text-base">
-                <Phone size={16} className="text-sand-700" />
-                <span>Telephone & WhatsApp</span>
-              </div>
-
-              <div className="space-y-3 text-xs">
-                <div>
-                  <span className="text-ink-muted block text-[11px] font-mono">Clinic Reception Direct</span>
-                  <a href={`tel:${CLINIC.phone}`} className="text-sm font-semibold text-ink hover:text-sage-800 transition-colors">
-                    {CLINIC.phoneDisplay}
-                  </a>
+              <div className="p-6 sm:p-7 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-4">
+                <div className="flex items-center gap-2.5 text-teal-800 font-bold text-base">
+                  <MapPin size={20} className="text-teal-600" />
+                  <span>Studio Location</span>
+                </div>
+                
+                <div className="space-y-1.5 text-xs sm:text-sm text-slate-600 leading-relaxed">
+                  <p className="font-bold text-slate-900 text-sm sm:text-base">
+                    {CLINIC.address.line1}
+                  </p>
+                  <p>{CLINIC.address.line2}</p>
+                  <p>{CLINIC.address.city} — {CLINIC.address.pincode}</p>
+                  <p className="text-slate-500 pt-1">
+                    <strong>Landmark:</strong> {CLINIC.address.landmark}
+                  </p>
+                  <p className="text-slate-500">
+                    <strong>Transit:</strong> {CLINIC.transit}
+                  </p>
                 </div>
 
-                <div>
-                  <span className="text-ink-muted block text-[11px] font-mono">WhatsApp Consultation Desk</span>
+                <div className="pt-2">
                   <a
-                    href={`https://wa.me/${CLINIC.whatsapp}?text=${encodeURIComponent('Hello Dr. Sharma, I want to inquire about appointments.')}`}
+                    href="https://maps.google.com/?q=Waterfield+Road+Bandra+West+Mumbai"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm font-semibold text-[#1EBE5D] hover:underline"
+                    className="btn-secondary w-full text-xs h-10"
                   >
-                    +91 98201 44521 (Quick Chat)
-                  </a>
-                </div>
-
-                <div>
-                  <span className="text-ink-muted block text-[11px] font-mono">Email Inquiries</span>
-                  <a href={`mailto:${CLINIC.email}`} className="text-xs text-ink hover:underline">
-                    {CLINIC.email}
+                    <Navigation size={14} className="text-teal-700" />
+                    <span>Open in Google Maps</span>
                   </a>
                 </div>
               </div>
-            </div>
 
-            <div className="p-6 rounded-sm bg-white border border-hairline shadow-2xs space-y-3">
-              <div className="flex items-center gap-2 text-sage-800 font-medium text-base">
-                <Clock size={16} className="text-sand-700" />
-                <span>Consultation Timings</span>
-              </div>
-
-              <div className="space-y-1.5 text-xs text-ink-secondary num-tabular">
-                <div className="flex justify-between py-1 border-b border-hairline">
-                  <span>Monday – Saturday</span>
-                  <span className="font-medium text-ink">9:30 AM – 7:30 PM</span>
+              <div className="p-6 sm:p-7 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-4">
+                <div className="flex items-center gap-2.5 text-teal-800 font-bold text-base">
+                  <Phone size={20} className="text-teal-600" />
+                  <span>Telephone & WhatsApp</span>
                 </div>
-                <div className="flex justify-between py-1 border-b border-hairline">
-                  <span>Sunday</span>
-                  <span className="text-ink-muted">Emergency triage on call</span>
-                </div>
-                <p className="text-[11px] text-ink-muted pt-1">
-                  Lunch interval: 1:30 PM – 3:30 PM
-                </p>
-              </div>
-            </div>
 
-          </div>
-
-          <div className="lg:col-span-7">
-            <div className="p-6 sm:p-8 rounded-sm bg-white border border-hairline shadow-2xs">
-              
-              <div className="mb-6 space-y-1">
-                <h2 className="font-serif text-2xl font-medium text-ink">
-                  Send a Direct Message
-                </h2>
-                <p className="font-sans text-xs sm:text-sm text-ink-secondary">
-                  Dr. Satyam Sharma and our desk respond to all inquiries within 2 hours during clinic timings.
-                </p>
-              </div>
-
-              {submitted ? (
-                <div className="p-6 bg-sage-50 border border-sage-200 rounded-sm space-y-4 text-center">
-                  <CheckCircle2 size={36} className="text-sage-700 mx-auto" />
-                  <div className="space-y-1">
-                    <h3 className="font-serif text-xl font-medium text-ink">
-                      Inquiry Received
-                    </h3>
-                    <p className="font-sans text-xs sm:text-sm text-ink-secondary">
-                      Thank you, {formData.name}. We will contact you at {formData.phone} shortly.
-                    </p>
+                <div className="space-y-3.5 text-xs sm:text-sm">
+                  <div>
+                    <span className="text-slate-400 block text-xs font-semibold">Clinic Reception Direct</span>
+                    <a href={`tel:${CLINIC.phone}`} className="text-base font-extrabold text-slate-900 hover:text-teal-700 transition-colors">
+                      {CLINIC.phoneDisplay}
+                    </a>
                   </div>
 
-                  <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
+                  <div>
+                    <span className="text-slate-400 block text-xs font-semibold">WhatsApp Consultation Desk</span>
                     <a
-                      href={waFormUrl}
+                      href={`https://wa.me/${CLINIC.whatsapp}?text=${encodeURIComponent('Hello Dr. Sharma, I want to inquire about dental appointments.')}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-whatsapp text-xs h-9 px-4"
+                      className="text-sm font-bold text-teal-700 hover:text-teal-800 hover:underline flex items-center gap-1.5 mt-0.5"
                     >
-                      <MessageCircle size={14} />
-                      <span>Forward to WhatsApp</span>
+                      <MessageCircle size={15} />
+                      <span>+91 98201 44521 (Direct Message)</span>
                     </a>
-                    <a
-                      href={mailtoUrl}
-                      className="btn-secondary text-xs h-9 px-4"
-                    >
-                      <Mail size={14} />
-                      <span>Send via Email Client</span>
+                  </div>
+
+                  <div>
+                    <span className="text-slate-400 block text-xs font-semibold">Email Inquiries</span>
+                    <a href={`mailto:${CLINIC.email}`} className="text-xs text-slate-700 hover:text-teal-700 font-medium">
+                      {CLINIC.email}
                     </a>
                   </div>
                 </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div>
-                    <label htmlFor="name" className="block text-xs font-mono uppercase tracking-wider text-ink-muted mb-1.5">
-                      Your Full Name *
-                    </label>
-                    <input
-                      id="name"
-                      type="text"
-                      value={formData.name}
-                      onChange={(e) => {
-                        setFormData({ ...formData, name: e.target.value });
-                        if (errors.name) setErrors({ ...errors, name: '' });
-                      }}
-                      className="w-full h-11 px-3.5 bg-canvas-subtle border border-border rounded-xs text-sm text-ink focus:bg-white focus:outline-none focus:ring-1 focus:ring-sage-700"
-                      placeholder="e.g. Anand Mehra"
-                    />
-                    {errors.name && (
-                      <p className="text-xs text-rose-600 mt-1">{errors.name}</p>
-                    )}
-                  </div>
+              </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label htmlFor="phone" className="block text-xs font-mono uppercase tracking-wider text-ink-muted mb-1.5">
-                        Mobile Number *
-                      </label>
-                      <input
-                        id="phone"
-                        type="tel"
-                        value={formData.phone}
-                        onChange={(e) => {
-                          setFormData({ ...formData, phone: e.target.value });
-                          if (errors.phone) setErrors({ ...errors, phone: '' });
-                        }}
-                        className="w-full h-11 px-3.5 bg-canvas-subtle border border-border rounded-xs text-sm text-ink focus:bg-white focus:outline-none focus:ring-1 focus:ring-sage-700"
-                        placeholder="e.g. 98201 44521"
-                      />
-                      {errors.phone && (
-                        <p className="text-xs text-rose-600 mt-1">{errors.phone}</p>
-                      )}
+              <div className="p-6 sm:p-7 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3.5">
+                <div className="flex items-center gap-2.5 text-teal-800 font-bold text-base">
+                  <Clock size={20} className="text-teal-600" />
+                  <span>Consultation Timings</span>
+                </div>
+
+                <div className="space-y-2 text-xs sm:text-sm text-slate-600">
+                  <div className="flex justify-between py-1 border-b border-slate-100">
+                    <span className="font-medium text-slate-800">Monday – Saturday</span>
+                    <span className="font-bold text-teal-800">9:30 AM – 7:30 PM</span>
+                  </div>
+                  <div className="flex justify-between py-1 border-b border-slate-100">
+                    <span className="font-medium text-slate-800">Sunday</span>
+                    <span className="text-slate-500 font-medium">Emergency on call</span>
+                  </div>
+                  <p className="text-xs text-slate-400 pt-1">
+                    Midday sterilization break: 1:30 PM – 4:30 PM
+                  </p>
+                </div>
+              </div>
+
+            </div>
+
+            <div className="lg:col-span-7 space-y-6">
+              
+              <div className="p-6 sm:p-8 rounded-2xl bg-slate-50 border border-slate-200 shadow-sm space-y-5">
+                <div className="space-y-1">
+                  <h2 className="text-2xl font-extrabold text-slate-900">
+                    Send Dr. Sharma a Message
+                  </h2>
+                  <p className="text-xs sm:text-sm text-slate-600">
+                    Have a question about symptoms, clear aligners, or root canals? Send your query directly:
+                  </p>
+                </div>
+
+                {submitted ? (
+                  <div className="p-6 bg-teal-50 border border-teal-200 rounded-xl space-y-3 text-center">
+                    <CheckCircle2 size={36} className="text-teal-600 mx-auto" />
+                    <h3 className="text-lg font-bold text-teal-900">Thank You, {formData.name}</h3>
+                    <p className="text-xs sm:text-sm text-teal-800 leading-relaxed">
+                      Your inquiry has been prepared. Choose below how you'd like to dispatch it to Dr. Sharma:
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                      <a
+                        href={waFormUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-whatsapp flex-1 text-xs h-11"
+                      >
+                        <MessageCircle size={16} />
+                        <span>Send via WhatsApp</span>
+                      </a>
+                      <a
+                        href={mailtoUrl}
+                        className="btn-secondary flex-1 text-xs h-11"
+                      >
+                        <Mail size={16} />
+                        <span>Send via Email</span>
+                      </a>
+                    </div>
+                  </div>
+                ) : (
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+                          Full Name *
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.name}
+                          onChange={(e) => {
+                            const lettersOnly = e.target.value.replace(/[^a-zA-Z\s.]/g, '');
+                            setFormData({ ...formData, name: lettersOnly });
+                            if (errors.name) setErrors({ ...errors, name: '' });
+                          }}
+                          placeholder="Your name (letters only)"
+                          className={`w-full h-11 px-3.5 bg-white border rounded-xl text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-600 ${
+                            errors.name ? 'border-red-400 ring-1 ring-red-400 bg-red-50/20' : 'border-slate-300'
+                          }`}
+                        />
+                        {errors.name && <p className="text-xs text-red-600 mt-1">{errors.name}</p>}
+                      </div>
+
+                      <div>
+                        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+                          Mobile Number *
+                        </label>
+                        <input
+                          type="tel"
+                          value={formData.phone}
+                          onChange={(e) => {
+                            const digitsOnly = e.target.value.replace(/\D/g, '').slice(0, 10);
+                            setFormData({ ...formData, phone: digitsOnly });
+                            if (errors.phone) setErrors({ ...errors, phone: '' });
+                          }}
+                          placeholder="10-digit mobile"
+                          className={`w-full h-11 px-3.5 bg-white border rounded-xl text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-600 ${
+                            errors.phone ? 'border-red-400 ring-1 ring-red-400 bg-red-50/20' : 'border-slate-300'
+                          }`}
+                        />
+                        {errors.phone && <p className="text-xs text-red-600 mt-1">{errors.phone}</p>}
+                      </div>
                     </div>
 
                     <div>
-                      <label htmlFor="email" className="block text-xs font-mono uppercase tracking-wider text-ink-muted mb-1.5">
-                        Email Address (Optional)
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+                        Email Address (optional)
                       </label>
                       <input
-                        id="email"
                         type="email"
                         value={formData.email}
                         onChange={(e) => {
                           setFormData({ ...formData, email: e.target.value });
                           if (errors.email) setErrors({ ...errors, email: '' });
                         }}
-                        className="w-full h-11 px-3.5 bg-canvas-subtle border border-border rounded-xs text-sm text-ink focus:bg-white focus:outline-none focus:ring-1 focus:ring-sage-700"
-                        placeholder="e.g. anand@gmail.com"
+                        placeholder="your.email@example.com"
+                        className={`w-full h-11 px-3.5 bg-white border rounded-xl text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-600 ${
+                          errors.email ? 'border-red-400 ring-1 ring-red-400 bg-red-50/20' : 'border-slate-300'
+                        }`}
                       />
-                      {errors.email && (
-                        <p className="text-xs text-rose-600 mt-1">{errors.email}</p>
-                      )}
+                      {errors.email && <p className="text-xs text-red-600 mt-1">{errors.email}</p>}
                     </div>
-                  </div>
 
-                  <div>
-                    <label htmlFor="message" className="block text-xs font-mono uppercase tracking-wider text-ink-muted mb-1.5">
-                      Your Message or Concern *
-                    </label>
-                    <textarea
-                      id="message"
-                      rows={4}
-                      value={formData.message}
-                      onChange={(e) => {
-                        setFormData({ ...formData, message: e.target.value });
-                        if (errors.message) setErrors({ ...errors, message: '' });
-                      }}
-                      className="w-full p-3.5 bg-canvas-subtle border border-border rounded-xs text-sm text-ink focus:bg-white focus:outline-none focus:ring-1 focus:ring-sage-700"
-                      placeholder="Describe what you would like to discuss (e.g. tooth sensitivity, clear aligner consultation, general checkup)..."
-                    />
-                    {errors.message && (
-                      <p className="text-xs text-rose-600 mt-1">{errors.message}</p>
-                    )}
-                  </div>
+                    <div>
+                      <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+                        Your Question or Dental Concern *
+                      </label>
+                      <textarea
+                        rows={3}
+                        value={formData.message}
+                        onChange={(e) => {
+                          setFormData({ ...formData, message: e.target.value });
+                          if (errors.message) setErrors({ ...errors, message: '' });
+                        }}
+                        placeholder="Tell us what you're experiencing or ask about any treatment..."
+                        className={`w-full p-3.5 bg-white border rounded-xl text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-teal-600 resize-none ${
+                          errors.message ? 'border-red-400 ring-1 ring-red-400 bg-red-50/20' : 'border-slate-300'
+                        }`}
+                      />
+                      {errors.message && <p className="text-xs text-red-600 mt-1">{errors.message}</p>}
+                    </div>
 
-                  <div className="pt-2">
-                    <button
-                      type="submit"
-                      className="btn-primary w-full text-xs h-11"
-                    >
-                      <Send size={14} />
-                      <span>Submit Inquiry</span>
-                    </button>
-                  </div>
-                </form>
-              )}
+                    <div className="pt-2 flex flex-col sm:flex-row gap-3">
+                      <button
+                        type="submit"
+                        className="btn-primary flex-1 h-11 text-xs"
+                      >
+                        <Send size={15} />
+                        <span>Submit Inquiry</span>
+                      </button>
+
+                      <a
+                        href={waFormUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-whatsapp flex-1 h-11 text-xs"
+                      >
+                        <MessageCircle size={15} />
+                        <span>Chat Directly on WhatsApp</span>
+                      </a>
+                    </div>
+                  </form>
+                )}
+              </div>
+
+              <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm bg-white p-2">
+                <iframe
+                  title="Aura Dental Studio Map Location"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.3789498114674!2d72.83398917596048!3d19.060786952865985!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c91206f671f5%3A0x6b7c5b61395ce675!2sWaterfield%20Rd%2C%20Bandra%20West%2C%20Mumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin"
+                  className="w-full h-64 rounded-xl border-0"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                ></iframe>
+              </div>
 
             </div>
+
           </div>
 
         </div>
+      </section>
 
-      </div>
+      <section className="py-12 bg-amber-500/10 border-b border-amber-500/20">
+        <div className="max-w-container mx-auto px-4 sm:px-8">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 text-amber-800 font-bold text-xs uppercase tracking-wider">
+                <AlertCircle size={16} className="text-amber-600" />
+                <span>Dental Emergency Line · Bandra West</span>
+              </div>
+              <h3 className="text-xl sm:text-2xl font-bold text-slate-900">
+                In acute tooth pain or need same-day care?
+              </h3>
+              <p className="text-xs sm:text-sm text-slate-600">
+                Call our direct emergency line at {CLINIC.phoneDisplay} or WhatsApp us immediately for priority chairside triage.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3 shrink-0">
+              <a
+                href={`tel:${CLINIC.phone}`}
+                className="btn-primary bg-amber-600 hover:bg-amber-700 border-amber-600 text-xs h-11 px-5"
+              >
+                <Phone size={15} />
+                <span>Call: {CLINIC.phoneDisplay}</span>
+              </a>
+
+              <a
+                href={`https://wa.me/${CLINIC.whatsapp}?text=${encodeURIComponent('EMERGENCY: Hello Dr. Sharma, I have urgent tooth pain and need an emergency appointment.')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-whatsapp text-xs h-11 px-5"
+              >
+                <MessageCircle size={15} />
+                <span>Emergency WhatsApp</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }

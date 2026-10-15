@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { TREATMENTS } from '@/data/services';
 import { CLINIC } from '@/data/clinicInfo';
-import { Clock, MessageCircle, Calendar, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Clock, MessageCircle, Calendar, ArrowRight, CheckCircle2, Sparkles } from 'lucide-react';
 
 const CATEGORIES = ['All', 'Orthodontics', 'Restorative', 'Cosmetic', 'Preventative', 'Surgical', 'Pediatric'];
 
@@ -14,22 +14,27 @@ export default function ServicesPage() {
     : TREATMENTS.filter((t) => t.category?.toLowerCase() === selectedCategory.toLowerCase());
 
   return (
-    <div className="bg-canvas py-12 sm:py-20 text-ink">
-      <div className="max-w-container mx-auto px-4 sm:px-8">
-        
-        <div className="max-w-2xl mb-12 space-y-3">
-          <span className="text-xs font-mono uppercase tracking-[0.14em] text-sand-700 block">
-            Dental Treatments & Care
-          </span>
-          <h1 className="font-serif text-3xl sm:text-5xl font-normal text-ink tracking-tight leading-tight">
-            Our Dental Services in Bandra West
+    <div className="bg-slate-50 text-slate-800 font-sans">
+      
+      <section className="py-14 sm:py-20 bg-gradient-to-br from-teal-50 via-slate-50 to-emerald-50/50 border-b border-slate-200">
+        <div className="max-w-container mx-auto px-4 sm:px-8 text-center space-y-4">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-white border border-teal-200 text-teal-800 shadow-xs">
+            <Sparkles size={14} className="text-teal-600" />
+            <span>Dental Services · Waterfield Road, Bandra West</span>
+          </div>
+          <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+            Our Dental Services & Honest Pricing
           </h1>
-          <p className="font-sans text-sm sm:text-base text-ink-secondary leading-relaxed">
-            Every procedure at Aura Dental Studio is delivered with natural tooth conservation in mind. We explain every clinical step, realistic recovery time, and exact fee before starting.
+          <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
+            Every procedure at Aura Dental Studio is delivered with natural tooth conservation in mind. We explain every step, recovery time, and exact fee before starting.
           </p>
         </div>
+      </section>
 
-        <div className="flex flex-wrap items-center gap-2 mb-10 pb-4 border-b border-hairline font-sans">
+      <section className="py-16 sm:py-24 bg-white border-b border-slate-200">
+        <div className="max-w-container mx-auto px-4 sm:px-8">
+
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-12 pb-4">
           {CATEGORIES.map((cat) => {
             const isSelected = selectedCategory === cat;
             return (
@@ -37,10 +42,10 @@ export default function ServicesPage() {
                 key={cat}
                 type="button"
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-3.5 py-1.5 rounded-xs text-xs font-medium transition-colors ${
+                className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${
                   isSelected
-                    ? 'bg-sage-800 text-white'
-                    : 'bg-white border border-border text-ink-secondary hover:text-ink hover:bg-canvas-subtle'
+                    ? 'bg-teal-700 text-white shadow-sm'
+                    : 'bg-white border border-slate-300 text-slate-600 hover:text-slate-900 hover:border-slate-400'
                 }`}
               >
                 {cat}
@@ -49,7 +54,7 @@ export default function ServicesPage() {
           })}
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           {filteredTreatments.map((treatment) => {
             const waUrl = `https://wa.me/${CLINIC.whatsapp}?text=${encodeURIComponent(
               `Hi Dr. Sharma, I want to inquire about ${treatment.name} at Aura Dental Studio.`
@@ -58,40 +63,36 @@ export default function ServicesPage() {
             return (
               <div
                 key={treatment.id}
-                className="bg-white rounded-sm border border-hairline overflow-hidden flex flex-col justify-between shadow-2xs hover:border-border-strong transition-all"
+                className="bg-white rounded-2xl border border-slate-200 overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-xl hover:-translate-y-1.5 transition-all duration-300"
               >
                 <div>
-                  <div className="relative aspect-[16/10] bg-canvas-subtle overflow-hidden">
+                  <div className="relative aspect-[16/10] bg-slate-100 overflow-hidden">
                     <img
                       src={treatment.image}
                       alt={treatment.name}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
                       loading="lazy"
                     />
-                    <div className="absolute top-3 left-3 bg-white/95 px-2.5 py-1 rounded-xs text-[10px] font-mono uppercase text-ink shadow-2xs">
+                    <div className="absolute top-3.5 left-3.5 bg-white/95 px-3 py-1 rounded-lg text-xs font-bold text-slate-800 shadow-xs">
                       {treatment.category}
-                    </div>
-                    <div className="absolute top-3 right-3 bg-ink/80 text-white px-2.5 py-1 rounded-xs text-[11px] font-mono flex items-center gap-1">
-                      <Clock size={11} />
-                      <span>{treatment.durationLabel}</span>
                     </div>
                   </div>
 
-                  <div className="p-6 space-y-3 font-sans">
-                    <h2 className="font-serif text-xl font-medium text-ink">
-                      <Link to={`/services/${treatment.slug}`} className="hover:text-sage-800 transition-colors">
+                  <div className="p-6 space-y-3.5">
+                    <h2 className="text-xl font-bold text-slate-900">
+                      <Link to={`/services/${treatment.slug}`} className="hover:text-teal-700 transition-colors">
                         {treatment.name}
                       </Link>
                     </h2>
                     
-                    <p className="text-xs text-ink-secondary leading-relaxed">
+                    <p className="text-sm text-slate-600 leading-relaxed">
                       {treatment.shortDescription}
                     </p>
 
-                    <div className="pt-2 border-t border-hairline space-y-1.5">
+                    <div className="pt-3 border-t border-slate-100 space-y-2">
                       {treatment.steps.slice(0, 3).map((step, idx) => (
-                        <div key={idx} className="flex items-start gap-2 text-xs text-ink-secondary">
-                          <CheckCircle2 size={12} className="text-sage-700 shrink-0 mt-0.5" />
+                        <div key={idx} className="flex items-start gap-2 text-xs text-slate-600">
+                          <CheckCircle2 size={14} className="text-teal-600 shrink-0 mt-0.5" />
                           <span>{step}</span>
                         </div>
                       ))}
@@ -99,10 +100,10 @@ export default function ServicesPage() {
                   </div>
                 </div>
 
-                <div className="p-6 pt-0 border-t border-hairline mt-4 flex items-center justify-between font-sans">
+                <div className="p-6 pt-0 border-t border-slate-100 mt-4 flex items-center justify-between">
                   <div>
-                    <span className="text-[10px] font-mono uppercase text-ink-muted block">Starting Fee</span>
-                    <span className="text-sm font-mono font-semibold text-ink num-tabular">{treatment.priceFormatted}</span>
+                    <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">Starting Fee</span>
+                    <span className="text-base font-extrabold text-teal-800">{treatment.priceFormatted}</span>
                   </div>
 
                   <div className="flex items-center gap-2">
@@ -110,17 +111,17 @@ export default function ServicesPage() {
                       href={waUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2 text-[#1EBE5D] hover:bg-emerald-50 rounded-xs border border-border transition-colors"
+                      className="p-2 text-[#25D366] hover:bg-emerald-50 rounded-lg border border-slate-200 transition-colors"
                       title="Inquire on WhatsApp"
                       aria-label="WhatsApp Inquiry"
                     >
-                      <MessageCircle size={15} />
+                      <MessageCircle size={18} />
                     </a>
                     <Link
                       to={`/services/${treatment.slug}`}
-                      className="text-xs font-medium text-sage-800 hover:text-sage-900 bg-canvas-subtle hover:bg-canvas-muted px-3 py-1.5 rounded-xs border border-border/80 transition-colors"
+                      className="text-xs font-bold text-teal-700 hover:text-teal-800 bg-teal-50 hover:bg-teal-100 px-3.5 py-2 rounded-lg border border-teal-200 transition-colors"
                     >
-                      Protocol & FAQs
+                      Details & FAQs
                     </Link>
                   </div>
                 </div>
@@ -129,27 +130,40 @@ export default function ServicesPage() {
           })}
         </div>
 
-        <div className="p-8 bg-sage-900 text-white rounded-sm flex flex-col md:flex-row md:items-center justify-between gap-6 font-sans">
-          <div className="space-y-1.5">
-            <span className="text-xs font-mono uppercase text-sand-300 block">Not certain which treatment is appropriate?</span>
-            <h3 className="font-serif text-2xl font-normal text-white">
-              Book a comprehensive examination & 3D scan (₹500).
+        <div className="p-8 sm:p-10 bg-teal-900 text-white rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-md">
+          <div className="space-y-2">
+            <span className="text-xs font-bold uppercase tracking-wider text-teal-300 block">Not sure which treatment you need?</span>
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
+              Book a Comprehensive Dental Checkup
             </h3>
-            <p className="text-xs sm:text-sm text-white/80 max-w-xl">
-              Dr. Satyam Sharma will examine your oral health, show you chairside intraoral scans, and present all viable options with transparent itemized pricing before you decide anything.
+            <p className="text-sm text-teal-100 max-w-xl leading-relaxed">
+              Dr. Satyam Sharma will examine your teeth, show you chairside 3D optical scans on the screen, and explain all viable options with upfront written pricing.
             </p>
           </div>
 
-          <Link
-            to="/book"
-            className="btn-primary bg-sand-600 hover:bg-sand-700 text-white border-sand-600 shrink-0 text-xs h-11 px-5"
-          >
-            <Calendar size={15} />
-            <span>Book Initial Checkup</span>
-          </Link>
+          <div className="flex flex-wrap items-center gap-3 shrink-0">
+            <Link
+              to="/book"
+              className="btn-primary bg-white text-teal-900 hover:bg-teal-50 border-white text-xs h-11 px-5"
+            >
+              <Calendar size={15} />
+              <span>Book Consultation</span>
+            </Link>
+
+            <a
+              href={`https://wa.me/${CLINIC.whatsapp}?text=${encodeURIComponent('Hello Dr. Sharma, I am not sure which dental treatment I need and would like advice.')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-whatsapp text-xs h-11 px-5"
+            >
+              <MessageCircle size={15} />
+              <span>Ask on WhatsApp</span>
+            </a>
+          </div>
         </div>
 
       </div>
-    </div>
+    </section>
+  </div>
   );
 }

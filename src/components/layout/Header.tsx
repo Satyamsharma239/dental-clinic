@@ -33,15 +33,15 @@ export default function Header() {
 
   return (
     <>
-      <div className="bg-sage-900 text-white text-xs py-2 px-4 sm:px-8 border-b border-sage-800 font-sans">
+      <div className="bg-teal-900 text-white text-xs py-2 px-4 sm:px-8 border-b border-teal-800 font-sans">
         <div className="max-w-container mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-          <div className="flex items-center gap-4 text-white/90 flex-wrap justify-center sm:justify-start">
+          <div className="flex items-center gap-4 text-teal-100 flex-wrap justify-center sm:justify-start">
             <span className="flex items-center gap-1.5">
-              <MapPin size={12} className="text-sand-400" />
+              <MapPin size={13} className="text-teal-300" />
               <span>Studio 204, Waterfield Road, Bandra West, Mumbai</span>
             </span>
             <span className="hidden md:flex items-center gap-1.5">
-              <Clock size={12} className="text-sand-400" />
+              <Clock size={13} className="text-teal-300" />
               <span>Mon–Sat: 9:30 AM – 7:30 PM</span>
             </span>
           </div>
@@ -49,53 +49,53 @@ export default function Header() {
           <div className="flex items-center gap-4 font-medium">
             <a 
               href={`tel:${CLINIC.phone}`} 
-              className="flex items-center gap-1.5 text-white/90 hover:text-white transition-colors"
+              className="flex items-center gap-1.5 text-teal-100 hover:text-white transition-colors"
             >
-              <Phone size={12} className="text-sand-400" />
+              <Phone size={13} className="text-teal-300" />
               <span>{CLINIC.phoneDisplay}</span>
             </a>
-            <span className="text-sage-700">|</span>
+            <span className="text-teal-700">|</span>
             <a
               href={waUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1 text-[#25D366] hover:text-white transition-colors"
+              className="flex items-center gap-1.5 text-teal-200 hover:text-white transition-colors"
             >
-              <MessageCircle size={12} />
+              <MessageCircle size={13} className="text-teal-300" />
               <span>WhatsApp Consultation</span>
             </a>
           </div>
         </div>
       </div>
 
-      <header className="sticky top-0 z-40 bg-canvas/95 backdrop-blur-md border-b border-hairline font-sans">
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 font-sans shadow-xs">
         <div className="max-w-container mx-auto px-4 sm:px-8 h-18 sm:h-20 flex items-center justify-between gap-4">
           
           <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-9 h-9 rounded-sm bg-sage-800 text-white flex items-center justify-center font-serif text-lg border border-sage-700 shadow-2xs group-hover:bg-sage-900 transition-colors">
+            <div className="w-10 h-10 rounded-xl bg-teal-700 text-white flex items-center justify-center font-bold text-lg shadow-sm group-hover:bg-teal-800 transition-colors">
               A
             </div>
             <div>
-              <span className="font-serif text-xl sm:text-2xl font-medium tracking-[0.02em] text-ink block leading-none">
+              <span className="font-heading text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 block leading-tight">
                 {CLINIC.name}
               </span>
-              <span className="text-[11px] text-ink-muted block mt-1 tracking-wide">
+              <span className="text-xs text-slate-500 block font-medium">
                 Dr. Satyam Sharma · Bandra West
               </span>
             </div>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-7" aria-label="Main navigation">
+          <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
             {NAV_LINKS.map((link) => {
               const isActive = location.pathname === link.to;
               return (
                 <Link
                   key={link.to}
                   to={link.to}
-                  className={`text-[14px] font-medium transition-colors ${
+                  className={`text-sm font-semibold transition-colors ${
                     isActive
-                      ? 'text-sage-800 font-semibold border-b-2 border-sage-800 pb-0.5'
-                      : 'text-ink-secondary hover:text-ink'
+                      ? 'text-teal-700 font-bold border-b-2 border-teal-700 pb-0.5'
+                      : 'text-slate-600 hover:text-teal-700'
                   }`}
                 >
                   {link.label}
@@ -109,9 +109,9 @@ export default function Header() {
               href={waUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="h-10 px-3.5 inline-flex items-center justify-center gap-1.5 rounded-sm border border-border bg-white text-ink hover:bg-canvas-subtle text-xs font-medium transition-colors"
+              className="h-10 px-3.5 inline-flex items-center justify-center gap-1.5 rounded-lg border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 text-xs font-semibold transition-colors shadow-xs"
             >
-              <MessageCircle size={14} className="text-[#1EBE5D]" />
+              <MessageCircle size={15} className="text-teal-700" />
               <span>WhatsApp</span>
             </a>
 
@@ -119,7 +119,7 @@ export default function Header() {
               to="/book"
               className="btn-primary text-xs h-10 px-4"
             >
-              <Calendar size={14} />
+              <Calendar size={15} />
               <span>Book Appointment</span>
             </Link>
           </div>
@@ -129,7 +129,7 @@ export default function Header() {
               href={waUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 text-[#1EBE5D]"
+              className="p-2 text-teal-700"
               aria-label="WhatsApp"
             >
               <MessageCircle size={22} />
@@ -137,7 +137,7 @@ export default function Header() {
             <button
               type="button"
               onClick={() => setMobileOpen(true)}
-              className="p-2 text-ink hover:text-sage-800"
+              className="p-2 text-slate-800 hover:text-teal-700"
               aria-label="Open menu"
             >
               <Menu size={24} />
@@ -147,18 +147,18 @@ export default function Header() {
         </div>
 
         {mobileOpen && (
-          <div className="fixed inset-0 z-50 bg-ink/40 md:hidden flex">
-            <div className="relative ml-auto w-full max-w-xs bg-canvas h-full p-6 flex flex-col justify-between shadow-2xl border-l border-hairline">
+          <div className="fixed inset-0 z-50 bg-slate-900/50 md:hidden flex">
+            <div className="relative ml-auto w-full max-w-xs bg-white h-full p-6 flex flex-col justify-between shadow-2xl border-l border-slate-200">
               <div>
-                <div className="flex items-center justify-between pb-4 border-b border-hairline">
+                <div className="flex items-center justify-between pb-4 border-b border-slate-200">
                   <div>
-                    <span className="font-serif text-lg text-ink font-medium block">{CLINIC.name}</span>
-                    <span className="text-xs text-ink-muted">Bandra West, Mumbai</span>
+                    <span className="font-heading text-lg font-bold text-slate-900 block">{CLINIC.name}</span>
+                    <span className="text-xs text-slate-500">Bandra West, Mumbai</span>
                   </div>
                   <button
                     type="button"
                     onClick={() => setMobileOpen(false)}
-                    className="p-1.5 text-ink-muted hover:text-ink"
+                    className="p-1.5 text-slate-500 hover:text-slate-900"
                     aria-label="Close menu"
                   >
                     <X size={22} />
@@ -173,10 +173,10 @@ export default function Header() {
                         key={link.to}
                         to={link.to}
                         onClick={() => setMobileOpen(false)}
-                        className={`px-3.5 py-2.5 rounded-sm text-sm font-medium transition-colors ${
+                        className={`px-4 py-2.5 rounded-lg text-sm font-semibold transition-colors ${
                           isActive
-                            ? 'bg-sage-100 text-sage-900 font-semibold'
-                            : 'text-ink-secondary hover:bg-canvas-subtle'
+                            ? 'bg-teal-50 text-teal-800'
+                            : 'text-slate-700 hover:bg-slate-50'
                         }`}
                       >
                         {link.label}
@@ -186,14 +186,14 @@ export default function Header() {
                 </nav>
               </div>
 
-              <div className="space-y-3 pt-6 border-t border-hairline">
+              <div className="space-y-3 pt-6 border-t border-slate-200">
                 <a
                   href={waUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-whatsapp w-full text-xs h-11"
                 >
-                  <MessageCircle size={15} />
+                  <MessageCircle size={16} />
                   <span>Chat on WhatsApp</span>
                 </a>
                 <Link
@@ -201,11 +201,11 @@ export default function Header() {
                   onClick={() => setMobileOpen(false)}
                   className="btn-primary w-full text-xs h-11"
                 >
-                  <Calendar size={15} />
+                  <Calendar size={16} />
                   <span>Book Appointment</span>
                 </Link>
                 <div className="text-center pt-2">
-                  <a href={`tel:${CLINIC.phone}`} className="text-xs text-ink-muted hover:text-ink">
+                  <a href={`tel:${CLINIC.phone}`} className="text-xs text-slate-500 hover:text-slate-800">
                     Call: {CLINIC.phoneDisplay}
                   </a>
                 </div>

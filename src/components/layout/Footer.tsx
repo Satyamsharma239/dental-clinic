@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { CLINIC } from '@/data/clinicInfo';
-import { Phone, Mail, MapPin, MessageCircle, Clock, Calendar } from 'lucide-react';
+import { Phone, Mail, MapPin, MessageCircle, Clock, Calendar, CheckCircle } from 'lucide-react';
 
 export default function Footer() {
   const currentStatus = useMemo(() => {
@@ -19,23 +19,23 @@ export default function Footer() {
   const waUrl = `https://wa.me/${CLINIC.whatsapp}?text=${encodeURIComponent('Hello Dr. Sharma, I want to inquire about dental appointments at Aura Dental Studio.')}`;
 
   return (
-    <footer className="bg-sage-900 text-white pt-16 pb-10 border-t border-sage-800 font-sans">
+    <footer className="bg-slate-900 text-slate-300 pt-16 pb-12 border-t border-slate-800 font-sans">
       <div className="max-w-container mx-auto px-4 sm:px-8">
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-14 border-b border-white/10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-14 border-b border-slate-800">
           
           <div className="lg:col-span-4 space-y-4">
             <Link to="/" className="inline-block">
-              <span className="font-serif text-2xl text-white tracking-[0.02em] block">
+              <span className="font-heading text-2xl font-extrabold text-white tracking-tight block">
                 {CLINIC.name}
               </span>
-              <span className="text-[11px] uppercase tracking-[0.16em] text-sand-300 block mt-1 font-mono">
-                Dr. Satyam Sharma · Bandra West
+              <span className="text-xs font-semibold text-teal-400 block mt-1">
+                Dr. Satyam Sharma (MDS) · Bandra West
               </span>
             </Link>
 
-            <p className="text-white/85 text-sm leading-relaxed max-w-sm">
-              Dr. Satyam Sharma (BDS Nair, MDS GDC Mumbai) leads an unhurried, conservative dental practice on Waterfield Road. We prioritize gentle pain-free anesthesia, chairside 3D optical diagnostics, and clear upfront fees.
+            <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
+              Gentle, conservative family dentistry on Waterfield Road. We prioritize pain-free anesthesia, 3D optical scanning, and transparent upfront pricing for every patient.
             </p>
 
             <div className="pt-2 flex flex-wrap items-center gap-3">
@@ -43,35 +43,35 @@ export default function Footer() {
                 href={waUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-whatsapp text-xs h-9 px-4 rounded-sm"
+                className="btn-whatsapp text-xs h-10 px-4 rounded-lg"
               >
-                <MessageCircle size={14} />
+                <MessageCircle size={15} />
                 <span>WhatsApp Desk</span>
               </a>
 
               <Link
                 to="/book"
-                className="h-9 px-4 inline-flex items-center justify-center gap-2 rounded-sm bg-white/15 hover:bg-white/25 text-white text-xs font-medium transition-colors"
+                className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold transition-colors border border-slate-700"
               >
-                <Calendar size={14} />
+                <Calendar size={15} />
                 <span>Book Appointment</span>
               </Link>
             </div>
           </div>
 
           <div className="lg:col-span-3 space-y-3">
-            <h4 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-sand-300 font-mono">
-              Practice Location
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white">
+              Studio Location
             </h4>
-            <div className="text-sm text-white/85 space-y-2 leading-relaxed">
-              <p className="flex items-start gap-2">
-                <MapPin size={15} className="text-sand-400 shrink-0 mt-1" />
-                <span>{CLINIC.address.full}</span>
+            <div className="text-sm text-slate-400 space-y-2.5 leading-relaxed">
+              <p className="flex items-start gap-2.5">
+                <MapPin size={16} className="text-teal-400 shrink-0 mt-1" />
+                <span className="text-slate-300">{CLINIC.address.full}</span>
               </p>
-              <p className="text-xs text-white/70 pl-6">
+              <p className="text-xs text-slate-400 pl-6">
                 Landmark: {CLINIC.address.landmark}
               </p>
-              <p className="text-xs text-white/70 pl-6">
+              <p className="text-xs text-slate-400 pl-6">
                 Transit: {CLINIC.transit}
               </p>
             </div>
@@ -79,26 +79,26 @@ export default function Footer() {
 
           <div className="lg:col-span-3 space-y-3">
             <div className="flex items-center justify-between">
-              <h4 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-sand-300 font-mono">
-                Consultation Hours
+              <h4 className="text-xs font-bold uppercase tracking-wider text-white">
+                Consultation Timings
               </h4>
-              <span className={`text-[10px] font-mono uppercase px-2 py-0.5 rounded-xs ${
+              <span className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-full ${
                 currentStatus.isOpen 
-                  ? 'bg-emerald-800 text-emerald-200 border border-emerald-600' 
-                  : 'bg-white/10 text-white/70'
+                  ? 'bg-emerald-900/60 text-emerald-300 border border-emerald-700' 
+                  : 'bg-slate-800 text-slate-400 border border-slate-700'
               }`}>
                 {currentStatus.isOpen ? 'Open Now' : 'Closed'}
               </span>
             </div>
 
-            <div className="text-xs text-white/80 space-y-1.5 num-tabular">
+            <div className="text-xs space-y-2">
               {CLINIC.hours.map((h, i) => {
                 const isToday = currentStatus.dayIndex === i;
                 return (
                   <div 
                     key={h.day}
-                    className={`flex justify-between py-1 border-b border-white/5 ${
-                      isToday ? 'text-sand-300 font-medium' : 'text-white/70'
+                    className={`flex justify-between py-1 border-b border-slate-800/80 ${
+                      isToday ? 'text-teal-400 font-semibold' : 'text-slate-400'
                     }`}
                   >
                     <span>{h.day}</span>
@@ -110,41 +110,41 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-2 space-y-3">
-            <h4 className="text-[11px] font-semibold uppercase tracking-[0.14em] text-sand-300 font-mono">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white">
               Direct Contact
             </h4>
-            <div className="text-sm text-white/85 space-y-3">
+            <div className="text-sm space-y-3">
               <div>
-                <span className="text-[11px] text-white/60 block font-mono">Telephone</span>
-                <a href={`tel:${CLINIC.phone}`} className="hover:text-white transition-colors font-medium text-xs">
+                <span className="text-xs text-slate-500 block">Phone Desk</span>
+                <a href={`tel:${CLINIC.phone}`} className="text-white hover:text-teal-400 transition-colors font-semibold text-xs">
                   {CLINIC.phoneDisplay}
                 </a>
               </div>
               <div>
-                <span className="text-[11px] text-white/60 block font-mono">Email</span>
-                <a href={`mailto:${CLINIC.email}`} className="hover:text-white transition-colors text-xs break-all">
+                <span className="text-xs text-slate-500 block">Email Inquiries</span>
+                <a href={`mailto:${CLINIC.email}`} className="text-slate-300 hover:text-white transition-colors text-xs break-all">
                   {CLINIC.email}
                 </a>
               </div>
               <div>
-                <span className="text-[11px] text-white/60 block font-mono">Dental Council Reg.</span>
-                <span className="text-xs text-white/80 font-mono">MSDC-42891</span>
+                <span className="text-xs text-slate-500 block">Dental Council Reg.</span>
+                <span className="text-xs text-teal-400 font-semibold font-mono">MSDC-42891</span>
               </div>
             </div>
           </div>
 
         </div>
 
-        <div className="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-white/70">
+        <div className="pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-500">
           <div>
-            © {new Date().getFullYear()} {CLINIC.name} · Dr. Satyam Sharma (MDS Orthodontics). Bandra West, Mumbai.
+            © {new Date().getFullYear()} {CLINIC.name} · Dr. Satyam Sharma, MDS (BDS Nair, MDS GDC Mumbai). Bandra West, Mumbai.
           </div>
           <div className="flex items-center gap-6">
             <Link to="/" className="hover:text-white transition-colors">Home</Link>
             <Link to="/about" className="hover:text-white transition-colors">About</Link>
             <Link to="/services" className="hover:text-white transition-colors">Services</Link>
             <Link to="/contact" className="hover:text-white transition-colors">Contact</Link>
-            <Link to="/book" className="hover:text-white transition-colors">Book Appointment</Link>
+            <Link to="/book" className="hover:text-white transition-colors">Book</Link>
           </div>
         </div>
 
