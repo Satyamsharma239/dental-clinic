@@ -52,15 +52,15 @@ const HERO_HEADLINE = 'Gentle, Honest Dental Care for Your Family';
 
 export default function HomePage() {
   const [headlineLength, setHeadlineLength] = useState(0);
-  const [selectedService, setSelectedService] = useState<string>(TREATMENTS[0].name);
+  const [selectedService, setSelectedService] = useState<string>('');
   const [patientName, setPatientName] = useState<string>('');
   const [patientPhone, setPatientPhone] = useState<string>('');
   const [patientEmail, setPatientEmail] = useState<string>('');
-  const [selectedDate, setSelectedDate] = useState<string>('As soon as possible');
+  const [selectedDate, setSelectedDate] = useState<string>('');
   const [selectedTime, setSelectedTime] = useState<string>('');
   const [isAnxious, setIsAnxious] = useState<boolean>(false);
   const [patientNotes, setPatientNotes] = useState<string>('');
-  const [formErrors, setFormErrors] = useState<{ name?: string; phone?: string; time?: string }>({});
+  const [formErrors, setFormErrors] = useState<{ name?: string; phone?: string; service?: string; date?: string; time?: string }>({});
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
   useEffect(() => {
@@ -92,12 +92,18 @@ export default function HomePage() {
   const cleanPhone = patientPhone.replace(/\D/g, '');
 
   const validateBooking = () => {
-    const errors: { name?: string; phone?: string; time?: string } = {};
+    const errors: { name?: string; phone?: string; service?: string; date?: string; time?: string } = {};
     if (!patientName.trim() || patientName.trim().length < 2) {
       errors.name = 'Please enter your full name (letters only).';
     }
     if (!cleanPhone || cleanPhone.length !== 10 || !/^[6-9]\d{9}$/.test(cleanPhone)) {
       errors.phone = 'Please enter a valid 10-digit mobile number.';
+    }
+    if (!selectedService) {
+      errors.service = 'Please select a treatment or service.';
+    }
+    if (!selectedDate) {
+      errors.date = 'Please select your preferred day.';
     }
     if (!selectedTime) {
       errors.time = 'Please select your preferred time.';
@@ -553,36 +559,52 @@ export default function HomePage() {
           <div className="max-w-3xl mx-auto bg-slate-50 rounded-2xl border border-slate-200 p-6 sm:p-10 shadow-sm space-y-6">
             
             <div className="space-y-2">
-              <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
-                1. Select Treatment / Service
+              <label htmlFor="home-booking-service" className="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                1. Select Treatment / Service *
               </label>
               <select
+                id="home-booking-service"
                 value={selectedService}
-                onChange={(e) => setSelectedService(e.target.value)}
-                className="w-full h-12 px-4 bg-white border border-slate-300 rounded-xl text-sm text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-teal-600"
+                onChange={(e) => {
+                  setSelectedService(e.target.value);
+                  if (formErrors.service) setFormErrors({ ...formErrors, service: undefined });
+                }}
+                className={`w-full h-12 px-4 bg-white border rounded-xl text-sm text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-teal-600 ${
+                  formErrors.service ? 'border-red-400 ring-1 ring-red-400' : 'border-slate-300'
+                }`}
               >
+                <option value="" disabled>Select a treatment or service</option>
                 {TREATMENTS.map((treatment) => (
                   <option key={treatment.id} value={treatment.name}>{treatment.name}</option>
                 ))}
               </select>
+              {formErrors.service && <p className="text-xs text-red-600 font-medium">{formErrors.service}</p>}
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
-                  2. Preferred Day
+                <label htmlFor="home-booking-date" className="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                  2. Preferred Day *
                 </label>
                 <select
+                  id="home-booking-date"
                   value={selectedDate}
-                  onChange={(e) => setSelectedDate(e.target.value)}
-                  className="w-full h-12 px-4 bg-white border border-slate-300 rounded-xl text-sm text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-teal-600"
+                  onChange={(e) => {
+                    setSelectedDate(e.target.value);
+                    if (formErrors.date) setFormErrors({ ...formErrors, date: undefined });
+                  }}
+                  className={`w-full h-12 px-4 bg-white border rounded-xl text-sm text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-teal-600 ${
+                    formErrors.date ? 'border-red-400 ring-1 ring-red-400' : 'border-slate-300'
+                  }`}
                 >
+                  <option value="" disabled>Select your preferred day</option>
                   <option value="As soon as possible">As soon as possible</option>
                   <option value="Tomorrow">Tomorrow</option>
                   <option value="Within Next 48 Hours">Within Next 48 Hours</option>
                   <option value="This Saturday">This Saturday</option>
                   <option value="Next Week">Next Week</option>
                 </select>
+                {formErrors.date && <p className="text-xs text-red-600 font-medium">{formErrors.date}</p>}
               </div>
 
               <div className="space-y-2">
