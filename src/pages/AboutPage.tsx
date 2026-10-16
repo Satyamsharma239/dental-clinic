@@ -37,7 +37,7 @@ export default function AboutPage() {
   return (
     <div className="bg-slate-50 text-slate-800 font-sans">
       
-      <section className="py-14 sm:py-20 bg-gradient-to-br from-teal-50 via-slate-50 to-emerald-50/50 border-b border-slate-200">
+      <section className="py-12 sm:py-16 bg-gradient-to-br from-teal-50 via-slate-50 to-emerald-50/50 border-b border-slate-200">
         <div className="max-w-container mx-auto px-4 sm:px-8 text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-white border border-teal-200 text-teal-800 shadow-xs">
             <Sparkles size={14} className="text-teal-600" />
@@ -274,7 +274,7 @@ export default function AboutPage() {
                 className="btn-primary bg-white text-teal-900 hover:bg-teal-50 border-white text-xs h-11 px-5 justify-center"
               >
                 <Calendar size={15} />
-                <span>Book Consultation</span>
+                <span>Book Appointment</span>
               </Link>
 
               <a

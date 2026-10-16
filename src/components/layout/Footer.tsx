@@ -1,21 +1,8 @@
-import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { CLINIC } from '@/data/clinicInfo';
-import { Phone, Mail, MapPin, MessageCircle, Clock, Calendar, CheckCircle } from 'lucide-react';
+import { Phone, Mail, MapPin, MessageCircle, Calendar } from 'lucide-react';
 
 export default function Footer() {
-  const currentStatus = useMemo(() => {
-    const now = new Date();
-    const day = now.getDay();
-    const hour = now.getHours() + now.getMinutes() / 60;
-    const isWorkingDay = day >= 1 && day <= 6;
-    const isOpen = isWorkingDay && hour >= 9.5 && hour <= 19.5;
-    return {
-      isOpen,
-      dayIndex: day === 0 ? 6 : day - 1,
-    };
-  }, []);
-
   const waUrl = `https://wa.me/${CLINIC.whatsapp}?text=${encodeURIComponent('Hello Dr. Sharma, I want to inquire about dental appointments at Aura Dental Studio.')}`;
 
   return (
@@ -46,7 +33,7 @@ export default function Footer() {
                 className="btn-whatsapp text-xs h-10 px-4 rounded-lg"
               >
                 <MessageCircle size={15} />
-                <span>WhatsApp Desk</span>
+                <span>WhatsApp Inquiry</span>
               </a>
 
               <Link
@@ -78,34 +65,14 @@ export default function Footer() {
           </div>
 
           <div className="lg:col-span-3 space-y-3">
-            <div className="flex items-center justify-between">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-white">
-                Consultation Timings
-              </h4>
-              <span className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-full ${
-                currentStatus.isOpen 
-                  ? 'bg-emerald-900/60 text-emerald-300 border border-emerald-700' 
-                  : 'bg-slate-800 text-slate-400 border border-slate-700'
-              }`}>
-                {currentStatus.isOpen ? 'Open Now' : 'Closed'}
-              </span>
-            </div>
-
-            <div className="text-xs space-y-2">
-              {CLINIC.hours.map((h, i) => {
-                const isToday = currentStatus.dayIndex === i;
-                return (
-                  <div 
-                    key={h.day}
-                    className={`flex justify-between py-1 border-b border-slate-800/80 ${
-                      isToday ? 'text-teal-400 font-semibold' : 'text-slate-400'
-                    }`}
-                  >
-                    <span>{h.day}</span>
-                    <span>{h.time}</span>
-                  </div>
-                );
-              })}
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white">
+              Appointments
+            </h4>
+            <div className="text-sm space-y-2">
+              <p className="text-teal-300 font-semibold">{CLINIC.appointmentPolicy}</p>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                {CLINIC.appointmentNotice}
+              </p>
             </div>
           </div>
 
@@ -144,7 +111,7 @@ export default function Footer() {
             <Link to="/about" className="hover:text-white transition-colors">About</Link>
             <Link to="/services" className="hover:text-white transition-colors">Services</Link>
             <Link to="/contact" className="hover:text-white transition-colors">Contact</Link>
-            <Link to="/book" className="hover:text-white transition-colors">Book</Link>
+            <Link to="/book" className="hover:text-white transition-colors">Book Appointment</Link>
           </div>
         </div>
 

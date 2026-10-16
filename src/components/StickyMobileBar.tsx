@@ -11,7 +11,7 @@ export default function StickyMobileBar() {
           className="flex items-center justify-center gap-1.5 h-11 rounded-xl bg-white border border-slate-300 text-slate-800 text-xs font-bold active:bg-slate-100 transition-colors shadow-xs"
         >
           <Phone size={14} className="text-teal-700" />
-          <span>Call Desk</span>
+          <span>Call Clinic</span>
         </a>
 
         <a
@@ -29,7 +29,7 @@ export default function StickyMobileBar() {
           className="flex items-center justify-center gap-1.5 h-11 rounded-xl bg-teal-700 text-white text-xs font-bold active:bg-teal-800 shadow-sm transition-colors"
         >
           <Calendar size={14} />
-          <span>Book Visit</span>
+          <span>Book Appointment</span>
         </Link>
       </div>
     </div>

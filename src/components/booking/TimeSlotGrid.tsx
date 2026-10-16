@@ -77,8 +77,7 @@ export const TimeSlotGrid: React.FC<TimeSlotGridProps> = ({ slots, selectedTime,
       {morningSlots.length > 0 && (
         <div>
           <h4 className="text-[11px] font-bold text-text-muted mb-2.5 uppercase tracking-wider flex items-center gap-1.5">
-            <span>Morning Session</span>
-            <span className="text-[10px] text-accent font-normal">(9:00 AM – 1:00 PM)</span>
+            <span>Morning</span>
           </h4>
           {renderSlots(morningSlots)}
         </div>
@@ -87,8 +86,7 @@ export const TimeSlotGrid: React.FC<TimeSlotGridProps> = ({ slots, selectedTime,
       {afternoonSlots.length > 0 && (
         <div>
           <h4 className="text-[11px] font-bold text-text-muted mb-2.5 uppercase tracking-wider flex items-center gap-1.5">
-            <span>Afternoon Session</span>
-            <span className="text-[10px] text-accent font-normal">(2:00 PM – 6:00 PM)</span>
+            <span>Afternoon & Evening</span>
           </h4>
           {renderSlots(afternoonSlots)}
         </div>

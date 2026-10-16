@@ -1,45 +1,27 @@
-import { useState, useMemo } from 'react';
-import { useSearchParams, Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Calendar, MessageCircle, Mail, CheckCircle2, MapPin, Sparkles, ShieldCheck, User, Phone as PhoneIcon } from 'lucide-react';
 import { TREATMENTS, Treatment } from '@/data/services';
 import { CLINIC } from '@/data/clinicInfo';
 
 export default function BookingPage() {
-  const [searchParams] = useSearchParams();
-  const preselectedSlug = searchParams.get('service');
-
-  const selectedTreatmentInitial = useMemo(() => {
-    if (preselectedSlug) {
-      const found = TREATMENTS.find((t) => t.slug === preselectedSlug);
-      if (found) return found;
-    }
-    return TREATMENTS[0];
-  }, [preselectedSlug]);
-
-  const [selectedTreatment, setSelectedTreatment] = useState<Treatment>(selectedTreatmentInitial);
+  const [selectedTreatment, setSelectedTreatment] = useState<Treatment | null>(null);
 
   const getMinDateString = () => {
     const today = new Date();
     return today.toISOString().split('T')[0];
   };
 
-  const getDefaultDateString = () => {
-    const d = new Date();
-    d.setDate(d.getDate() + 1);
-    return d.toISOString().split('T')[0];
-  };
-
-  const [selectedDate, setSelectedDate] = useState<string>(getDefaultDateString());
-  const [selectedTimeSlot, setSelectedTimeSlot] = useState<string>('Morning (10:00 AM – 1:30 PM)');
-  const [bookingMethod, setBookingMethod] = useState<'whatsapp' | 'email'>('whatsapp');
+  const [selectedDate, setSelectedDate] = useState<string>('');
+  const [selectedTime, setSelectedTime] = useState<string>('');
 
   const [patientName, setPatientName] = useState<string>('');
   const [patientPhone, setPatientPhone] = useState<string>('');
   const [patientEmail, setPatientEmail] = useState<string>('');
   const [patientNotes, setPatientNotes] = useState<string>('');
   const [isAnxious, setIsAnxious] = useState<boolean>(false);
-  const [formErrors, setFormErrors] = useState<{ name?: string; phone?: string; email?: string; date?: string }>({});
-  const [confirmedBooking, setConfirmedBooking] = useState<{
+  const [formErrors, setFormErrors] = useState<{ name?: string; phone?: string; email?: string; treatment?: string; date?: string; time?: string }>({});
+  const [appointmentRequest, setAppointmentRequest] = useState<{
     id: string;
     name: string;
     phone: string;
@@ -69,7 +51,7 @@ export default function BookingPage() {
   };
 
   const validate = () => {
-    const errs: { name?: string; phone?: string; email?: string; date?: string } = {};
+    const errs: { name?: string; phone?: string; email?: string; treatment?: string; date?: string; time?: string } = {};
 
     if (!patientName.trim() || patientName.trim().length < 2) {
       errs.name = 'Please enter your full name (letters only).';
@@ -86,15 +68,23 @@ export default function BookingPage() {
       errs.email = 'Please enter a valid email address.';
     }
 
+    if (!selectedTreatment) {
+      errs.treatment = 'Please select a treatment.';
+    }
+
     if (!selectedDate) {
       errs.date = 'Please select your preferred date.';
+    }
+
+    if (!selectedTime) {
+      errs.time = 'Please select your preferred time.';
     }
 
     setFormErrors(errs);
     return Object.keys(errs).length === 0;
   };
 
-  const handleConfirmBooking = (e: React.FormEvent) => {
+  const handlePrepareRequest = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (!validate()) return;
 
@@ -102,6 +92,8 @@ export default function BookingPage() {
     const id = `AURA-${hex}`;
     const cleanPhoneDigits = patientPhone.replace(/\D/g, '');
     const readableDate = formatDisplayDate(selectedDate);
+
+    if (!selectedTreatment) return;
 
     const record = {
       id,
@@ -112,57 +104,20 @@ export default function BookingPage() {
       isAnxious,
       treatment: selectedTreatment,
       date: readableDate,
-      time: selectedTimeSlot,
+      time: selectedTime,
     };
 
-    setConfirmedBooking(record);
-
-    if (bookingMethod === 'whatsapp') {
-      const text =
-        `*AURA DENTAL STUDIO — APPOINTMENT REQUEST*\n` +
-        `━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
-        `• *Booking ID:* ${record.id}\n` +
-        `• *Patient Name:* ${record.name}\n` +
-        `• *Mobile:* +91 ${record.phone}\n` +
-        `• *Treatment:* ${record.treatment.name}\n` +
-        `• *Preferred Date:* ${record.date}\n` +
-        `• *Time Window:* ${record.time}\n` +
-        `• *Gentle Care Buffer:* ${record.isAnxious ? 'Yes, requested' : 'Standard'}\n` +
-        `• *Notes:* ${record.notes || 'None'}\n` +
-        `━━━━━━━━━━━━━━━━━━━━━━━━━\n` +
-        `Hello Dr. Sharma, please confirm this consultation appointment at your Bandra West studio.`;
-
-      const url = `https://wa.me/${CLINIC.whatsapp}?text=${encodeURIComponent(text)}`;
-      window.open(url, '_blank', 'noopener,noreferrer');
-    } else {
-      const subject = `Dental Appointment ${record.id}: ${record.name} - ${record.treatment.name}`;
-      const body =
-        `Hello Aura Dental Studio Team,\n\n` +
-        `I would like to schedule an appointment with Dr. Satyam Sharma.\n\n` +
-        `Booking Reference: ${record.id}\n` +
-        `Patient Name: ${record.name}\n` +
-        `Phone Number: +91 ${record.phone}\n` +
-        `Email Address: ${record.email || 'Not provided'}\n` +
-        `Selected Treatment: ${record.treatment.name}\n` +
-        `Preferred Date: ${record.date}\n` +
-        `Time Window: ${record.time}\n` +
-        `Gentle Care Buffer: ${record.isAnxious ? 'Yes (requested)' : 'Standard'}\n` +
-        `Patient Notes: ${record.notes || 'None'}\n\n` +
-        `Thank you!\n${record.name}`;
-
-      const url = `mailto:${CLINIC.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-      window.location.href = url;
-    }
+    setAppointmentRequest(record);
   };
 
-  if (confirmedBooking) {
+  if (appointmentRequest) {
     const waText = encodeURIComponent(
-      `Hello Dr. Sharma, I have scheduled an appointment at Aura Dental Studio:\n\n*Booking ID:* ${confirmedBooking.id}\n*Patient Name:* ${confirmedBooking.name}\n*Treatment:* ${confirmedBooking.treatment.name}\n*Date:* ${confirmedBooking.date}\n*Time:* ${confirmedBooking.time}\n*Phone:* +91 ${confirmedBooking.phone}\n*Gentle Care Buffer:* ${confirmedBooking.isAnxious ? 'Yes, requested' : 'Standard'}\n\nPlease confirm my slot. Thank you!`
+      `Hello Dr. Sharma, I would like to book an appointment at Aura Dental Studio:\n\n*Booking Reference:* ${appointmentRequest.id}\n*Patient Name:* ${appointmentRequest.name}\n*Treatment:* ${appointmentRequest.treatment.name}\n*Preferred Date:* ${appointmentRequest.date}\n*Preferred Time:* ${appointmentRequest.time}\n*Phone:* +91 ${appointmentRequest.phone}\n*Gentle Care Buffer:* ${appointmentRequest.isAnxious ? 'Yes, requested' : 'Standard'}\n\nPlease confirm availability and my visit time. Thank you!`
     );
 
-    const mailtoSubject = encodeURIComponent(`Dental Appointment ${confirmedBooking.id} - ${confirmedBooking.name}`);
+    const mailtoSubject = encodeURIComponent(`Appointment Booking ${appointmentRequest.id} - ${appointmentRequest.name}`);
     const mailtoBody = encodeURIComponent(
-      `Hello Aura Dental Studio Team,\n\nI have booked an appointment on your website.\n\nBooking Reference: ${confirmedBooking.id}\nPatient Name: ${confirmedBooking.name}\nPhone: +91 ${confirmedBooking.phone}\nEmail: ${confirmedBooking.email || 'Not provided'}\nTreatment: ${confirmedBooking.treatment.name}\nDate: ${confirmedBooking.date}\nTime: ${confirmedBooking.time}\nGentle Care Buffer: ${confirmedBooking.isAnxious ? 'Yes (requested)' : 'Standard'}\nNotes: ${confirmedBooking.notes || 'None'}\n\nPlease confirm availability.\n\nBest regards,\n${confirmedBooking.name}`
+      `Hello Aura Dental Studio Team,\n\nI would like to book an appointment with Dr. Satyam Sharma.\n\nBooking Reference: ${appointmentRequest.id}\nPatient Name: ${appointmentRequest.name}\nPhone: +91 ${appointmentRequest.phone}\nEmail: ${appointmentRequest.email || 'Not provided'}\nTreatment: ${appointmentRequest.treatment.name}\nPreferred Date: ${appointmentRequest.date}\nPreferred Time: ${appointmentRequest.time}\nGentle Care Buffer: ${appointmentRequest.isAnxious ? 'Yes (requested)' : 'Standard'}\nNotes: ${appointmentRequest.notes || 'None'}\n\nPlease confirm availability and my visit time.\n\nBest regards,\n${appointmentRequest.name}`
     );
 
     return (
@@ -175,13 +130,13 @@ export default function BookingPage() {
                 <CheckCircle2 size={32} />
               </div>
               <span className="text-xs font-bold uppercase tracking-wider text-teal-700 block">
-                Appointment Received
+                Booking Details Ready
               </span>
               <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
-                Consultation Request Prepared
+                Your Booking Details
               </h1>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                Thank you, <strong>{confirmedBooking.name}</strong>. Your consultation details have been recorded.
+                Thank you, <strong>{appointmentRequest.name}</strong>. Choose a contact option below to send your details. Your visit is booked only after the clinic confirms the date and time.
               </p>
             </div>
 
@@ -189,24 +144,24 @@ export default function BookingPage() {
               <div className="flex justify-between items-center pb-2.5 border-b border-slate-200">
                 <span className="text-slate-500 font-medium">Reference Code</span>
                 <span className="font-mono font-bold text-teal-800 bg-white px-2.5 py-1 rounded-md border border-slate-200">
-                  {confirmedBooking.id}
+                  {appointmentRequest.id}
                 </span>
               </div>
               <div className="flex justify-between py-1">
                 <span className="text-slate-500">Treatment</span>
-                <span className="font-bold text-slate-900">{confirmedBooking.treatment.name}</span>
+                <span className="font-bold text-slate-900">{appointmentRequest.treatment.name}</span>
               </div>
               <div className="flex justify-between py-1">
-                <span className="text-slate-500">Scheduled Date</span>
-                <span className="font-bold text-slate-900">{confirmedBooking.date}</span>
+                <span className="text-slate-500">Preferred Date</span>
+                <span className="font-bold text-slate-900">{appointmentRequest.date}</span>
               </div>
               <div className="flex justify-between py-1">
-                <span className="text-slate-500">Time Window</span>
-                <span className="font-bold text-teal-800">{confirmedBooking.time}</span>
+                <span className="text-slate-500">Preferred Time</span>
+                <span className="font-bold text-slate-900">{appointmentRequest.time}</span>
               </div>
               <div className="flex justify-between py-1">
                 <span className="text-slate-500">Contact Number</span>
-                <span className="font-bold text-slate-900">+91 {confirmedBooking.phone}</span>
+                <span className="font-bold text-slate-900">+91 {appointmentRequest.phone}</span>
               </div>
               <div className="flex justify-between pt-2.5 border-t border-slate-200 text-xs text-slate-500">
                 <span>Location</span>
@@ -222,7 +177,7 @@ export default function BookingPage() {
                 className="btn-whatsapp w-full text-xs h-11"
               >
                 <MessageCircle size={16} />
-                <span>Confirm on WhatsApp (Instant Response)</span>
+                <span>Continue with WhatsApp</span>
               </a>
 
               <a
@@ -230,7 +185,7 @@ export default function BookingPage() {
                 className="btn-secondary w-full text-xs h-11"
               >
                 <Mail size={15} className="text-slate-600" />
-                <span>Send Confirmation via Email</span>
+                <span>Continue with Email</span>
               </a>
             </div>
 
@@ -249,17 +204,17 @@ export default function BookingPage() {
   return (
     <div className="bg-slate-50 text-slate-800 font-sans">
       
-      <section className="py-14 sm:py-20 bg-gradient-to-br from-teal-50 via-slate-50 to-emerald-50/50 border-b border-slate-200">
+      <section className="py-12 sm:py-16 bg-gradient-to-br from-teal-50 via-slate-50 to-emerald-50/50 border-b border-slate-200">
         <div className="max-w-container mx-auto px-4 sm:px-8 text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-white border border-teal-200 text-teal-800 shadow-xs">
             <Sparkles size={14} className="text-teal-600" />
-            <span>Direct Practice Booking · Bandra West</span>
+            <span>Book Your Visit · Bandra West</span>
           </div>
           <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-            Schedule Your Dental Visit with Dr. Sharma
+            Book an Appointment with Dr. Sharma
           </h1>
           <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
-            Choose your service, select your preferred date and time, and we will confirm your consultation slot without delay.
+            Choose your service and preferred date. The clinic will confirm a suitable visit time after receiving your booking details.
           </p>
         </div>
       </section>
@@ -276,22 +231,29 @@ export default function BookingPage() {
                   Select Treatment / Service *
                 </label>
                 <select
-                  value={selectedTreatment.id}
+                  value={selectedTreatment?.id ?? ''}
                   onChange={(e) => {
                     const found = TREATMENTS.find((t) => t.id === e.target.value);
-                    if (found) setSelectedTreatment(found);
+                    setSelectedTreatment(found ?? null);
+                    if (formErrors.treatment) setFormErrors({ ...formErrors, treatment: undefined });
                   }}
-                  className="w-full h-12 px-4 bg-white border border-slate-300 rounded-xl text-sm text-slate-800 font-semibold focus:outline-none focus:ring-2 focus:ring-teal-600"
+                  className={`w-full h-12 px-4 bg-white border rounded-xl text-sm text-slate-800 font-semibold focus:outline-none focus:ring-2 focus:ring-teal-600 ${
+                    formErrors.treatment ? 'border-red-400 ring-1 ring-red-400' : 'border-slate-300'
+                  }`}
                 >
+                  <option value="" disabled>Select a treatment</option>
                   {TREATMENTS.map((t) => (
                     <option key={t.id} value={t.id}>
                       {t.name}
                     </option>
                   ))}
                 </select>
+                {formErrors.treatment && (
+                  <p className="text-xs text-red-600 font-medium">{formErrors.treatment}</p>
+                )}
                 <div className="flex items-center justify-between text-xs text-slate-500 pt-1 px-1">
                   <span>Consultation Fee</span>
-                  <span className="text-teal-800 font-bold">{selectedTreatment.priceFormatted}</span>
+                  <span className="text-teal-800 font-bold">{selectedTreatment?.priceFormatted ?? 'Select a treatment'}</span>
                 </div>
               </div>
 
@@ -319,18 +281,32 @@ export default function BookingPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
-                    Preferred Time Window *
+                  <label htmlFor="time" className="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                    Preferred Time *
                   </label>
                   <select
-                    value={selectedTimeSlot}
-                    onChange={(e) => setSelectedTimeSlot(e.target.value)}
-                    className="w-full h-12 px-4 bg-white border border-slate-300 rounded-xl text-sm text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-teal-600"
+                    id="time"
+                    value={selectedTime}
+                    onChange={(e) => {
+                      setSelectedTime(e.target.value);
+                      if (formErrors.time) setFormErrors({ ...formErrors, time: undefined });
+                    }}
+                    className={`w-full h-12 px-4 bg-white border rounded-xl text-sm text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-teal-600 ${
+                      formErrors.time ? 'border-red-400 ring-1 ring-red-400' : 'border-slate-300'
+                    }`}
                   >
-                    <option value="Morning (10:00 AM – 1:30 PM)">Morning Session (10:00 AM – 1:30 PM)</option>
-                    <option value="Evening (4:30 PM – 7:30 PM)">Evening Session (4:30 PM – 7:30 PM)</option>
-                    <option value="Emergency Priority / Earliest Available">Emergency Priority / Earliest Available</option>
+                    <option value="" disabled>Select a preferred time</option>
+                    <option value="Morning">Morning</option>
+                    <option value="Afternoon">Afternoon</option>
+                    <option value="Evening">Evening</option>
+                    <option value="Flexible">Flexible</option>
                   </select>
+                  <p className="text-[11px] text-slate-500">
+                    This is a preference only; the clinic will confirm the available time.
+                  </p>
+                  {formErrors.time && (
+                    <p className="text-xs text-red-600 font-medium">{formErrors.time}</p>
+                  )}
                 </div>
               </div>
 
@@ -446,62 +422,21 @@ export default function BookingPage() {
               </div>
 
               <div className="pt-4 border-t border-slate-200 space-y-4">
-                <div className="space-y-2">
-                  <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
-                    Confirm Appointment Via
-                  </label>
-                  <div className="grid grid-cols-2 gap-3">
-                    <button
-                      type="button"
-                      onClick={() => setBookingMethod('whatsapp')}
-                      className={`h-11 rounded-xl text-xs font-bold border flex items-center justify-center gap-2 transition-all ${
-                        bookingMethod === 'whatsapp'
-                          ? 'bg-emerald-50 border-[#25D366] text-emerald-800 ring-2 ring-[#25D366] shadow-xs'
-                          : 'bg-white border-slate-300 text-slate-600 hover:bg-slate-50'
-                      }`}
-                    >
-                      <MessageCircle size={16} className="text-[#25D366]" />
-                      <span>WhatsApp (Instant)</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setBookingMethod('email')}
-                      className={`h-11 rounded-xl text-xs font-bold border flex items-center justify-center gap-2 transition-all ${
-                        bookingMethod === 'email'
-                          ? 'bg-teal-50 border-teal-600 text-teal-900 ring-2 ring-teal-600 shadow-xs'
-                          : 'bg-white border-slate-300 text-slate-600 hover:bg-slate-50'
-                      }`}
-                    >
-                      <Mail size={16} className="text-teal-700" />
-                      <span>Email Confirmation</span>
-                    </button>
-                  </div>
-                </div>
+                <p className="text-xs font-bold uppercase tracking-wider text-slate-700">
+                  Booking Details
+                </p>
 
                 <button
                   type="button"
-                  onClick={handleConfirmBooking}
-                  className={
-                    bookingMethod === 'whatsapp'
-                      ? 'btn-whatsapp w-full h-12 text-sm font-bold flex items-center justify-center gap-2 shadow-sm'
-                      : 'btn-primary w-full h-12 text-sm font-bold flex items-center justify-center gap-2 shadow-sm'
-                  }
+                  onClick={handlePrepareRequest}
+                  className="btn-primary w-full h-12 text-sm font-bold flex items-center justify-center gap-2 shadow-sm"
                 >
-                  {bookingMethod === 'whatsapp' ? (
-                    <>
-                      <MessageCircle size={18} />
-                      <span>Confirm Appointment on WhatsApp</span>
-                    </>
-                  ) : (
-                    <>
-                      <Calendar size={18} />
-                      <span>Confirm Appointment via Email</span>
-                    </>
-                  )}
+                  <Calendar size={18} />
+                  <span>Review Booking Details</span>
                 </button>
 
                 <p className="text-xs text-slate-500 text-center font-medium">
-                  No advance payment required. Free cancellation or rescheduling at any time.
+                  No payment is collected online. Your appointment is confirmed when the clinic contacts you.
                 </p>
               </div>
 
@@ -513,7 +448,7 @@ export default function BookingPage() {
                 <div className="flex items-center justify-between pb-4 border-b border-slate-100">
                   <div>
                     <span className="text-xs font-bold uppercase tracking-wider text-teal-700 block">Summary</span>
-                    <h3 className="text-lg font-extrabold text-slate-900">Your Appointment</h3>
+                    <h3 className="text-lg font-extrabold text-slate-900">Booking Summary</h3>
                   </div>
                   <span className="text-xs font-semibold px-2.5 py-1 bg-teal-50 text-teal-800 rounded-md border border-teal-100">
                     Bandra West
@@ -523,22 +458,22 @@ export default function BookingPage() {
                 <div className="space-y-3 text-xs sm:text-sm">
                   <div className="flex justify-between py-1 border-b border-slate-100">
                     <span className="text-slate-500">Service</span>
-                    <span className="font-bold text-slate-900 text-right">{selectedTreatment.name}</span>
+                    <span className="font-bold text-slate-900 text-right">{selectedTreatment?.name ?? 'Not selected'}</span>
                   </div>
 
                   <div className="flex justify-between py-1 border-b border-slate-100">
                     <span className="text-slate-500">Starting Fee</span>
-                    <span className="font-extrabold text-teal-800">{selectedTreatment.priceFormatted}</span>
+                    <span className="font-extrabold text-teal-800">{selectedTreatment?.priceFormatted ?? '—'}</span>
                   </div>
 
                   <div className="flex justify-between py-1 border-b border-slate-100">
-                    <span className="text-slate-500">Selected Date</span>
+                    <span className="text-slate-500">Preferred Date</span>
                     <span className="font-bold text-slate-900">{formatDisplayDate(selectedDate)}</span>
                   </div>
 
                   <div className="flex justify-between py-1 border-b border-slate-100">
-                    <span className="text-slate-500">Time Window</span>
-                    <span className="font-bold text-teal-800">{selectedTimeSlot}</span>
+                    <span className="text-slate-500">Preferred Time</span>
+                    <span className="font-bold text-slate-900">{selectedTime || 'Not selected'}</span>
                   </div>
 
                   <div className="flex justify-between py-1">
@@ -553,7 +488,7 @@ export default function BookingPage() {
                     <span>Studio 204, Waterfield Road</span>
                   </div>
                   <p className="text-[11px] text-slate-500">
-                    Sagar Fortune Building, Near National College, Bandra West. Dedicated visitor parking on arrival.
+                    Sagar Fortune Building, Near National College, Bandra West.
                   </p>
                 </div>
               </div>

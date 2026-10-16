@@ -10,6 +10,10 @@ const NAV_LINKS = [
   { to: '/contact', label: 'Contact' },
 ];
 
+function isNavLinkActive(pathname: string, to: string) {
+  return pathname === to || (to === '/services' && pathname.startsWith(`${to}/`));
+}
+
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
@@ -41,8 +45,8 @@ export default function Header() {
               <span className="truncate">Waterfield Road, Bandra (W)</span>
             </span>
             <span className="hidden md:flex items-center gap-1.5">
-              <Clock size={13} className="text-teal-300 shrink-0" />
-              <span>Mon–Sat: 9:30 AM – 7:30 PM</span>
+              <Calendar size={13} className="text-teal-300 shrink-0" />
+              <span>{CLINIC.appointmentPolicy}</span>
             </span>
           </div>
 
@@ -85,9 +89,9 @@ export default function Header() {
             </div>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
+          <nav className="hidden lg:flex items-center gap-8" aria-label="Main navigation">
             {NAV_LINKS.map((link) => {
-              const isActive = location.pathname === link.to;
+              const isActive = isNavLinkActive(location.pathname, link.to);
               return (
                 <Link
                   key={link.to}
@@ -104,7 +108,7 @@ export default function Header() {
             })}
           </nav>
 
-          <div className="hidden sm:flex items-center gap-3">
+          <div className="hidden lg:flex items-center gap-3">
             <a
               href={waUrl}
               target="_blank"
@@ -124,7 +128,7 @@ export default function Header() {
             </Link>
           </div>
 
-          <div className="flex items-center gap-1.5 md:hidden">
+          <div className="flex items-center gap-1.5 lg:hidden">
             <a
               href={waUrl}
               target="_blank"
@@ -148,7 +152,7 @@ export default function Header() {
       </header>
 
       {mobileOpen && (
-        <div className="fixed inset-0 z-[100] md:hidden">
+        <div className="fixed inset-0 z-[100] lg:hidden">
           <div 
             className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity" 
             onClick={() => setMobileOpen(false)}
@@ -174,7 +178,7 @@ export default function Header() {
 
               <nav className="py-6 flex flex-col gap-2" aria-label="Mobile navigation">
                 {NAV_LINKS.map((link) => {
-                  const isActive = location.pathname === link.to;
+                  const isActive = isNavLinkActive(location.pathname, link.to);
                   return (
                     <Link
                       key={link.to}

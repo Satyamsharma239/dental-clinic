@@ -66,14 +66,14 @@ export default function FAQPage() {
 
   return (
     <div className="flex flex-col bg-bg">
-      <section className="pt-16 pb-20 lg:pt-24 lg:pb-28 border-b border-border bg-white">
-        <div className="max-w-5xl mx-auto px-5 sm:px-8 text-center space-y-6">
+      <section className="py-12 sm:py-16 border-b border-border bg-white">
+        <div className="max-w-5xl mx-auto px-5 sm:px-8 text-center space-y-4">
           <FadeIn>
             <span className="editorial-badge">
               Patient Guidance & FAQs
             </span>
 
-            <h1 className="font-heading text-4xl sm:text-6xl text-primary font-normal tracking-tight">
+            <h1 className="font-heading text-3xl sm:text-5xl text-primary font-normal tracking-tight">
               Honest answers to <br />
               <span className="italic font-light text-primary-light">common questions.</span>
             </h1>
@@ -174,7 +174,7 @@ export default function FAQPage() {
               </p>
               <div className="pt-2">
                 <Link to="/booking" className="btn-primary text-xs py-3 px-6 font-semibold">
-                  <span>Book consultation</span>
+                  <span>Book Appointment</span>
                   <ArrowRight size={14} className="text-accent" />
                 </Link>
               </div>

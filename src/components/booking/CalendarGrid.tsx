@@ -49,16 +49,14 @@ export const CalendarGrid: React.FC<CalendarGridProps> = ({ selectedDate, onSele
     date.setHours(0, 0, 0, 0);
     
     const isPast = date.getTime() < actualMinDate.getTime();
-    const isSunday = date.getDay() === 0;
     const isSelected = selectedDate ? isSameDay(date, selectedDate) : false;
     const isToday = isSameDay(date, today);
-    const isDisabled = isPast || isSunday;
+    const isDisabled = isPast;
 
     let classes = "flex items-center justify-center h-10 w-10 rounded-xl text-xs transition-all duration-150 ";
     
     if (isDisabled) {
       classes += "text-text-light cursor-not-allowed opacity-40 ";
-      if (isSunday) classes += "line-through ";
     } else if (isSelected) {
       classes += "bg-accent text-white shadow-md font-bold scale-105 ";
     } else {
@@ -127,7 +125,7 @@ export const CalendarGrid: React.FC<CalendarGridProps> = ({ selectedDate, onSele
           <span className="w-2.5 h-2.5 rounded-full ring-1 ring-primary inline-block"></span>
           <span>Today</span>
         </span>
-        <span>Sundays Closed</span>
+        <span>Subject to confirmation</span>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { CLINIC } from '@/data/clinicInfo';
-import { MapPin, Clock, Phone, Mail, MessageCircle, Send, CheckCircle2, Sparkles, Navigation, AlertCircle } from 'lucide-react';
+import { MapPin, Calendar, Phone, Mail, MessageCircle, Send, CheckCircle2, Sparkles, Navigation, AlertCircle } from 'lucide-react';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', message: '' });
@@ -57,17 +57,17 @@ export default function ContactPage() {
   return (
     <div className="bg-slate-50 text-slate-800 font-sans">
       
-      <section className="py-14 sm:py-20 bg-gradient-to-br from-teal-50 via-slate-50 to-emerald-50/50 border-b border-slate-200">
+      <section className="py-12 sm:py-16 bg-gradient-to-br from-teal-50 via-slate-50 to-emerald-50/50 border-b border-slate-200">
         <div className="max-w-container mx-auto px-4 sm:px-8 text-center space-y-4">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-white border border-teal-200 text-teal-800 shadow-xs">
             <Sparkles size={14} className="text-teal-600" />
             <span>Studio Location & Direct Inquiries</span>
           </div>
           <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-            Visit Us on Waterfield Road, Bandra West
+            Find Us in Bandra West
           </h1>
           <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
-            Reach out by WhatsApp, telephone, email, or visit our dental studio. We respond promptly within clinical practice hours.
+            Book your visit by phone, WhatsApp, or email. Please wait for the clinic to confirm the date and time before travelling.
           </p>
         </div>
       </section>
@@ -150,22 +150,13 @@ export default function ContactPage() {
 
               <div className="p-6 sm:p-7 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-3.5">
                 <div className="flex items-center gap-2.5 text-teal-800 font-bold text-base">
-                  <Clock size={20} className="text-teal-600" />
-                  <span>Consultation Timings</span>
+                  <Calendar size={20} className="text-teal-600" />
+                  <span>Appointments</span>
                 </div>
 
                 <div className="space-y-2 text-xs sm:text-sm text-slate-600">
-                  <div className="flex justify-between py-1 border-b border-slate-100">
-                    <span className="font-medium text-slate-800">Monday – Saturday</span>
-                    <span className="font-bold text-teal-800">9:30 AM – 7:30 PM</span>
-                  </div>
-                  <div className="flex justify-between py-1 border-b border-slate-100">
-                    <span className="font-medium text-slate-800">Sunday</span>
-                    <span className="text-slate-500 font-medium">Emergency on call</span>
-                  </div>
-                  <p className="text-xs text-slate-400 pt-1">
-                    Midday sterilization break: 1:30 PM – 4:30 PM
-                  </p>
+                  <p className="font-bold text-teal-800">{CLINIC.appointmentPolicy}</p>
+                  <p className="text-xs text-slate-500">{CLINIC.appointmentNotice}</p>
                 </div>
               </div>
 
@@ -188,7 +179,7 @@ export default function ContactPage() {
                     <CheckCircle2 size={36} className="text-teal-600 mx-auto" />
                     <h3 className="text-lg font-bold text-teal-900">Thank You, {formData.name}</h3>
                     <p className="text-xs sm:text-sm text-teal-800 leading-relaxed">
-                      Your inquiry has been prepared. Choose below how you'd like to dispatch it to Dr. Sharma:
+                      Your inquiry is ready. Choose how you would like to contact Dr. Sharma:
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3 pt-2">
                       <a
@@ -198,14 +189,14 @@ export default function ContactPage() {
                         className="btn-whatsapp flex-1 text-xs h-11"
                       >
                         <MessageCircle size={16} />
-                        <span>Send via WhatsApp</span>
+                        <span>Continue with WhatsApp</span>
                       </a>
                       <a
                         href={mailtoUrl}
                         className="btn-secondary flex-1 text-xs h-11"
                       >
                         <Mail size={16} />
-                        <span>Send via Email</span>
+                        <span>Continue with Email</span>
                       </a>
                     </div>
                   </div>
@@ -297,7 +288,7 @@ export default function ContactPage() {
                         className="btn-primary flex-1 h-11 text-xs"
                       >
                         <Send size={15} />
-                        <span>Submit Inquiry</span>
+                        <span>Continue to Contact Options</span>
                       </button>
 
                       <a
