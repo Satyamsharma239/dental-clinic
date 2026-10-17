@@ -11,7 +11,15 @@ export default function PatientReviewCarousel() {
     if (!marquee || !track) return;
 
     const updateScrollDistance = () => {
-      const distance = Math.max(0, track.scrollWidth - marquee.clientWidth);
+      const lastCard = track.lastElementChild;
+      if (!(lastCard instanceof HTMLElement)) return;
+
+      const distance = Math.max(
+        0,
+        lastCard.getBoundingClientRect().right -
+          track.getBoundingClientRect().left -
+          marquee.clientWidth
+      );
       marquee.style.setProperty('--review-scroll-distance', `-${distance}px`);
     };
 

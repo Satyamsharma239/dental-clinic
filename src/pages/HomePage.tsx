@@ -266,8 +266,10 @@ export default function HomePage() {
                 <ShieldCheck size={20} className="sm:w-6 sm:h-6" />
               </div>
               <div className="min-w-0">
-                <div className="text-lg sm:text-2xl font-extrabold text-slate-900 leading-tight">Clear Plans</div>
-                <div className="text-[11px] sm:text-xs text-slate-500 mt-0.5 leading-tight">Explained Before Treatment</div>
+                <div className="text-lg sm:text-2xl font-extrabold text-slate-900 leading-tight">
+                  <CountUp target={3} suffix="D" label="digital intraoral scanning" />
+                </div>
+                <div className="text-[11px] sm:text-xs text-slate-500 mt-0.5 leading-tight">Digital Scanning</div>
               </div>
             </div>
 
@@ -303,7 +305,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section aria-label="Patient feedback" className="py-16 sm:py-24 bg-slate-50 border-b border-slate-200">
+      <section aria-label="Dental treatments" className="py-16 sm:py-24 bg-slate-50 border-b border-slate-200">
         <div className="max-w-container mx-auto px-4 sm:px-8">
           
           <div className="max-w-2xl mx-auto text-center mb-14 space-y-3">
