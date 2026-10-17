@@ -3,12 +3,7 @@ import { CLINIC } from '@/data/clinicInfo';
 import { Calendar, MessageCircle } from 'lucide-react';
 import PageHero from '@/components/PageHero';
 import PatientReviewCarousel from '@/components/PatientReviewCarousel';
-
-const CHECKUP_VIDEO = {
-  poster: 'https://cdn.pixabay.com/video/2025/06/13/285771_tiny.jpg',
-  src: 'https://cdn.pixabay.com/video/2025/06/13/285771_large.mp4',
-  source: 'https://pixabay.com/videos/dentist-dental-patient-check-up-285771/',
-};
+import DentalVideos from '@/components/DentalVideos';
 
 export default function ReviewsPage() {
   const waReviewUrl = `https://wa.me/${CLINIC.whatsapp}?text=${encodeURIComponent(
@@ -25,45 +20,23 @@ export default function ReviewsPage() {
 
       <main className="max-w-container mx-auto space-y-12 px-4 py-10 sm:px-8 sm:py-14">
         <section aria-label="Patient feedback" className="space-y-6">
-          <div className="space-y-2 text-center">
-            <span className="text-xs font-bold uppercase tracking-wider text-teal-700">Patient feedback</span>
-            <h2 className="text-2xl font-extrabold text-slate-900 sm:text-3xl">What our patients say</h2>
-            <p className="text-sm leading-relaxed text-slate-600">
-              Experiences shared about their care and visits.
-            </p>
+          <div className="grid grid-cols-1 items-center gap-6 sm:grid-cols-[220px_1fr] sm:gap-8">
+            <img
+              src="/images/dr-satyam-sharma.jpg"
+              alt="Dr. Satyam Sharma at Aura Dental Studio"
+              className="aspect-[4/3] w-full rounded-xl object-cover"
+              loading="eager"
+            />
+            <div className="space-y-2">
+              <span className="text-xs font-bold uppercase tracking-wider text-teal-700">Patient feedback</span>
+              <h2 className="text-2xl font-extrabold text-slate-900 sm:text-3xl">What our patients say</h2>
+              <p className="max-w-2xl text-sm leading-relaxed text-slate-600">
+                Experiences shared by patients about their care and visits at Aura Dental Studio.
+              </p>
+            </div>
           </div>
           <PatientReviewCarousel />
-        </section>
-
-        <section aria-label="Dental check-up video" className="grid grid-cols-1 items-center gap-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6 lg:grid-cols-2 lg:gap-10">
-          <div className="overflow-hidden rounded-xl bg-slate-100">
-            <video
-              className="aspect-video w-full object-cover"
-              controls
-              playsInline
-              preload="none"
-              poster={CHECKUP_VIDEO.poster}
-              aria-label="Stock footage illustrating a dental check-up"
-            >
-              <source src={CHECKUP_VIDEO.src} type="video/mp4" />
-              Your browser does not support embedded video.
-            </video>
-          </div>
-          <div className="space-y-3 px-2 pb-2 sm:px-3">
-            <span className="text-xs font-bold uppercase tracking-wider text-teal-700">Dental check-up</span>
-            <h2 className="text-2xl font-extrabold text-slate-900">A look at a routine dental visit</h2>
-            <p className="text-sm leading-relaxed text-slate-600">
-              This illustrative stock clip is not a recording of Aura Dental Studio or a patient testimonial.
-            </p>
-            <a
-              href={CHECKUP_VIDEO.source}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-block text-xs font-semibold text-teal-700 underline-offset-2 hover:underline"
-            >
-              Video source: Pixabay
-            </a>
-          </div>
+          <DentalVideos compact embedded />
         </section>
 
         <div className="flex flex-col items-center justify-between gap-6 rounded-2xl bg-teal-900 p-6 text-white sm:flex-row sm:p-8">

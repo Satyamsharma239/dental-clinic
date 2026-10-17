@@ -392,7 +392,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-16 sm:py-24 bg-slate-50 border-b border-slate-200">
+      <section aria-label="Patient feedback" className="py-16 sm:py-24 bg-slate-50 border-b border-slate-200">
         <div className="max-w-container mx-auto px-4 sm:px-8">
           
           <div className="max-w-2xl mx-auto text-center mb-14 space-y-3">
@@ -469,9 +469,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <DentalVideos />
-
-      <section className="py-16 sm:py-24 bg-white border-b border-slate-200">
+      <section className="py-12 sm:py-16 bg-white border-b border-slate-200">
         <div className="max-w-container mx-auto px-4 sm:px-8">
           
           <div className="max-w-2xl mx-auto text-center mb-14 space-y-3">
@@ -533,7 +531,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-12 bg-amber-500/10 border-b border-amber-500/20">
+      <section className="py-8 sm:py-10 bg-amber-500/10 border-b border-amber-500/20">
         <div className="max-w-container mx-auto px-4 sm:px-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="space-y-1.5">
@@ -763,7 +761,7 @@ export default function HomePage() {
             <p className="text-sm sm:text-base text-slate-600">Experiences shared by patients about their care and visits.</p>
           </div>
 
-          <PatientReviewCarousel limit={3} />
+          <PatientReviewCarousel />
 
           <div className="text-center pt-8">
             <Link
@@ -774,6 +772,8 @@ export default function HomePage() {
               <ArrowRight size={16} />
             </Link>
           </div>
+
+          <DentalVideos compact embedded />
         </div>
       </section>
 
