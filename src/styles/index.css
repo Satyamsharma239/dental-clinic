@@ -58,8 +58,7 @@
     @apply overflow-hidden;
   }
 
-  .patient-review-track,
-  .patient-review-group {
+  .patient-review-track {
     display: flex;
     flex: none;
     gap: 1rem;
@@ -67,27 +66,17 @@
 
   .patient-review-track {
     width: max-content;
-    animation: patient-review-scroll 55s linear infinite;
-  }
-
-  .patient-review-group {
-    padding-right: 1rem;
+    animation: patient-review-scroll 100s linear 1 forwards;
   }
 
   .patient-review-card {
-    flex: 0 0 min(82vw, 320px);
+    flex: 0 0 min(84vw, 320px);
     min-height: 230px;
   }
 
   .patient-review-marquee:hover .patient-review-track,
   .patient-review-marquee:focus .patient-review-track {
     animation-play-state: paused;
-  }
-
-  @media (min-width: 1280px) {
-    .patient-review-card {
-      flex-basis: calc((min(100vw, 1240px) - 9rem) / 5);
-    }
   }
 
 }
@@ -119,7 +108,7 @@
 
 @keyframes patient-review-scroll {
   to {
-    transform: translateX(-50%);
+    transform: translateX(var(--review-scroll-distance, 0px));
   }
 }
 

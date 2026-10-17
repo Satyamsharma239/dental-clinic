@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import FadeIn from '@/components/FadeIn';
 import { TREATMENTS } from '@/data/services';
-import { CLINIC } from '@/data/clinicInfo';
 import { MessageCircle, Calendar, ArrowRight, CheckCircle2 } from 'lucide-react';
 import PageHero from '@/components/PageHero';
 
@@ -125,38 +124,6 @@ export default function ServicesPage() {
               </Link>
             </FadeIn>
           ))}
-        </div>
-
-        <div className="p-8 sm:p-10 bg-teal-900 text-white rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-md">
-          <div className="space-y-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-teal-300 block">Not sure which treatment you need?</span>
-            <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
-              Book a Comprehensive Dental Checkup
-            </h3>
-            <p className="text-sm text-teal-100 max-w-xl leading-relaxed">
-              Dr. Satyam Sharma will examine your teeth, show you chairside 3D optical scans on the screen, and explain suitable care options before you decide on next steps.
-            </p>
-          </div>
-
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0 w-full sm:w-auto">
-            <a
-              href={`https://wa.me/${CLINIC.whatsapp}?text=${encodeURIComponent('Hello Dr. Sharma, I am not sure which dental treatment I need and would like advice.')}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-whatsapp text-xs h-11 px-5 justify-center"
-            >
-              <MessageCircle size={15} />
-              <span>Ask a Question on WhatsApp</span>
-            </a>
-
-            <Link
-              to="/book"
-              className="btn-primary bg-white text-teal-900 hover:bg-teal-50 border-white text-xs h-11 px-5 justify-center"
-            >
-              <Calendar size={15} />
-              <span>Book Appointment</span>
-            </Link>
-          </div>
         </div>
 
       </div>

@@ -247,42 +247,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="py-16 bg-slate-50 border-b border-slate-200">
-        <div className="max-w-container mx-auto px-4 sm:px-8">
-          <div className="p-8 sm:p-12 bg-teal-900 text-white rounded-2xl flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-md">
-            <div className="space-y-2">
-              <span className="text-xs font-bold uppercase tracking-wider text-teal-300 block">Personal Consultation</span>
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
-                Ready to consult with Dr. Satyam Sharma?
-              </h3>
-              <p className="text-sm text-teal-100 max-w-xl leading-relaxed">
-                Schedule your comprehensive checkup and 3D intraoral digital camera tour at our Waterfield Road studio.
-              </p>
-            </div>
-
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0 w-full sm:w-auto">
-              <a
-                href={waDoctorUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-teal-700 bg-transparent px-5 text-xs font-semibold text-teal-700 transition-colors hover:bg-teal-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-700"
-              >
-                <MessageCircle size={15} />
-                <span>WhatsApp Dr. Sharma</span>
-              </a>
-
-              <Link
-                to="/book"
-                className="btn-primary bg-white text-teal-900 hover:bg-teal-50 border-white text-xs h-11 px-5 justify-center"
-              >
-                <Calendar size={15} />
-                <span>Book Appointment</span>
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
     </div>
   );
 }

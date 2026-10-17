@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Calendar } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import PageHero from '@/components/PageHero';
 import DentalVideos from '@/components/DentalVideos';
 
@@ -105,17 +105,6 @@ export default function BlogPage() {
             </article>
           ))}
         </div>
-
-        <aside className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-2xl bg-teal-900 text-white p-6 sm:p-8">
-          <div>
-            <h2 className="text-xl sm:text-2xl font-bold text-white">Have a question about your dental care?</h2>
-            <p className="mt-1 text-sm text-teal-100">Talk with the clinic or request an appointment for a personal assessment.</p>
-          </div>
-          <Link to="/book" className="btn-primary shrink-0 bg-white text-teal-900 hover:bg-teal-50">
-            <Calendar size={16} />
-            <span>Book Appointment</span>
-          </Link>
-        </aside>
 
         <p className="text-xs text-slate-500 leading-relaxed">
           These articles provide general information only and are not a diagnosis or a substitute for advice from a qualified dental professional.
