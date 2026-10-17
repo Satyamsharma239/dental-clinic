@@ -19,7 +19,6 @@ interface PatientFormProps {
     date: string;
     time: string;
     duration: number;
-    priceRange?: string;
   };
 }
 
@@ -139,17 +138,11 @@ export const PatientForm: React.FC<PatientFormProps> = ({ formData, onChange, er
               </div>
             </div>
             
-            <div className="grid grid-cols-2 gap-4 pt-3 border-t border-primary/10">
+            <div className="pt-3 border-t border-primary/10">
               <div>
                 <span className="block text-[11px] uppercase tracking-wider text-text-muted mb-0.5 font-bold">Duration</span>
                 <p className="font-medium text-text text-xs">{bookingSummary.duration} mins</p>
               </div>
-              {bookingSummary.priceRange && (
-                <div>
-                  <span className="block text-[11px] uppercase tracking-wider text-text-muted mb-0.5 font-bold">Fee Estimate</span>
-                  <p className="font-bold text-primary font-mono text-xs">{bookingSummary.priceRange}</p>
-                </div>
-              )}
             </div>
           </div>
           

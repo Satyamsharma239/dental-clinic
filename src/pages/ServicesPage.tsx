@@ -3,7 +3,8 @@ import { Link, useSearchParams } from 'react-router-dom';
 import FadeIn from '@/components/FadeIn';
 import { TREATMENTS } from '@/data/services';
 import { CLINIC } from '@/data/clinicInfo';
-import { MessageCircle, Calendar, ArrowRight, CheckCircle2, Sparkles } from 'lucide-react';
+import { MessageCircle, Calendar, ArrowRight, CheckCircle2 } from 'lucide-react';
+import PageHero from '@/components/PageHero';
 
 const CATEGORIES = [
   'All',
@@ -32,20 +33,11 @@ export default function ServicesPage() {
   return (
     <div className="bg-slate-50 text-slate-800 font-sans">
       
-      <section className="py-12 sm:py-16 bg-gradient-to-br from-teal-50 via-slate-50 to-emerald-50/50 border-b border-slate-200">
-        <div className="max-w-container mx-auto px-4 sm:px-8 text-center space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-white border border-teal-200 text-teal-800 shadow-xs">
-            <Sparkles size={14} className="text-teal-600" />
-            <span>Dental Services · Waterfield Road, Bandra West</span>
-          </div>
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-            Our Dental Services & Honest Pricing
-          </h1>
-          <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-3xl mx-auto">
-            Every procedure at Aura Dental Studio is delivered with natural tooth conservation in mind. We explain every step, recovery time, and exact fee before starting.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Dental Services · Waterfield Road, Bandra West"
+        title="Our Dental Services & Honest Pricing"
+        description="Every procedure at Aura Dental Studio is delivered with natural tooth conservation in mind. We explain every step and recovery time before starting."
+      />
 
       <section className="pt-6 pb-10 sm:pt-8 sm:pb-12 bg-white border-b border-slate-200">
         <div className="max-w-container mx-auto px-4 sm:px-8">
@@ -124,12 +116,7 @@ export default function ServicesPage() {
                   </div>
                 </div>
 
-                <div className="p-6 pt-0 border-t border-slate-100 mt-4 flex items-center justify-between gap-3">
-                  <div>
-                    <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">Starting Fee</span>
-                    <span className="text-base font-extrabold text-teal-800">{treatment.priceFormatted}</span>
-                  </div>
-
+                <div className="p-6 pt-0 border-t border-slate-100 mt-4 flex items-center justify-end gap-3">
                   <div className="flex items-center gap-1.5 text-xs font-bold text-teal-700 group-hover:text-teal-800">
                     <span>Details & FAQs</span>
                     <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
@@ -147,19 +134,11 @@ export default function ServicesPage() {
               Book a Comprehensive Dental Checkup
             </h3>
             <p className="text-sm text-teal-100 max-w-xl leading-relaxed">
-              Dr. Satyam Sharma will examine your teeth, show you chairside 3D optical scans on the screen, and explain all viable options with upfront written pricing.
+              Dr. Satyam Sharma will examine your teeth, show you chairside 3D optical scans on the screen, and explain suitable care options before you decide on next steps.
             </p>
           </div>
 
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0 w-full sm:w-auto">
-            <Link
-              to="/book"
-              className="btn-primary bg-white text-teal-900 hover:bg-teal-50 border-white text-xs h-11 px-5 justify-center"
-            >
-              <Calendar size={15} />
-              <span>Book Appointment</span>
-            </Link>
-
             <a
               href={`https://wa.me/${CLINIC.whatsapp}?text=${encodeURIComponent('Hello Dr. Sharma, I am not sure which dental treatment I need and would like advice.')}`}
               target="_blank"
@@ -169,6 +148,14 @@ export default function ServicesPage() {
               <MessageCircle size={15} />
               <span>Ask a Question on WhatsApp</span>
             </a>
+
+            <Link
+              to="/book"
+              className="btn-primary bg-white text-teal-900 hover:bg-teal-50 border-white text-xs h-11 px-5 justify-center"
+            >
+              <Calendar size={15} />
+              <span>Book Appointment</span>
+            </Link>
           </div>
         </div>
 

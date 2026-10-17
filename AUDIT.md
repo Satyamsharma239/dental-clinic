@@ -27,4 +27,4 @@
 - [x] Define exact colors in Tailwind: `paper`, `mist`, `ink`, `teal`, `teal-dark`, `line`, `muted`.
 - [x] Load Google Fonts: `Instrument Serif` (headings) and `Geist` (body/UI).
 - [x] Download real clinical photography into `public/images/` with fixed aspect ratios and `CREDITS.md`.
-- [x] Build comprehensive inner pages: `/treatments`, `/treatments/:slug`, `/doctor`, `/pricing`, `/reviews`, `/contact`, `/book`.
+- [x] Build comprehensive inner pages: `/treatments`, `/treatments/:slug`, `/doctor`, `/reviews`, `/contact`, `/book`. The legacy `/pricing` route redirects to Services.

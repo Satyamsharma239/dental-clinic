@@ -44,8 +44,8 @@ export default function DoctorPage() {
             <div className="rounded-sm overflow-hidden border border-hairline bg-white shadow-2xs">
               <div className="relative aspect-[4/3] bg-canvas-subtle overflow-hidden">
                 <img
-                  src={CLINIC_PHOTOS.operatory}
-                  alt="Operatory Suite at Aura Dental Studio Bandra West"
+                  src={CLINIC_PHOTOS.doctor}
+                  alt="Dr. Satyam Sharma at the dental clinic"
                   className="w-full h-full object-cover"
                   loading="eager"
                 />
@@ -87,7 +87,7 @@ export default function DoctorPage() {
                     href={waDoctorUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-whatsapp w-full text-xs h-10"
+                    className="inline-flex h-10 w-full items-center justify-center gap-2 rounded-lg border border-teal-700 bg-transparent text-xs font-semibold text-teal-700 transition-colors hover:bg-teal-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-700"
                   >
                     <MessageCircle size={15} />
                     <span>WhatsApp Dr. Sharma</span>
@@ -134,7 +134,7 @@ export default function DoctorPage() {
                 </div>
                 <div className="flex items-start gap-2">
                   <CheckCircle2 size={14} className="text-sage-700 shrink-0 mt-0.5" />
-                  <span>Full written itemized cost breakdown before treatment starts.</span>
+                  <span>Clear written treatment plan before care begins.</span>
                 </div>
                 <div className="flex items-start gap-2">
                   <CheckCircle2 size={14} className="text-sage-700 shrink-0 mt-0.5" />
@@ -149,7 +149,7 @@ export default function DoctorPage() {
                 className="btn-primary text-xs h-11 px-5"
               >
                 <Calendar size={15} />
-                <span>Schedule Consultation (₹500)</span>
+                <span>Schedule a Consultation</span>
               </Link>
 
               <a

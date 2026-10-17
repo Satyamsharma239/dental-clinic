@@ -30,7 +30,7 @@ export const CLINIC = {
     ],
     bio: 'Dr. Satyam Sharma has practiced orthodontics and restorative dentistry in Bandra West for over 12 years. His clinical focus centers on conservative tooth movement, high-definition digital planning for clear aligners, and patient autonomy throughout every procedure.',
     philosophy: 'Conservative dentistry prioritizes natural tooth preservation. We explain every option with chairside intraoral scans before any decision is made.',
-    image: '/images/treatment-chair.webp',
+    image: '/images/doctor-portrait.webp',
   },
   transit: '800 metres from Bandra Railway Station (West). 2 mins walk from Linking Road.',
   transitGuide: '800 metres from Bandra Railway Station (West). 2 mins walk from Linking Road.',
@@ -38,18 +38,18 @@ export const CLINIC = {
 } as const;
 
 export const CLINIC_PHOTOS = {
-  hero: '/images/treatment-chair.webp',
-  interiorWide: '/images/clinic-interior-wide.webp',
-  doctor: '/images/treatment-chair.webp',
+  hero: '/images/clinic-interior-wide.webp',
+  interiorWide: '/images/dental-tools.webp',
+  doctor: '/images/doctor-portrait.webp',
   tools: '/images/dental-tools.webp',
   reception: '/images/reception.webp',
-  operatory: '/images/treatment-chair.webp',
+  operatory: '/images/smiling-patient.webp',
   aligners: '/images/aligners.webp',
   consultation: '/images/consultation.webp',
   smilingPatient: '/images/smiling-patient.webp',
   lounge: '/images/reception.webp',
   instruments: '/images/dental-tools.webp',
-  diagnostic: '/images/treatment-chair.webp',
+  diagnostic: '/images/hero-patient.webp',
 };
 
 export const REVIEWS = [

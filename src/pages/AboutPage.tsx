@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { CLINIC, CLINIC_PHOTOS, REVIEWS } from '@/data/clinicInfo';
-import { Calendar, MessageCircle, Phone, Award, CheckCircle2, ShieldCheck, MapPin, Clock, Sparkles, Star } from 'lucide-react';
+import { Calendar, MessageCircle, Phone, Award, CheckCircle2, ShieldCheck, MapPin, Clock, Star } from 'lucide-react';
+import PageHero from '@/components/PageHero';
 
 const TIMELINE = [
   {
@@ -37,20 +38,11 @@ export default function AboutPage() {
   return (
     <div className="bg-slate-50 text-slate-800 font-sans">
       
-      <section className="py-12 sm:py-16 bg-gradient-to-br from-teal-50 via-slate-50 to-emerald-50/50 border-b border-slate-200">
-        <div className="max-w-container mx-auto px-4 sm:px-8 text-center space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-white border border-teal-200 text-teal-800 shadow-xs">
-            <Sparkles size={14} className="text-teal-600" />
-            <span>Clinical Director & Practice Philosophy</span>
-          </div>
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-            About Dr. Satyam Sharma & Aura Dental Studio
-          </h1>
-          <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
-            Over 12 years of gentle, conservative dentistry on Waterfield Road, Bandra West. Dedicated to saving your natural teeth without the rush.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Clinical Director & Practice Philosophy"
+        title="About Dr. Satyam Sharma & Aura Dental Studio"
+        description="Over 12 years of gentle, conservative dentistry on Waterfield Road, Bandra West. Dedicated to saving your natural teeth without the rush."
+      />
 
       <section className="py-16 sm:py-24 bg-white border-b border-slate-200">
         <div className="max-w-container mx-auto px-4 sm:px-8">
@@ -104,7 +96,7 @@ export default function AboutPage() {
                       href={waDoctorUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn-whatsapp w-full text-xs h-11"
+                      className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg border border-teal-700 bg-transparent text-xs font-semibold text-teal-700 transition-colors hover:bg-teal-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-700"
                     >
                       <MessageCircle size={16} />
                       <span>WhatsApp Dr. Sharma</span>
@@ -154,7 +146,7 @@ export default function AboutPage() {
                   </div>
                   <div className="flex items-start gap-2.5">
                     <CheckCircle2 size={16} className="text-teal-600 shrink-0 mt-0.5" />
-                    <span><strong>Upfront Itemized Quotes:</strong> Clear printed pricing before any treatment begins.</span>
+                    <span><strong>Clear Treatment Plans:</strong> Practical recommendations explained before any treatment begins.</span>
                   </div>
                   <div className="flex items-start gap-2.5">
                     <CheckCircle2 size={16} className="text-teal-600 shrink-0 mt-0.5" />
@@ -269,6 +261,16 @@ export default function AboutPage() {
             </div>
 
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0 w-full sm:w-auto">
+              <a
+                href={waDoctorUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-teal-700 bg-transparent px-5 text-xs font-semibold text-teal-700 transition-colors hover:bg-teal-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-700"
+              >
+                <MessageCircle size={15} />
+                <span>WhatsApp Dr. Sharma</span>
+              </a>
+
               <Link
                 to="/book"
                 className="btn-primary bg-white text-teal-900 hover:bg-teal-50 border-white text-xs h-11 px-5 justify-center"
@@ -276,16 +278,6 @@ export default function AboutPage() {
                 <Calendar size={15} />
                 <span>Book Appointment</span>
               </Link>
-
-              <a
-                href={waDoctorUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-whatsapp text-xs h-11 px-5 justify-center"
-              >
-                <MessageCircle size={15} />
-                <span>WhatsApp Dr. Sharma</span>
-              </a>
             </div>
           </div>
         </div>

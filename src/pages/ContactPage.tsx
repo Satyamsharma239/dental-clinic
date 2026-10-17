@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { CLINIC } from '@/data/clinicInfo';
-import { MapPin, Calendar, Phone, Mail, MessageCircle, Send, CheckCircle2, Sparkles, Navigation, AlertCircle } from 'lucide-react';
+import { MapPin, Calendar, Phone, Mail, MessageCircle, Send, CheckCircle2, Navigation, AlertCircle } from 'lucide-react';
+import PageHero from '@/components/PageHero';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', message: '' });
@@ -57,20 +58,11 @@ export default function ContactPage() {
   return (
     <div className="bg-slate-50 text-slate-800 font-sans">
       
-      <section className="py-12 sm:py-16 bg-gradient-to-br from-teal-50 via-slate-50 to-emerald-50/50 border-b border-slate-200">
-        <div className="max-w-container mx-auto px-4 sm:px-8 text-center space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-white border border-teal-200 text-teal-800 shadow-xs">
-            <Sparkles size={14} className="text-teal-600" />
-            <span>Studio Location & Direct Inquiries</span>
-          </div>
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-            Find Us in Bandra West
-          </h1>
-          <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
-            Book your visit by phone, WhatsApp, or email. Please wait for the clinic to confirm the date and time before travelling.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Studio Location & Direct Inquiries"
+        title="Find Us in Bandra West"
+        description="Book your visit by phone, WhatsApp, or email. Please wait for the clinic to confirm the date and time before travelling."
+      />
 
       <section className="py-16 sm:py-24 bg-white border-b border-slate-200">
         <div className="max-w-container mx-auto px-4 sm:px-8">

@@ -25,7 +25,7 @@ export default function TreatmentsPage() {
             Conservative dental procedures in Bandra West.
           </h1>
           <p className="font-sans text-sm sm:text-base text-ink-secondary leading-relaxed">
-            Every procedure at Aura Dental Studio is delivered with natural tooth conservation in mind. We explain every clinical step, realistic recovery time, and exact fee before starting.
+            Every procedure at Aura Dental Studio is delivered with natural tooth conservation in mind. We explain every clinical step and realistic recovery time before starting.
           </p>
         </div>
 
@@ -99,12 +99,7 @@ export default function TreatmentsPage() {
                   </div>
                 </div>
 
-                <div className="p-6 pt-0 border-t border-hairline mt-4 flex items-center justify-between font-sans">
-                  <div>
-                    <span className="text-[10px] font-mono uppercase text-ink-muted block">Starting Fee</span>
-                    <span className="text-sm font-mono font-semibold text-ink num-tabular">{treatment.priceFormatted}</span>
-                  </div>
-
+                <div className="p-6 pt-0 border-t border-hairline mt-4 flex items-center justify-end font-sans">
                   <div className="flex items-center gap-2">
                     <a
                       href={waUrl}
@@ -133,10 +128,10 @@ export default function TreatmentsPage() {
           <div className="space-y-1.5">
             <span className="text-xs font-mono uppercase text-sand-500 block">Not certain which treatment is appropriate?</span>
             <h3 className="font-serif text-2xl font-normal">
-              Book a comprehensive examination & 3D scan (₹500).
+              Book a comprehensive examination and 3D scan.
             </h3>
             <p className="font-sans text-xs sm:text-sm text-canvas/80 max-w-xl">
-              Dr. Satyam Sharma will examine your oral health, show you chairside intraoral scans, and present all viable options with transparent itemized pricing before you decide anything.
+              Dr. Satyam Sharma will examine your oral health, show you chairside intraoral scans, and explain suitable care options before you decide on next steps.
             </p>
           </div>
 

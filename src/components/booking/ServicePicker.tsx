@@ -17,7 +17,6 @@ export const ServicePicker: React.FC<ServicePickerProps> = ({ services, selected
     shortDescription: 'Let Dr. Satyam examine your teeth with a 3D scan and recommend the right treatment plan.',
     description: 'A comprehensive oral consultation to assess your dental health and address any concerns.',
     durationMins: 30,
-    priceRange: '₹500',
     steps: ['Clinical oral examination and digital scan.', 'Discussion of findings and tailored treatment options.'],
     aftercare: 'Follow individualized guidance discussed during consultation.',
     faqs: [],
@@ -62,9 +61,6 @@ export const ServicePicker: React.FC<ServicePickerProps> = ({ services, selected
               <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-bg text-text-muted text-[11px] rounded-md font-mono">
                 <Clock size={11} className="text-accent" />
                 {service.durationMins} mins
-              </span>
-              <span className="inline-flex items-center px-2.5 py-1 bg-primary-50 text-primary text-[11px] rounded-md font-bold font-mono">
-                {service.priceRange}
               </span>
             </div>
           </button>

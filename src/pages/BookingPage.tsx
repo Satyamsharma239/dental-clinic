@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Calendar, MessageCircle, Mail, CheckCircle2, MapPin, Sparkles, ShieldCheck, User, Phone as PhoneIcon } from 'lucide-react';
+import { Calendar, MessageCircle, Mail, CheckCircle2, MapPin, ShieldCheck, User, Phone as PhoneIcon } from 'lucide-react';
 import { TREATMENTS, Treatment } from '@/data/services';
 import { CLINIC } from '@/data/clinicInfo';
+import PageHero from '@/components/PageHero';
+import TimeSlotPicker from '@/components/booking/TimeSlotPicker';
 
 export default function BookingPage() {
   const [selectedTreatment, setSelectedTreatment] = useState<Treatment | null>(null);
 
   const getMinDateString = () => {
     const today = new Date();
-    return today.toISOString().split('T')[0];
+    return new Date(today.getTime() - today.getTimezoneOffset() * 60_000).toISOString().slice(0, 10);
   };
 
   const [selectedDate, setSelectedDate] = useState<string>('');
@@ -204,20 +206,11 @@ export default function BookingPage() {
   return (
     <div className="bg-slate-50 text-slate-800 font-sans">
       
-      <section className="py-12 sm:py-16 bg-gradient-to-br from-teal-50 via-slate-50 to-emerald-50/50 border-b border-slate-200">
-        <div className="max-w-container mx-auto px-4 sm:px-8 text-center space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-white border border-teal-200 text-teal-800 shadow-xs">
-            <Sparkles size={14} className="text-teal-600" />
-            <span>Book Your Visit · Bandra West</span>
-          </div>
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-            Book an Appointment with Dr. Sharma
-          </h1>
-          <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto">
-            Choose your service and preferred date. The clinic will confirm a suitable visit time after receiving your booking details.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow="Book Your Visit · Bandra West"
+        title="Book an Appointment with Dr. Sharma"
+        description="Choose your service and preferred date. The clinic will confirm a suitable visit time after receiving your booking details."
+      />
 
       <section className="py-16 sm:py-24 bg-white border-b border-slate-200">
         <div className="max-w-container mx-auto px-4 sm:px-8">
@@ -251,10 +244,6 @@ export default function BookingPage() {
                 {formErrors.treatment && (
                   <p className="text-xs text-red-600 font-medium">{formErrors.treatment}</p>
                 )}
-                <div className="flex items-center justify-between text-xs text-slate-500 pt-1 px-1">
-                  <span>Consultation Fee</span>
-                  <span className="text-teal-800 font-bold">{selectedTreatment?.priceFormatted ?? 'Select a treatment'}</span>
-                </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -281,29 +270,17 @@ export default function BookingPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <label htmlFor="time" className="block text-xs font-bold uppercase tracking-wider text-slate-700">
+                  <label htmlFor="preferred-time" className="block text-xs font-bold uppercase tracking-wider text-slate-700">
                     Preferred Time *
                   </label>
-                  <select
-                    id="time"
-                    value={selectedTime}
-                    onChange={(e) => {
-                      setSelectedTime(e.target.value);
+                  <TimeSlotPicker
+                    id="preferred-time"
+                    selectedTime={selectedTime}
+                    onSelect={(time) => {
+                      setSelectedTime(time);
                       if (formErrors.time) setFormErrors({ ...formErrors, time: undefined });
                     }}
-                    className={`w-full h-12 px-4 bg-white border rounded-xl text-sm text-slate-800 font-medium focus:outline-none focus:ring-2 focus:ring-teal-600 ${
-                      formErrors.time ? 'border-red-400 ring-1 ring-red-400' : 'border-slate-300'
-                    }`}
-                  >
-                    <option value="" disabled>Select a preferred time</option>
-                    <option value="Morning">Morning</option>
-                    <option value="Afternoon">Afternoon</option>
-                    <option value="Evening">Evening</option>
-                    <option value="Flexible">Flexible</option>
-                  </select>
-                  <p className="text-[11px] text-slate-500">
-                    This is a preference only; the clinic will confirm the available time.
-                  </p>
+                  />
                   {formErrors.time && (
                     <p className="text-xs text-red-600 font-medium">{formErrors.time}</p>
                   )}
@@ -462,11 +439,6 @@ export default function BookingPage() {
                   </div>
 
                   <div className="flex justify-between py-1 border-b border-slate-100">
-                    <span className="text-slate-500">Starting Fee</span>
-                    <span className="font-extrabold text-teal-800">{selectedTreatment?.priceFormatted ?? '—'}</span>
-                  </div>
-
-                  <div className="flex justify-between py-1 border-b border-slate-100">
                     <span className="text-slate-500">Preferred Date</span>
                     <span className="font-bold text-slate-900">{formatDisplayDate(selectedDate)}</span>
                   </div>
@@ -499,7 +471,7 @@ export default function BookingPage() {
                   <span>Our Patient Promise</span>
                 </div>
                 <p className="text-teal-800 leading-relaxed text-[11px]">
-                  We never start any treatment without your full understanding. You receive a printed itemized quote with material specifications beforehand.
+                  We never start treatment without your full understanding. We explain the recommended steps and materials beforehand.
                 </p>
               </div>
 

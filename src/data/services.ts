@@ -13,9 +13,6 @@ export interface Treatment {
   description: string;
   durationMins: number;
   durationLabel?: string;
-  startingPrice?: number;
-  priceFormatted?: string;
-  priceRange?: string;
   category?: string;
   steps: string[];
   aftercare: string;
@@ -37,9 +34,6 @@ export const TREATMENTS: Treatment[] = [
     description: 'Orthodontic therapy realigns teeth for balanced bite mechanics and long-term periodontal health. We use digital intraoral scans to build a step-by-step movement trajectory before treatment begins.',
     durationMins: 45,
     durationLabel: '45 mins',
-    startingPrice: 28000,
-    priceFormatted: 'from ₹28,000',
-    priceRange: 'from ₹28,000',
     steps: [
       'Digital 3D intraoral optical scanning and bite analysis.',
       'Custom orthodontic roadmap with simulated movement milestones.',
@@ -65,9 +59,6 @@ export const TREATMENTS: Treatment[] = [
     description: 'Professional dental whitening uses controlled concentrations of peroxide compounds to break down deep organic stains from coffee, tea, and natural aging without eroding enamel structure.',
     durationMins: 45,
     durationLabel: '45 mins',
-    startingPrice: 3500,
-    priceFormatted: 'from ₹3,500',
-    priceRange: 'from ₹3,500',
     steps: [
       'Pre-treatment polish and baseline tooth shade measurement.',
       'Application of light-cured protective barrier over gum tissue.',
@@ -93,9 +84,6 @@ export const TREATMENTS: Treatment[] = [
     description: 'When deep decay reaches the inner nerve chamber, root canal treatment cleanses the infected pulp canals and seals them hermetically, avoiding extraction and preserving bone density.',
     durationMins: 60,
     durationLabel: '60 mins',
-    startingPrice: 3500,
-    priceFormatted: 'from ₹3,500',
-    priceRange: 'from ₹3,500',
     steps: [
       'Profound computerized local anesthesia to ensure zero procedural pain.',
       'Isolation of tooth with rubber dam and access to infected canals.',
@@ -108,7 +96,7 @@ export const TREATMENTS: Treatment[] = [
       { q: 'Can a root canal be completed in one visit?', a: 'Yes. Most uncomplicated cases are completed in a single 60-minute visit.' },
       { q: 'Why is a crown necessary after root canal?', a: 'Endodontically treated teeth become brittle over time; a crown provides structural reinforcement against fracture.' },
     ],
-    image: '/images/treatment-chair.webp',
+    image: '/images/dental-tools.webp',
   },
   {
     id: 't-4',
@@ -121,9 +109,6 @@ export const TREATMENTS: Treatment[] = [
     description: 'Dental implants provide a permanent replacement for lost teeth without shaving adjacent healthy teeth for a bridge. The titanium post integrates directly into the jawbone, preserving facial contours.',
     durationMins: 60,
     durationLabel: '60 mins',
-    startingPrice: 25000,
-    priceFormatted: 'from ₹25,000',
-    priceRange: 'from ₹25,000',
     steps: [
       'High-resolution digital radiography and 3D bone assessment.',
       'Gentle surgical placement of the biocompatible titanium post.',
@@ -136,7 +121,7 @@ export const TREATMENTS: Treatment[] = [
       { q: 'What is the success rate?', a: 'Modern dental implants demonstrate clinical success rates exceeding 95% in non-smoking patients with adequate bone support.' },
       { q: 'Can I eat normally after getting an implant?', a: 'Once fully integrated and crowned, you can chew all standard foods with the same force as natural teeth.' },
     ],
-    image: '/images/dental-tools.webp',
+    image: '/images/treatment-chair.webp',
   },
   {
     id: 't-5',
@@ -149,9 +134,6 @@ export const TREATMENTS: Treatment[] = [
     description: 'A comprehensive aesthetic restoration that addresses tooth proportions, shape irregularities, and deep tetracycline discoloration using ultra-thin custom ceramic facings.',
     durationMins: 60,
     durationLabel: '60 mins',
-    startingPrice: 12000,
-    priceFormatted: 'from ₹12,000',
-    priceRange: 'from ₹12,000',
     steps: [
       'Facial proportion analysis and digital intraoral smile mockup.',
       'Conservative enamel preparation preserving natural tooth substrate.',
@@ -164,7 +146,7 @@ export const TREATMENTS: Treatment[] = [
       { q: 'Will ceramic veneers stain over time?', a: 'High-density glazed ceramic is non-porous and highly resistant to staining from coffee, tea, and food pigments.' },
       { q: 'Can I preview my new smile before proceeding?', a: 'Yes. We build a temporary intraoral mock-up so you can evaluate the proposed shape, length, and shade in your mouth.' },
     ],
-    image: '/images/consultation.webp',
+    image: '/images/hero-patient.webp',
   },
   {
     id: 't-6',
@@ -177,9 +159,6 @@ export const TREATMENTS: Treatment[] = [
     description: 'Paediatric appointments focus on establishing trust through calm demonstrations, preventative sealant application on developing molars, and patient guidance for parents.',
     durationMins: 30,
     durationLabel: '30 mins',
-    startingPrice: 800,
-    priceFormatted: 'from ₹800',
-    priceRange: 'from ₹800',
     steps: [
       'Friendly welcome and playful demonstration of dental examination tools.',
       'Gentle counting and examination of primary and developing permanent teeth.',

@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Phone, MessageCircle, Calendar, MapPin, Clock } from 'lucide-react';
+import { Menu, X, Phone, Calendar, MapPin, MessageCircle } from 'lucide-react';
 import { CLINIC } from '@/data/clinicInfo';
 
 const NAV_LINKS = [
   { to: '/', label: 'Home' },
   { to: '/about', label: 'About' },
   { to: '/services', label: 'Services' },
+  { to: '/testimonials', label: 'Testimonials' },
+  { to: '/blog', label: 'Blog' },
   { to: '/contact', label: 'Contact' },
 ];
 
@@ -33,8 +35,6 @@ export default function Header() {
     };
   }, [mobileOpen]);
 
-  const waUrl = `https://wa.me/${CLINIC.whatsapp}?text=${encodeURIComponent('Hello Dr. Sharma, I would like to inquire about appointments at Aura Dental Studio Bandra West.')}`;
-
   return (
     <>
       <div className="bg-teal-900 text-white text-xs py-2 px-4 sm:px-8 border-b border-teal-800 font-sans relative z-20">
@@ -58,15 +58,15 @@ export default function Header() {
               <Phone size={13} className="text-teal-300 shrink-0" />
               <span>{CLINIC.phoneDisplay}</span>
             </a>
-            <span className="text-teal-700 hidden sm:inline">|</span>
             <a
-              href={waUrl}
+              href={`https://wa.me/${CLINIC.whatsapp}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:flex items-center gap-1.5 text-teal-200 hover:text-white transition-colors"
+              className="flex items-center gap-1.5 text-teal-100 hover:text-white transition-colors"
+              aria-label="WhatsApp the clinic"
             >
               <MessageCircle size={13} className="text-teal-300 shrink-0" />
-              <span>WhatsApp Consultation</span>
+              <span>WhatsApp</span>
             </a>
           </div>
         </div>
@@ -89,14 +89,14 @@ export default function Header() {
             </div>
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-8" aria-label="Main navigation">
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-6" aria-label="Main navigation">
             {NAV_LINKS.map((link) => {
               const isActive = isNavLinkActive(location.pathname, link.to);
               return (
                 <Link
                   key={link.to}
                   to={link.to}
-                  className={`text-sm font-semibold transition-colors ${
+                  className={`whitespace-nowrap text-[13px] xl:text-sm font-semibold transition-colors ${
                     isActive
                       ? 'text-teal-700 font-bold border-b-2 border-teal-700 pb-0.5'
                       : 'text-slate-600 hover:text-teal-700'
@@ -108,20 +108,10 @@ export default function Header() {
             })}
           </nav>
 
-          <div className="hidden lg:flex items-center gap-3">
-            <a
-              href={waUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="h-10 px-3.5 inline-flex items-center justify-center gap-1.5 rounded-lg border border-slate-300 bg-white text-slate-700 hover:bg-slate-50 text-xs font-semibold transition-colors shadow-xs"
-            >
-              <MessageCircle size={15} className="text-teal-700" />
-              <span>WhatsApp</span>
-            </a>
-
+          <div className="hidden lg:flex items-center">
             <Link
               to="/book"
-              className="btn-primary text-xs h-10 px-4"
+              className="btn-primary text-xs h-10 px-3 xl:px-4 whitespace-nowrap"
             >
               <Calendar size={15} />
               <span>Book Appointment</span>
@@ -129,15 +119,6 @@ export default function Header() {
           </div>
 
           <div className="flex items-center gap-1.5 lg:hidden">
-            <a
-              href={waUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 text-teal-700 hover:bg-teal-50 rounded-lg transition-colors"
-              aria-label="WhatsApp"
-            >
-              <MessageCircle size={22} />
-            </a>
             <button
               type="button"
               onClick={() => setMobileOpen(true)}
@@ -199,15 +180,6 @@ export default function Header() {
             </div>
 
             <div className="space-y-3 pt-6 border-t border-slate-200">
-              <a
-                href={waUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-whatsapp w-full text-xs h-11"
-              >
-                <MessageCircle size={16} />
-                <span>Chat on WhatsApp</span>
-              </a>
               <Link
                 to="/book"
                 onClick={() => setMobileOpen(false)}

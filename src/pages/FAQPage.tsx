@@ -16,9 +16,9 @@ const FAQS = [
     answer: "Clear aligners are discreet, transparent, and removable for dining and oral hygiene. Using high-resolution digital scanning, we map out exact tooth movement trajectories from consultation through final retention."
   },
   {
-    category: 'pricing',
-    question: "How are treatment costs determined?",
-    answer: "Following your initial visual assessment and 3D intraoral scan, we provide a transparent, itemized treatment estimate. Every line item is clearly defined with no unexpected charges."
+    category: 'planning',
+    question: "How will my treatment plan be explained?",
+    answer: "After an examination and 3D intraoral scan, we explain the findings, suitable options, and next steps before you decide how to proceed."
   },
   {
     category: 'comfort',
@@ -36,9 +36,9 @@ const FAQS = [
     answer: "Your initial visit is a relaxed consultation. We review your dental history, perform high-definition intraoral scans, discuss aesthetic or functional goals, and provide tailored treatment choices."
   },
   {
-    category: 'pricing',
-    question: "Do you offer sample consultation estimates prior to starting?",
-    answer: "Yes. We believe informed patients make the best healthcare decisions. We never initiate clinical treatment without your explicit, unpressured consent."
+    category: 'planning',
+    question: "Can I take time before deciding on treatment?",
+    answer: "Yes. We explain the available options and answer your questions. You can take time to consider the information before deciding how to proceed."
   },
   {
     category: 'first-visit',
@@ -49,7 +49,7 @@ const FAQS = [
 
 export default function FAQPage() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
-  const [activeCategory, setActiveCategory] = useState<'all' | 'comfort' | 'aligners' | 'pricing' | 'first-visit'>('all');
+  const [activeCategory, setActiveCategory] = useState<'all' | 'comfort' | 'aligners' | 'planning' | 'first-visit'>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
   const filteredFaqs = FAQS.filter((faq) => {
@@ -88,7 +88,7 @@ export default function FAQPage() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search questions (e.g. root canal, aligners, fees)..."
+                placeholder="Search questions (e.g. root canal, aligners, first visit)..."
                 className="w-full pl-11 pr-4 py-3 rounded-xl border border-border bg-bg text-sm text-text focus:outline-none focus:ring-2 focus:ring-primary focus:bg-white transition-all"
               />
             </div>
@@ -98,7 +98,7 @@ export default function FAQPage() {
                 { id: 'all', label: 'All Questions' },
                 { id: 'comfort', label: 'Comfort & Anxiety' },
                 { id: 'aligners', label: 'Orthodontics & Aligners' },
-                { id: 'pricing', label: 'Pricing & Estimates' },
+                { id: 'planning', label: 'Treatment Planning' },
                 { id: 'first-visit', label: 'First Visit' },
               ].map((cat) => (
                 <button

@@ -37,7 +37,7 @@ export default function GalleryPage() {
     },
     {
       title: 'Unhurried Consultation Suite',
-      desc: 'Private space for reviewing smile goals, discussing options, and reviewing transparent cost estimates.',
+      desc: 'Private space for reviewing smile goals and discussing care options with the clinical team.',
       image: CLINIC_PHOTOS.consultation,
       tag: 'Consultation',
     },

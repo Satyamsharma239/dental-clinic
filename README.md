@@ -8,7 +8,7 @@
 
 ## 🏥 About the Practice
 
-Aura Dental Studio is a modern family and orthodontic practice located at Studio 204, Sagar Fortune Building, Waterfield Road, Bandra West, Mumbai. The clinic focuses on gentle, conservative tooth preservation, 3D intraoral digital optical scanning, and transparent fees.
+Aura Dental Studio is a modern family and orthodontic practice located at Studio 204, Sagar Fortune Building, Waterfield Road, Bandra West, Mumbai. The clinic focuses on gentle, conservative tooth preservation, 3D intraoral digital optical scanning, and clear treatment plans.
 
 ---
 
@@ -17,7 +17,7 @@ Aura Dental Studio is a modern family and orthodontic practice located at Studio
 - **Clean Human Design**: Welcoming, calm clinical aesthetic using *Plus Jakarta Sans*, balanced typography, and genuine operatory photography. Zero generic AI design tropes.
 - **Deep WhatsApp Integration**: 1-click WhatsApp messaging throughout the site, including hero, emergency banner, service cards, doctor dossier, and persistent floating WhatsApp widget.
 - **2-Column Appointment Scheduler (`/book`)**: Real-time slot availability, smart evening cutoffs, date selection, phone sanitization (`+91` / `0` support), instant reference code (`AURA-XXXXXX`), and 1-click WhatsApp & Email confirmation.
-- **Transparent Pricing (`/pricing`)**: Itemized procedure starting fees, diagnostic checkup details (₹500), payment modes (UPI, cards, net banking), and 0% EMI options.
+- **Treatment Planning**: Service details and appointment requests; fixed prices are not displayed.
 - **Clinical Dossier (`/doctor`)**: Academic background, Nair Hospital & GDC Mumbai credentials, Maharashtra State Dental Council registration (`MSDC-42891`), and clinical philosophy.
 - **Interactive Contact & Map (`/contact`)**: Real-time opening status, transit guide (800m from Bandra Station West), embedded Google Maps, and validated inquiry form with dual WhatsApp / Email dispatch.
 - **Zero Comments**: Strict code quality with zero comments across all source files.

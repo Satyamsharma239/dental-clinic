@@ -22,7 +22,6 @@ interface SymptomOption {
   recommendedService: string;
   serviceId: string;
   duration: string;
-  priceEstimate: string;
   whatToExpect: string;
 }
 
@@ -36,7 +35,6 @@ const SYMPTOMS: SymptomOption[] = [
     recommendedService: 'Root Canal Treatment & Pain Management',
     serviceId: 'svc-2',
     duration: '60 minutes',
-    priceEstimate: '₹3,000 – ₹8,000',
     whatToExpect: '100% profound local anesthesia applied. Pain is alleviated on the very first appointment.',
   },
   {
@@ -48,7 +46,6 @@ const SYMPTOMS: SymptomOption[] = [
     recommendedService: 'In-Clinic Laser Teeth Whitening',
     serviceId: 'svc-5',
     duration: '45 minutes',
-    priceEstimate: '₹3,000 – ₹6,000',
     whatToExpect: 'Protective gum barrier applied followed by clinically tested enamel-safe whitening gel.',
   },
   {
@@ -60,7 +57,6 @@ const SYMPTOMS: SymptomOption[] = [
     recommendedService: 'Orthodontics & Clear Aligners',
     serviceId: 'svc-6',
     duration: '30 min initial scan',
-    priceEstimate: '₹25,000 – ₹80,000',
     whatToExpect: 'Comprehensive 3D intraoral scan and clinical review with Dr. Satyam Sharma (MDS Orthodontist).',
   },
   {
@@ -72,7 +68,6 @@ const SYMPTOMS: SymptomOption[] = [
     recommendedService: 'Tooth-Coloured Composite Filling',
     serviceId: 'svc-4',
     duration: '30 minutes',
-    priceEstimate: '₹500 – ₹2,500',
     whatToExpect: 'Gentle decay removal, followed by natural shade-matched composite bonding that cures instantly.',
   },
   {
@@ -84,7 +79,6 @@ const SYMPTOMS: SymptomOption[] = [
     recommendedService: 'Ultrasonic Dental Cleaning & Polishing',
     serviceId: 'svc-1',
     duration: '30 minutes',
-    priceEstimate: '₹500 – ₹1,500',
     whatToExpect: 'Ultrasonic vibration breaks down plaque with water mist. Leaves gums healthy and breath fresh.',
   },
 ];
@@ -106,7 +100,7 @@ export default function SymptomChecker() {
             What brings you to our clinic today?
           </h3>
           <p className="text-text-muted text-sm mt-1">
-            Select what you are experiencing to view recommended care, procedure timeline, and upfront fees.
+            Select what you are experiencing to view suggested care, timing, and what to expect.
           </p>
         </div>
 
@@ -185,10 +179,8 @@ export default function SymptomChecker() {
               </div>
 
               <div className="flex items-center justify-between pb-3 border-b border-primary/10">
-                <span className="text-xs text-text-muted">Transparent Fee</span>
-                <span className="text-sm font-bold text-primary font-mono">
-                  {selectedSymptom.priceEstimate}
-                </span>
+                <span className="text-xs text-text-muted">Visit type</span>
+                <span className="text-sm font-semibold text-primary">Clinical assessment</span>
               </div>
 
               <div className="pt-2 space-y-2.5">

@@ -52,18 +52,7 @@ export default function TreatmentDetailPage() {
                 </p>
               </div>
 
-              <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-medium text-slate-500">Starting Fee</span>
-                  <span className="text-xl font-extrabold text-teal-800">{treatment.priceFormatted}</span>
-                </div>
-              </div>
-
               <div className="space-y-3">
-                <Link to="/book" className="btn-primary w-full text-xs h-11">
-                  <Calendar size={15} />
-                  <span>Book Appointment</span>
-                </Link>
                 <a
                   href={waTreatmentUrl}
                   target="_blank"
@@ -73,6 +62,10 @@ export default function TreatmentDetailPage() {
                   <MessageCircle size={15} />
                   <span>Ask Dr. Sharma on WhatsApp</span>
                 </a>
+                <Link to="/book" className="btn-primary w-full text-xs h-11">
+                  <Calendar size={15} />
+                  <span>Book Appointment</span>
+                </Link>
                 <a href={`tel:${CLINIC.phone}`} className="btn-secondary w-full text-xs h-11">
                   <Phone size={14} className="text-teal-700" />
                   <span>Call Clinic: {CLINIC.phoneDisplay}</span>

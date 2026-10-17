@@ -22,7 +22,7 @@ export default function Footer() {
             </Link>
 
             <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
-              Gentle, conservative family dentistry on Waterfield Road. We prioritize pain-free anesthesia, 3D optical scanning, and transparent upfront pricing for every patient.
+              Gentle, conservative family dentistry on Waterfield Road. We prioritize clear explanations, 3D optical scanning, and thoughtful care for every patient.
             </p>
 
             <div className="pt-2 flex flex-wrap items-center gap-3">
@@ -106,10 +106,12 @@ export default function Footer() {
           <div>
             © {new Date().getFullYear()} {CLINIC.name} · Dr. Satyam Sharma, MDS (BDS Nair, MDS GDC Mumbai). Bandra West, Mumbai.
           </div>
-          <div className="flex items-center gap-6">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
             <Link to="/" className="hover:text-white transition-colors">Home</Link>
             <Link to="/about" className="hover:text-white transition-colors">About</Link>
             <Link to="/services" className="hover:text-white transition-colors">Services</Link>
+            <Link to="/testimonials" className="hover:text-white transition-colors">Testimonials</Link>
+            <Link to="/blog" className="hover:text-white transition-colors">Blog</Link>
             <Link to="/contact" className="hover:text-white transition-colors">Contact</Link>
             <Link to="/book" className="hover:text-white transition-colors">Book Appointment</Link>
           </div>
