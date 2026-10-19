@@ -2,26 +2,8 @@ import { useState } from 'react';
 import { ExternalLink, Play } from 'lucide-react';
 
 const TESTIMONIALS = [
-  {
-    id: '3WAsIWIKZoY',
-    title: 'Patient testimonial',
-    clinic: "Dr. Kalyani's Family Dental Clinic",
-  },
-  {
-    id: '6Lnq7_e55AI',
-    title: 'Patient feedback',
-    clinic: 'Microdent Dentistry',
-  },
-  {
-    id: '6u25QmziN_g',
-    title: 'Patient testimonial',
-    clinic: 'Shaad Aesthetics Dental Clinic',
-  },
-  {
-    id: 'G_wLP4i4QqA',
-    title: 'Root canal treatment testimonial',
-    clinic: 'Clove Dental',
-  },
+  { id: 'LlAOHPJBUZ0', title: 'Teeth whitening patient testimonial', clinic: 'Clove Dental' },
+  { id: 'BJ7OtCUs9sE', title: 'Smile makeover patient review', clinic: 'Kadali Dental' },
 ];
 
 export default function PatientFeedbackVideos() {
@@ -30,13 +12,10 @@ export default function PatientFeedbackVideos() {
   return (
     <section className="space-y-6" aria-labelledby="feedback-video-heading">
       <header className="mx-auto max-w-2xl space-y-3 text-center">
-        <span className="text-xs font-bold uppercase tracking-wider text-teal-700">Guest patient stories</span>
+        <span className="text-xs font-bold uppercase tracking-wider text-teal-700">Patient stories</span>
         <h2 id="feedback-video-heading" className="text-2xl font-extrabold text-slate-900 sm:text-3xl">
           Patient feedback videos
         </h2>
-        <p className="text-sm leading-relaxed text-slate-600">
-          Guest patient stories published by other dental practices. Original sources are linked below each video.
-        </p>
       </header>
 
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
