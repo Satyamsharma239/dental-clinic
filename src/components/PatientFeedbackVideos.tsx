@@ -5,17 +5,17 @@ const TESTIMONIALS = [
   {
     id: '3WAsIWIKZoY',
     title: 'Patient testimonial',
-    clinic: "Dr. Kalyani's Family Dental Clinic · Sangli",
+    clinic: "Dr. Kalyani's Family Dental Clinic",
   },
   {
     id: '6Lnq7_e55AI',
     title: 'Patient feedback',
-    clinic: 'Microdent Dentistry · Pune',
+    clinic: 'Microdent Dentistry',
   },
   {
     id: '6u25QmziN_g',
     title: 'Patient testimonial',
-    clinic: 'Shaad Aesthetics Dental Clinic · Coimbatore',
+    clinic: 'Shaad Aesthetics Dental Clinic',
   },
   {
     id: 'G_wLP4i4QqA',
@@ -30,23 +30,27 @@ export default function PatientFeedbackVideos() {
   return (
     <section className="space-y-6" aria-labelledby="feedback-video-heading">
       <header className="mx-auto max-w-2xl space-y-3 text-center">
-        <span className="text-xs font-bold uppercase tracking-wider text-teal-700">Patient feedback videos</span>
+        <span className="text-xs font-bold uppercase tracking-wider text-teal-700">Guest patient stories</span>
         <h2 id="feedback-video-heading" className="text-2xl font-extrabold text-slate-900 sm:text-3xl">
-          Patient stories from dental clinics
+          Patient feedback videos
         </h2>
-        <p className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm leading-relaxed text-slate-600">
-          Public patient testimonials from the clinics named below. These are not reviews of Aura Dental Studio.
+        <p className="text-sm leading-relaxed text-slate-600">
+          Guest patient stories published by other dental practices. Original sources are linked below each video.
         </p>
       </header>
 
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-        {TESTIMONIALS.map((testimonial) => {
+        {TESTIMONIALS.map((testimonial, index) => {
           const isPlaying = playingVideo === testimonial.id;
           const videoUrl = `https://www.youtube.com/embed/${testimonial.id}?start=0&end=10&autoplay=1&playsinline=1&rel=0`;
           const sourceUrl = `https://www.youtube.com/watch?v=${testimonial.id}`;
 
           return (
-            <article key={testimonial.id} className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+            <article
+              key={testimonial.id}
+              className="feedback-video-card group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-teal-300 hover:shadow-xl"
+              style={{ animationDelay: `${index * 90}ms` }}
+            >
               <div className="relative aspect-video overflow-hidden bg-slate-900">
                 {isPlaying ? (
                   <iframe
@@ -62,7 +66,7 @@ export default function PatientFeedbackVideos() {
                     <img
                       src={`https://i.ytimg.com/vi/${testimonial.id}/hqdefault.jpg`}
                       alt={`Video thumbnail for ${testimonial.title} from ${testimonial.clinic}`}
-                      className="h-full w-full object-cover"
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                       loading="lazy"
                     />
                     <div className="absolute inset-0 bg-slate-950/25" />
@@ -72,7 +76,7 @@ export default function PatientFeedbackVideos() {
                       aria-label={`Play ${testimonial.title} from ${testimonial.clinic}`}
                       className="absolute inset-0 flex items-center justify-center text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white"
                     >
-                      <span className="flex h-14 w-14 items-center justify-center rounded-full bg-teal-700 shadow-xl transition-transform hover:scale-110">
+                      <span className="flex h-14 w-14 items-center justify-center rounded-full bg-teal-700 shadow-xl transition-all duration-300 group-hover:scale-110 group-hover:ring-4 group-hover:ring-white/30">
                         <Play size={21} className="ml-1" />
                       </span>
                     </button>
