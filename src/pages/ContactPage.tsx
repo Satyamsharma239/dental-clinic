@@ -121,7 +121,7 @@ export default function ContactPage() {
                       className="btn-whatsapp mt-2 h-11 w-full justify-center px-4 text-xs sm:w-auto"
                     >
                       <MessageCircle size={15} />
-                      <span>Chat on WhatsApp · {CLINIC.phoneDisplay}</span>
+                      <span>Chat with Us</span>
                     </a>
                   </div>
 
