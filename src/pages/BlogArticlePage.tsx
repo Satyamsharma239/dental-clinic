@@ -1,4 +1,4 @@
-import { ArrowLeft, CheckCircle2, Clock3 } from 'lucide-react';
+import { ArrowLeft, CheckCircle2 } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import PageHero from '@/components/PageHero';
 import { BLOG_ARTICLES } from '@/data/blogArticles';
@@ -39,9 +39,6 @@ export default function BlogArticlePage() {
             <div className="flex flex-wrap items-center justify-between gap-3">
               <span className="text-xs font-bold uppercase tracking-wider text-teal-700">
                 {article.category}
-              </span>
-              <span className="inline-flex items-center gap-1.5 text-xs text-slate-500">
-                <Clock3 size={14} /> 3 min read
               </span>
             </div>
 

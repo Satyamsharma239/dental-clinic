@@ -2,8 +2,16 @@ import { useState } from 'react';
 import { ExternalLink, Play } from 'lucide-react';
 
 const TESTIMONIALS = [
-  { id: 'LlAOHPJBUZ0', title: 'Teeth whitening patient testimonial', clinic: 'Clove Dental' },
-  { id: 'BJ7OtCUs9sE', title: 'Smile makeover patient review', clinic: 'Kadali Dental' },
+  {
+    id: 'LlAOHPJBUZ0',
+    title: 'Teeth whitening patient testimonial',
+    description: 'A patient shares their experience with a teeth-whitening treatment.',
+  },
+  {
+    id: 'BJ7OtCUs9sE',
+    title: 'Smile makeover patient review',
+    description: 'A patient talks about their smile makeover and treatment experience.',
+  },
 ];
 
 export default function PatientFeedbackVideos() {
@@ -35,7 +43,7 @@ export default function PatientFeedbackVideos() {
                   <iframe
                     className="h-full w-full"
                     src={videoUrl}
-                    title={`${testimonial.title} from ${testimonial.clinic}`}
+                    title={testimonial.title}
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     referrerPolicy="strict-origin-when-cross-origin"
                     allowFullScreen
@@ -44,7 +52,7 @@ export default function PatientFeedbackVideos() {
                   <>
                     <img
                       src={`https://i.ytimg.com/vi/${testimonial.id}/hqdefault.jpg`}
-                      alt={`Video thumbnail for ${testimonial.title} from ${testimonial.clinic}`}
+                      alt={`Video thumbnail for ${testimonial.title}`}
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                       loading="lazy"
                     />
@@ -52,7 +60,7 @@ export default function PatientFeedbackVideos() {
                     <button
                       type="button"
                       onClick={() => setPlayingVideo(testimonial.id)}
-                      aria-label={`Play ${testimonial.title} from ${testimonial.clinic}`}
+                      aria-label={`Play ${testimonial.title}`}
                       className="absolute inset-0 flex items-center justify-center text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white"
                     >
                       <span className="flex h-14 w-14 items-center justify-center rounded-full bg-teal-700 shadow-xl transition-all duration-300 group-hover:scale-110 group-hover:ring-4 group-hover:ring-white/30">
@@ -67,14 +75,14 @@ export default function PatientFeedbackVideos() {
               </div>
               <div className="space-y-2 p-4">
                 <h3 className="font-bold text-slate-900">{testimonial.title}</h3>
-                <p className="text-xs leading-relaxed text-slate-600">{testimonial.clinic}</p>
+                <p className="text-xs leading-relaxed text-slate-600">{testimonial.description}</p>
                 <a
                   href={sourceUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex min-h-10 items-center gap-1.5 text-xs font-semibold text-teal-700 hover:text-teal-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600"
                 >
-                  View original on YouTube <ExternalLink size={13} />
+                  Video source on YouTube <ExternalLink size={13} />
                 </a>
               </div>
             </article>

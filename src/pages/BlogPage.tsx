@@ -1,4 +1,4 @@
-import { ArrowRight, Clock3 } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import PageHero from '@/components/PageHero';
 import { BLOG_ARTICLES } from '@/data/blogArticles';
@@ -40,9 +40,6 @@ export default function BlogPage() {
                 <div className="flex items-center justify-between border-t border-slate-100 pt-3">
                   <span className="inline-flex items-center gap-1.5 text-xs font-bold text-teal-700">
                     Read article <ArrowRight size={14} />
-                  </span>
-                  <span className="inline-flex items-center gap-1 text-xs text-slate-500">
-                    <Clock3 size={13} /> 3 min read
                   </span>
                 </div>
               </div>
