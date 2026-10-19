@@ -12,6 +12,16 @@ const TESTIMONIALS = [
     title: 'Smile makeover patient review',
     description: 'A patient talks about their smile makeover and treatment experience.',
   },
+  {
+    id: '3WAsIWIKZoY',
+    title: 'Dental treatment patient testimonial',
+    description: 'A patient shares a short account of their dental treatment experience.',
+  },
+  {
+    id: '6u25QmziN_g',
+    title: 'Patient experience at a dental clinic',
+    description: 'A patient describes their experience during a dental visit.',
+  },
 ];
 
 export default function PatientFeedbackVideos() {

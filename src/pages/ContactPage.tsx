@@ -118,10 +118,10 @@ export default function ContactPage() {
                       href={`https://wa.me/${CLINIC.whatsapp}?text=${encodeURIComponent('Hello Dr. Sharma, I want to inquire about dental appointments.')}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm font-bold text-teal-700 hover:text-teal-800 hover:underline flex items-center gap-1.5 mt-0.5"
+                      className="btn-whatsapp mt-2 h-11 w-full justify-center px-4 text-xs sm:w-auto"
                     >
                       <MessageCircle size={15} />
-                      <span>+91 98201 44521 (Direct Message)</span>
+                      <span>Chat on WhatsApp · {CLINIC.phoneDisplay}</span>
                     </a>
                   </div>
 

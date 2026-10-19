@@ -2,9 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import FadeIn from '@/components/FadeIn';
 import { TREATMENTS } from '@/data/services';
-import { 
+import {
   Clock, 
-  Calendar,
   MapPin, 
   Phone, 
   MessageCircle, 
@@ -179,19 +178,12 @@ export default function HomePage() {
                 Thoughtful dental care, clearly explained. We take the time to listen, show you what we find, and help you choose the next step with confidence.
               </p>
 
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1 max-w-sm sm:max-w-none w-full sm:w-auto">
-                <Link
-                  to="/book"
-                  className="btn-primary h-[46px] w-full px-6 text-sm sm:w-auto"
-                >
-                  <Calendar size={17} />
-                  <span>Book Appointment</span>
-                </Link>
+              <div className="flex w-full max-w-sm items-stretch pt-1 sm:w-auto sm:max-w-none">
                 <a
                   href={waGeneralUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn-secondary h-[46px] w-full px-6 text-sm sm:w-auto"
+                  className="btn-whatsapp h-[46px] w-full px-6 text-sm sm:w-auto"
                 >
                   <MessageCircle size={17} />
                   <span>Chat with Us</span>
