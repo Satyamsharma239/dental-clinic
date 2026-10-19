@@ -1,5 +1,6 @@
-import { ArrowLeft, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
+import FadeIn from '@/components/FadeIn';
 import PageHero from '@/components/PageHero';
 import { BLOG_ARTICLES } from '@/data/blogArticles';
 import NotFoundPage from '@/pages/NotFoundPage';
@@ -9,6 +10,11 @@ export default function BlogArticlePage() {
   const article = BLOG_ARTICLES.find((item) => item.slug === slug);
 
   if (!article) return <NotFoundPage />;
+
+  const relatedArticles = [
+    ...BLOG_ARTICLES.filter((item) => item.slug !== article.slug && item.category === article.category),
+    ...BLOG_ARTICLES.filter((item) => item.slug !== article.slug && item.category !== article.category),
+  ].slice(0, 3);
 
   return (
     <div className="bg-slate-50 font-sans text-slate-800">
@@ -85,6 +91,60 @@ export default function BlogArticlePage() {
             Book Appointment
           </Link>
         </div>
+
+        {relatedArticles.length > 0 && (
+          <section aria-labelledby="related-articles-title" className="mt-14">
+            <div className="mb-6">
+              <span className="text-xs font-bold uppercase tracking-wider text-teal-700">
+                Keep exploring
+              </span>
+              <h2 id="related-articles-title" className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">
+                You might also find these helpful
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                A few more practical reads for your dental care journey.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {relatedArticles.map((relatedArticle, index) => (
+                <FadeIn key={relatedArticle.slug} delay={index * 0.08} className="h-full">
+                  <Link
+                    to={`/blog/${relatedArticle.slug}`}
+                    className="group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-teal-300 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 focus-visible:ring-offset-2"
+                  >
+                    <div className="overflow-hidden bg-slate-100">
+                      <img
+                        src={relatedArticle.image}
+                        alt={relatedArticle.imageAlt}
+                        className="aspect-[16/9] w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                        onError={(event) => {
+                          event.currentTarget.src = '/images/reception.webp';
+                        }}
+                      />
+                    </div>
+                    <div className="flex flex-1 flex-col gap-3 p-5">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-teal-700">
+                        {relatedArticle.category}
+                      </span>
+                      <h3 className="text-base font-bold text-slate-900 transition-colors group-hover:text-teal-800">
+                        {relatedArticle.title}
+                      </h3>
+                      <p className="flex-1 text-sm leading-relaxed text-slate-600">
+                        {relatedArticle.summary}
+                      </p>
+                      <span className="inline-flex items-center gap-1.5 border-t border-slate-100 pt-3 text-xs font-bold text-teal-700">
+                        Read article
+                        <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
+                      </span>
+                    </div>
+                  </Link>
+                </FadeIn>
+              ))}
+            </div>
+          </section>
+        )}
       </main>
     </div>
   );
