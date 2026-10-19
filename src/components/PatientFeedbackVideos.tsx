@@ -45,7 +45,7 @@ export default function PatientFeedbackVideos() {
           return (
             <article
               key={testimonial.id}
-              className="feedback-video-card group overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-teal-300 hover:shadow-xl"
+              className="feedback-video-card group flex h-full flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-teal-300 hover:shadow-xl"
               style={{ animationDelay: `${index * 90}ms` }}
             >
               <div className="relative aspect-video overflow-hidden bg-slate-900">
@@ -83,14 +83,14 @@ export default function PatientFeedbackVideos() {
                   </>
                 )}
               </div>
-              <div className="space-y-2 p-4">
+              <div className="flex flex-1 flex-col items-start gap-2 p-4">
                 <h3 className="font-bold text-slate-900">{testimonial.title}</h3>
                 <p className="text-xs leading-relaxed text-slate-600">{testimonial.description}</p>
                 <a
                   href={sourceUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex min-h-10 items-center gap-1.5 text-xs font-semibold text-teal-700 hover:text-teal-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600"
+                  className="mt-auto inline-flex min-h-10 items-center gap-1.5 pt-2 text-xs font-semibold text-teal-700 hover:text-teal-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600"
                 >
                   Video source on YouTube <ExternalLink size={13} />
                 </a>

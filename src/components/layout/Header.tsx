@@ -13,7 +13,8 @@ const NAV_LINKS = [
 ];
 
 function isNavLinkActive(pathname: string, to: string) {
-  return pathname === to || (to === '/services' && pathname.startsWith(`${to}/`));
+  return pathname === to ||
+    ((to === '/services' || to === '/blog') && pathname.startsWith(`${to}/`));
 }
 
 export default function Header() {
@@ -96,6 +97,7 @@ export default function Header() {
                 <Link
                   key={link.to}
                   to={link.to}
+                  aria-current={isActive ? 'page' : undefined}
                   className={`whitespace-nowrap text-[13px] xl:text-sm font-semibold transition-colors ${
                     isActive
                       ? 'text-teal-700 font-bold border-b-2 border-teal-700 pb-0.5'
@@ -165,6 +167,7 @@ export default function Header() {
                       key={link.to}
                       to={link.to}
                       onClick={() => setMobileOpen(false)}
+                      aria-current={isActive ? 'page' : undefined}
                       className={`px-4 py-3 rounded-xl text-base font-semibold transition-colors flex items-center justify-between ${
                         isActive
                           ? 'bg-teal-50 text-teal-800 font-bold border border-teal-200'

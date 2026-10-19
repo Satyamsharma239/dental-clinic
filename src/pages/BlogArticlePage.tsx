@@ -91,18 +91,20 @@ export default function BlogArticlePage() {
             Book Appointment
           </Link>
         </div>
+      </main>
 
-        {relatedArticles.length > 0 && (
-          <section aria-labelledby="related-articles-title" className="mt-14">
-            <div className="mb-6">
+      {relatedArticles.length > 0 && (
+        <section aria-labelledby="related-articles-title" className="border-y border-slate-200 bg-white py-12 sm:py-16">
+          <div className="max-w-container mx-auto px-4 sm:px-8">
+            <div className="mb-7 text-center">
               <span className="text-xs font-bold uppercase tracking-wider text-teal-700">
                 Keep exploring
               </span>
               <h2 id="related-articles-title" className="mt-2 text-2xl font-bold text-slate-900 sm:text-3xl">
-                You might also find these helpful
+                More dental articles to explore
               </h2>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">
-                A few more practical reads for your dental care journey.
+              <p className="mx-auto mt-2 max-w-xl text-sm leading-relaxed text-slate-600">
+                Keep reading with these practical guides for your dental care journey.
               </p>
             </div>
 
@@ -143,9 +145,9 @@ export default function BlogArticlePage() {
                 </FadeIn>
               ))}
             </div>
-          </section>
-        )}
-      </main>
+          </div>
+        </section>
+      )}
     </div>
   );
 }
