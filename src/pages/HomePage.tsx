@@ -11,7 +11,6 @@ import {
   CheckCircle2, 
   ArrowRight, 
   ChevronDown, 
-  GraduationCap,
   ShieldCheck, 
   AlertCircle,
   Star,
@@ -270,13 +269,13 @@ export default function HomePage() {
 
             <div className="flex flex-col items-center gap-2 rounded-xl p-3 text-center sm:flex-row sm:gap-3.5 sm:text-left">
               <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-teal-100 bg-white text-teal-700 shadow-sm sm:h-12 sm:w-12">
-                <GraduationCap size={20} className="sm:w-6 sm:h-6" />
+                <Sparkles size={20} className="sm:w-6 sm:h-6" />
               </div>
               <div className="min-w-0">
                 <div className="text-xl font-extrabold leading-tight text-slate-900 sm:text-3xl">
-                  <CountUp target={1} label="lead dentist" />
+                  <CountUp target={10} suffix="+" label="dental treatments" />
                 </div>
-                <div className="mt-1 text-[11px] font-medium leading-tight text-slate-500 sm:text-xs">Lead Dentist</div>
+                <div className="mt-1 text-[11px] font-medium leading-tight text-slate-500 sm:text-xs">Dental Treatments</div>
               </div>
             </div>
 
