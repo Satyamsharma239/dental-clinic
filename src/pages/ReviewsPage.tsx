@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
 import PageHero from '@/components/PageHero';
 import PatientReviewCarousel from '@/components/PatientReviewCarousel';
+import PatientFeedbackVideos from '@/components/PatientFeedbackVideos';
 
 export default function ReviewsPage() {
   return (
@@ -23,6 +23,7 @@ export default function ReviewsPage() {
           <PatientReviewCarousel />
         </section>
 
+        <PatientFeedbackVideos />
       </main>
     </div>
   );

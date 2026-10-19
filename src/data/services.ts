@@ -12,7 +12,6 @@ export interface Treatment {
   shortDescription: string;
   description: string;
   durationMins: number;
-  durationLabel?: string;
   category?: string;
   steps: string[];
   aftercare: string;
@@ -33,7 +32,6 @@ export const TREATMENTS: Treatment[] = [
     shortDescription: 'Custom clear aligners and ceramic bracket systems planned via chairside 3D optical scanning.',
     description: 'Orthodontic therapy realigns teeth for balanced bite mechanics and long-term periodontal health. We use digital intraoral scans to build a step-by-step movement trajectory before treatment begins.',
     durationMins: 45,
-    durationLabel: '45 mins',
     steps: [
       'Digital 3D intraoral optical scanning and bite analysis.',
       'Custom orthodontic roadmap with simulated movement milestones.',
@@ -58,7 +56,6 @@ export const TREATMENTS: Treatment[] = [
     shortDescription: 'In-chair pH-balanced whitening with gum barrier protection for predictable shade enhancement.',
     description: 'Professional dental whitening uses controlled concentrations of peroxide compounds to break down deep organic stains from coffee, tea, and natural aging without eroding enamel structure.',
     durationMins: 45,
-    durationLabel: '45 mins',
     steps: [
       'Pre-treatment polish and baseline tooth shade measurement.',
       'Application of light-cured protective barrier over gum tissue.',
@@ -83,7 +80,6 @@ export const TREATMENTS: Treatment[] = [
     shortDescription: 'Micro-endodontic therapy using computerized local numbing and sterile rotary disinfection.',
     description: 'When deep decay reaches the inner nerve chamber, root canal treatment cleanses the infected pulp canals and seals them hermetically, avoiding extraction and preserving bone density.',
     durationMins: 60,
-    durationLabel: '60 mins',
     steps: [
       'Profound computerized local anesthesia to ensure zero procedural pain.',
       'Isolation of tooth with rubber dam and access to infected canals.',
@@ -108,7 +104,6 @@ export const TREATMENTS: Treatment[] = [
     shortDescription: 'Biocompatible titanium implants and ceramic crowns engineered for lifelong stability.',
     description: 'Dental implants provide a permanent replacement for lost teeth without shaving adjacent healthy teeth for a bridge. The titanium post integrates directly into the jawbone, preserving facial contours.',
     durationMins: 60,
-    durationLabel: '60 mins',
     steps: [
       'High-resolution digital radiography and 3D bone assessment.',
       'Gentle surgical placement of the biocompatible titanium post.',
@@ -133,7 +128,6 @@ export const TREATMENTS: Treatment[] = [
     shortDescription: 'Minimally invasive ceramic veneers and composite edge bonding designed for facial harmony.',
     description: 'A comprehensive aesthetic restoration that addresses tooth proportions, shape irregularities, and deep tetracycline discoloration using ultra-thin custom ceramic facings.',
     durationMins: 60,
-    durationLabel: '60 mins',
     steps: [
       'Facial proportion analysis and digital intraoral smile mockup.',
       'Conservative enamel preparation preserving natural tooth substrate.',
@@ -158,7 +152,6 @@ export const TREATMENTS: Treatment[] = [
     shortDescription: 'Preventative fluoride varnish, fissure sealants, and positive habit conditioning.',
     description: 'Paediatric appointments focus on establishing trust through calm demonstrations, preventative sealant application on developing molars, and patient guidance for parents.',
     durationMins: 30,
-    durationLabel: '30 mins',
     steps: [
       'Friendly welcome and playful demonstration of dental examination tools.',
       'Gentle counting and examination of primary and developing permanent teeth.',

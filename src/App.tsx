@@ -10,6 +10,7 @@ import ContactPage from '@/pages/ContactPage';
 import BookingPage from '@/pages/BookingPage';
 import ReviewsPage from '@/pages/ReviewsPage';
 import BlogPage from '@/pages/BlogPage';
+import BlogArticlePage from '@/pages/BlogArticlePage';
 import NotFoundPage from '@/pages/NotFoundPage';
 
 function ScrollToTop() {
@@ -39,6 +40,7 @@ export default function App() {
           <Route path="/services/:slug" element={<TreatmentDetailPage />} />
           <Route path="/testimonials" element={<ReviewsPage />} />
           <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:slug" element={<BlogArticlePage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/book" element={<BookingPage />} />
 

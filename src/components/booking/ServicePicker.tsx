@@ -1,7 +1,7 @@
 import React from 'react';
 import { Service } from '@/data/services';
 import { DentalToothIcon } from '@/components/common/DentalToothIcon';
-import { Check, Clock } from 'lucide-react';
+import { Check } from 'lucide-react';
 
 interface ServicePickerProps {
   services: Service[];
@@ -57,12 +57,6 @@ export const ServicePicker: React.FC<ServicePickerProps> = ({ services, selected
               <p className="text-xs text-text-muted mb-4 line-clamp-2 leading-relaxed">{service.shortDescription}</p>
             </div>
 
-            <div className="flex items-center gap-2.5 pt-2 border-t border-primary/10 w-full">
-              <span className="inline-flex items-center gap-1 px-2.5 py-1 bg-bg text-text-muted text-[11px] rounded-md font-mono">
-                <Clock size={11} className="text-accent" />
-                {service.durationMins} mins
-              </span>
-            </div>
           </button>
         );
       })}

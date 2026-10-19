@@ -1,14 +1,18 @@
 import { useState } from 'react';
 import { CLINIC } from '@/data/clinicInfo';
-import { MapPin, Calendar, Phone, Mail, MessageCircle, Send, CheckCircle2, Navigation, AlertCircle } from 'lucide-react';
+import { MapPin, Calendar, Phone, Mail, MessageCircle, Send, Navigation, AlertCircle } from 'lucide-react';
 import PageHero from '@/components/PageHero';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', message: '' });
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [submitted, setSubmitted] = useState(false);
+  const mailtoUrl = `mailto:${CLINIC.email}?subject=${encodeURIComponent(
+    `Clinic Inquiry from ${formData.name}`
+  )}&body=${encodeURIComponent(
+    `Patient Name: ${formData.name.trim()}\nPhone: ${formData.phone}\nEmail: ${formData.email.trim()}\n\nMessage:\n${formData.message.trim()}`
+  )}`;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const newErrors: Record<string, string> = {};
 
@@ -29,7 +33,9 @@ export default function ContactPage() {
       newErrors.phone = 'Mobile number must start with 6, 7, 8, or 9.';
     }
 
-    if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    if (!formData.email.trim()) {
+      newErrors.email = 'Please provide your email address.';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
       newErrors.email = 'Please provide a valid email address.';
     }
 
@@ -37,23 +43,11 @@ export default function ContactPage() {
       newErrors.message = 'Please enter your message or dental inquiry.';
     }
 
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length > 0) return;
 
-    setSubmitted(true);
+    window.location.href = mailtoUrl;
   };
-
-  const waFormUrl = `https://wa.me/${CLINIC.whatsapp}?text=${encodeURIComponent(
-    `Hello Dr. Sharma, my name is ${formData.name}. Phone: ${formData.phone}. My inquiry: ${formData.message}`
-  )}`;
-
-  const mailtoUrl = `mailto:${CLINIC.email}?subject=${encodeURIComponent(
-    `Clinic Inquiry from ${formData.name}`
-  )}&body=${encodeURIComponent(
-    `Patient Name: ${formData.name}\nPhone: ${formData.phone}\nEmail: ${formData.email || 'Not provided'}\n\nMessage:\n${formData.message}`
-  )}`;
 
   return (
     <div className="bg-slate-50 text-slate-800 font-sans">
@@ -166,34 +160,7 @@ export default function ContactPage() {
                   </p>
                 </div>
 
-                {submitted ? (
-                  <div className="p-6 bg-teal-50 border border-teal-200 rounded-xl space-y-3 text-center">
-                    <CheckCircle2 size={36} className="text-teal-600 mx-auto" />
-                    <h3 className="text-lg font-bold text-teal-900">Thank You, {formData.name}</h3>
-                    <p className="text-xs sm:text-sm text-teal-800 leading-relaxed">
-                      Your inquiry is ready. Choose how you would like to contact Dr. Sharma:
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-3 pt-2">
-                      <a
-                        href={waFormUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn-whatsapp flex-1 text-xs h-11"
-                      >
-                        <MessageCircle size={16} />
-                        <span>Continue with WhatsApp</span>
-                      </a>
-                      <a
-                        href={mailtoUrl}
-                        className="btn-secondary flex-1 text-xs h-11"
-                      >
-                        <Mail size={16} />
-                        <span>Continue with Email</span>
-                      </a>
-                    </div>
-                  </div>
-                ) : (
-                  <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
                         <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
@@ -238,10 +205,11 @@ export default function ContactPage() {
 
                     <div>
                       <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
-                        Email Address (optional)
+                        Email Address *
                       </label>
                       <input
                         type="email"
+                        required
                         value={formData.email}
                         onChange={(e) => {
                           setFormData({ ...formData, email: e.target.value });
@@ -253,6 +221,7 @@ export default function ContactPage() {
                         }`}
                       />
                       {errors.email && <p className="text-xs text-red-600 mt-1">{errors.email}</p>}
+                      <p className="mt-1 text-xs text-slate-500">Submitting opens your email app with this inquiry ready to send.</p>
                     </div>
 
                     <div>
@@ -274,27 +243,16 @@ export default function ContactPage() {
                       {errors.message && <p className="text-xs text-red-600 mt-1">{errors.message}</p>}
                     </div>
 
-                    <div className="pt-2 flex flex-col sm:flex-row gap-3">
+                    <div className="pt-2">
                       <button
                         type="submit"
-                        className="btn-primary flex-1 h-11 text-xs"
+                        className="btn-primary w-full h-11 text-xs"
                       >
                         <Send size={15} />
-                        <span>Continue to Contact Options</span>
+                        <span>Submit Inquiry</span>
                       </button>
-
-                      <a
-                        href={waFormUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn-whatsapp flex-1 h-11 text-xs"
-                      >
-                        <MessageCircle size={15} />
-                        <span>Chat Directly on WhatsApp</span>
-                      </a>
                     </div>
-                  </form>
-                )}
+                </form>
               </div>
 
               <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm bg-white p-2">
@@ -343,7 +301,7 @@ export default function ContactPage() {
                 href={`https://wa.me/${CLINIC.whatsapp}?text=${encodeURIComponent('EMERGENCY: Hello Dr. Sharma, I have urgent tooth pain and need an emergency appointment.')}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-whatsapp text-xs h-11 px-5"
+                className="btn-secondary text-xs h-11 px-5"
               >
                 <MessageCircle size={15} />
                 <span>Emergency WhatsApp</span>

@@ -26,7 +26,7 @@ const TIMELINE = [
     year: '2022',
     degree: 'Founder & Director, Aura Dental Studio',
     institution: 'Waterfield Road, Bandra West, Mumbai',
-    desc: 'Established private practice focusing on unhurried, gentle, family-centered dental care with a 6-patient daily limit.',
+    desc: 'Established a private practice focused on thoughtful, conservative, family-centered dental care.',
   },
 ];
 
@@ -99,7 +99,7 @@ export default function AboutPage() {
                       className="inline-flex h-11 w-full items-center justify-center gap-2 rounded-lg border border-teal-700 bg-transparent text-xs font-semibold text-teal-700 transition-colors hover:bg-teal-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-700"
                     >
                       <MessageCircle size={16} />
-                      <span>WhatsApp Dr. Sharma</span>
+                      <span>Chat with Us</span>
                     </a>
                   </div>
                 </div>

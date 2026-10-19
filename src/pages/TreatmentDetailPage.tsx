@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useParams, Link, Navigate, useSearchParams } from 'react-router-dom';
-import { ArrowLeft, Calendar, MessageCircle, Phone, ChevronDown, ShieldCheck } from 'lucide-react';
+import { ArrowLeft, Calendar, MessageCircle, ChevronDown, ShieldCheck } from 'lucide-react';
 import { TREATMENTS } from '@/data/services';
 import { CLINIC } from '@/data/clinicInfo';
 
@@ -53,22 +53,18 @@ export default function TreatmentDetailPage() {
               </div>
 
               <div className="space-y-3">
-                <a
-                  href={waTreatmentUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-whatsapp w-full text-xs h-11"
-                >
-                  <MessageCircle size={15} />
-                  <span>Ask Dr. Sharma on WhatsApp</span>
-                </a>
                 <Link to="/book" className="btn-primary w-full text-xs h-11">
                   <Calendar size={15} />
                   <span>Book Appointment</span>
                 </Link>
-                <a href={`tel:${CLINIC.phone}`} className="btn-secondary w-full text-xs h-11">
-                  <Phone size={14} className="text-teal-700" />
-                  <span>Call Clinic: {CLINIC.phoneDisplay}</span>
+                <a
+                  href={waTreatmentUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-secondary w-full text-xs h-11"
+                >
+                  <MessageCircle size={15} />
+                  <span>Chat on WhatsApp</span>
                 </a>
               </div>
 

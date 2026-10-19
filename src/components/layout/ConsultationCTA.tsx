@@ -19,20 +19,11 @@ export default function ConsultationCTA() {
               Ready to consult with Dr. Satyam Sharma?
             </h2>
             <p className="max-w-xl text-sm leading-relaxed text-teal-100">
-              Schedule your comprehensive checkup and 3D intraoral digital camera tour at our Waterfield Road studio.
+              Schedule a comprehensive checkup and discuss your dental concerns with Dr. Sharma at our Waterfield Road studio.
             </p>
           </div>
 
           <div className="flex w-full shrink-0 flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:items-center">
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-whatsapp h-11 justify-center px-5 text-xs"
-            >
-              <MessageCircle size={15} />
-              <span>WhatsApp Dr. Sharma</span>
-            </a>
             <Link
               to="/book"
               className="btn-primary h-11 justify-center border border-white bg-white px-5 text-xs text-teal-900 hover:bg-teal-50"
@@ -40,6 +31,15 @@ export default function ConsultationCTA() {
               <Calendar size={15} />
               <span>Book Appointment</span>
             </Link>
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-whatsapp h-11 justify-center px-5 text-xs"
+            >
+              <MessageCircle size={15} />
+              <span>Chat with Us</span>
+            </a>
           </div>
         </div>
       </div>

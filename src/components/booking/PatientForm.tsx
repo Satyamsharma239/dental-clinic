@@ -79,12 +79,13 @@ export const PatientForm: React.FC<PatientFormProps> = ({ formData, onChange, er
 
         <div>
           <label htmlFor="email" className="block text-xs font-bold text-primary uppercase tracking-wider mb-1.5">
-            Email Address (optional)
+            Email Address <span className="text-red-500">*</span>
           </label>
           <div className="relative">
             <input
               id="email"
               type="email"
+              required
               value={formData.email}
               onChange={(e) => onChange('email', e.target.value)}
               className="w-full p-3.5 border border-primary/20 rounded-xl bg-white text-xs text-text focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-shadow"

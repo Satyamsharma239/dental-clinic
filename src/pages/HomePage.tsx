@@ -4,13 +4,14 @@ import FadeIn from '@/components/FadeIn';
 import { TREATMENTS } from '@/data/services';
 import { 
   Clock, 
+  Calendar,
   MapPin, 
   Phone, 
   MessageCircle, 
   CheckCircle2, 
   ArrowRight, 
   ChevronDown, 
-  Calendar, 
+  GraduationCap,
   ShieldCheck, 
   AlertCircle,
   Star,
@@ -28,7 +29,7 @@ const FAQS_LIST = [
   },
   {
     q: 'How does the initial consultation work?',
-    a: 'Your consultation includes an unhurried 30-minute examination with Dr. Satyam Sharma (MDS), a high-definition 3Shape 3D intraoral digital camera tour on screen, and a clear explanation of your care options before any procedure is scheduled.'
+    a: 'Dr. Satyam Sharma (MDS) will listen to your concerns, examine your oral health, and explain suitable care options clearly before you decide on any next steps.'
   },
   {
     q: 'What if I have severe dental anxiety or past dental trauma?',
@@ -156,8 +157,8 @@ export default function HomePage() {
   return (
     <div className="bg-white text-slate-800 font-sans">
       
-      <section className="relative overflow-hidden bg-gradient-to-br from-teal-50 via-slate-50 to-emerald-50/50 border-b border-slate-200">
-        <div className="max-w-container mx-auto px-4 sm:px-8 py-10 sm:py-14 lg:py-16">
+      <section className="relative bg-gradient-to-br from-teal-50 via-slate-50 to-emerald-50/50 border-b border-slate-200">
+        <div className="max-w-container mx-auto px-4 pt-10 pb-24 sm:px-8 sm:pt-14 sm:pb-28 lg:pt-16 lg:pb-32">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div className="space-y-5 sm:space-y-6 text-left">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase bg-white border border-teal-200 text-teal-800 shadow-xs">
@@ -180,19 +181,22 @@ export default function HomePage() {
               </p>
 
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1 max-w-sm sm:max-w-none w-full sm:w-auto">
+                <Link
+                  to="/book"
+                  className="btn-primary h-[46px] w-full px-6 text-sm sm:w-auto"
+                >
+                  <Calendar size={17} />
+                  <span>Book Appointment</span>
+                </Link>
                 <a
                   href={waGeneralUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex h-[46px] w-full items-center justify-center gap-2 rounded-lg border border-teal-700 bg-white px-6 text-sm font-semibold text-teal-700 transition-colors hover:bg-teal-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 focus-visible:ring-offset-2 sm:w-auto"
+                  className="btn-secondary h-[46px] w-full px-6 text-sm sm:w-auto"
                 >
                   <MessageCircle size={17} />
-                  <span>WhatsApp Dr. Sharma</span>
+                  <span>Chat with Us</span>
                 </a>
-                <Link to="/book" className="btn-primary w-full sm:w-auto text-center">
-                  <Calendar size={17} />
-                  <span>Book Appointment</span>
-                </Link>
               </div>
 
               <div className="flex flex-wrap items-center gap-x-5 gap-y-2 pt-4 border-t border-slate-200/80 text-xs text-slate-600">
@@ -214,6 +218,9 @@ export default function HomePage() {
                   alt="Bright, modern dental treatment room"
                   className="w-full aspect-[4/3] rounded-[1.35rem] object-cover"
                   loading="eager"
+                  onError={(event) => {
+                    event.currentTarget.src = '/images/reception.webp';
+                  }}
                 />
               </div>
             </div>
@@ -221,55 +228,55 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-8 sm:py-12 bg-white border-b border-slate-200">
+      <section className="relative z-10 -mt-16 bg-transparent pb-3 sm:-mt-20 sm:pb-3">
         <div className="max-w-container mx-auto px-4 sm:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
+          <div className="grid grid-cols-2 gap-3 rounded-2xl border border-slate-100 bg-white p-4 shadow-lg shadow-slate-900/5 sm:gap-6 sm:p-7 lg:grid-cols-4 lg:gap-8">
             
-            <div className="flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-3.5 p-3.5 sm:p-4 rounded-xl bg-slate-50 border border-slate-200/70 text-center sm:text-left">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-teal-100 text-teal-800 flex items-center justify-center shrink-0">
+            <div className="flex flex-col items-center gap-2 rounded-xl p-3 text-center sm:flex-row sm:gap-3.5 sm:text-left">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-teal-100 bg-white text-teal-700 shadow-sm sm:h-12 sm:w-12">
                 <Award size={20} className="sm:w-6 sm:h-6" />
               </div>
               <div className="min-w-0">
-                <div className="text-lg sm:text-2xl font-extrabold text-slate-900 leading-tight">
-                  <CountUp target={12} suffix="+" label="years of clinical practice" /> Years
+                <div className="text-xl font-extrabold leading-tight text-slate-900 sm:text-3xl">
+                  <CountUp target={12} suffix="+" label="years of clinical practice" />
                 </div>
-                <div className="text-[11px] sm:text-xs text-slate-500 mt-0.5 leading-tight">Clinical Practice</div>
+                <div className="mt-1 text-[11px] font-medium leading-tight text-slate-500 sm:text-xs">Years of Experience</div>
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-3.5 p-3.5 sm:p-4 rounded-xl bg-slate-50 border border-slate-200/70 text-center sm:text-left">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-teal-100 text-teal-800 flex items-center justify-center shrink-0">
+            <div className="flex flex-col items-center gap-2 rounded-xl p-3 text-center sm:flex-row sm:gap-3.5 sm:text-left">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-teal-100 bg-white text-teal-700 shadow-sm sm:h-12 sm:w-12">
                 <Heart size={20} className="sm:w-6 sm:h-6" />
               </div>
               <div className="min-w-0">
-                <div className="text-lg sm:text-2xl font-extrabold text-slate-900 leading-tight">
+                <div className="text-xl font-extrabold leading-tight text-slate-900 sm:text-3xl">
                   <CountUp target={5000} suffix="+" label="smiles restored" />
                 </div>
-                <div className="text-[11px] sm:text-xs text-slate-500 mt-0.5 leading-tight">Smiles Restored</div>
+                <div className="mt-1 text-[11px] font-medium leading-tight text-slate-500 sm:text-xs">Smiles Restored</div>
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-3.5 p-3.5 sm:p-4 rounded-xl bg-slate-50 border border-slate-200/70 text-center sm:text-left">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-teal-100 text-teal-800 flex items-center justify-center shrink-0">
+            <div className="flex flex-col items-center gap-2 rounded-xl p-3 text-center sm:flex-row sm:gap-3.5 sm:text-left">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-teal-100 bg-white text-teal-700 shadow-sm sm:h-12 sm:w-12">
                 <Star size={20} className="fill-teal-700 text-teal-700 sm:w-6 sm:h-6" />
               </div>
               <div className="min-w-0">
-                <div className="text-lg sm:text-2xl font-extrabold text-slate-900 leading-tight">
+                <div className="text-xl font-extrabold leading-tight text-slate-900 sm:text-3xl">
                   <CountUp target={4.9} decimals={1} suffix=" ★" label="Google review rating" />
                 </div>
-                <div className="text-[11px] sm:text-xs text-slate-500 mt-0.5 leading-tight">Google Reviews</div>
+                <div className="mt-1 text-[11px] font-medium leading-tight text-slate-500 sm:text-xs">Google Rating</div>
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center sm:items-center gap-2 sm:gap-3.5 p-3.5 sm:p-4 rounded-xl bg-slate-50 border border-slate-200/70 text-center sm:text-left">
-              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-teal-100 text-teal-800 flex items-center justify-center shrink-0">
-                <ShieldCheck size={20} className="sm:w-6 sm:h-6" />
+            <div className="flex flex-col items-center gap-2 rounded-xl p-3 text-center sm:flex-row sm:gap-3.5 sm:text-left">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-teal-100 bg-white text-teal-700 shadow-sm sm:h-12 sm:w-12">
+                <GraduationCap size={20} className="sm:w-6 sm:h-6" />
               </div>
               <div className="min-w-0">
-                <div className="text-lg sm:text-2xl font-extrabold text-slate-900 leading-tight">
-                  <CountUp target={3} suffix="D" label="digital intraoral scanning" />
+                <div className="text-xl font-extrabold leading-tight text-slate-900 sm:text-3xl">
+                  <CountUp target={1} label="lead dentist" />
                 </div>
-                <div className="text-[11px] sm:text-xs text-slate-500 mt-0.5 leading-tight">Digital Scanning</div>
+                <div className="mt-1 text-[11px] font-medium leading-tight text-slate-500 sm:text-xs">Lead Dentist</div>
               </div>
             </div>
 
@@ -283,7 +290,7 @@ export default function HomePage() {
             <div className="lg:col-span-5">
               <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white p-2 shadow-lg">
                 <img
-                  src="/images/doctor-portrait.webp"
+                  src="/images/dr-satyam-sharma.jpg"
                   alt="Dr. Satyam Sharma in the dental clinic"
                   className="aspect-[4/3] w-full rounded-xl object-cover object-top"
                   loading="eager"
@@ -294,10 +301,13 @@ export default function HomePage() {
               <span className="text-xs font-bold uppercase tracking-wider text-teal-700">About Aura Dental Studio</span>
               <h2 className="text-3xl font-extrabold text-slate-900 sm:text-4xl">Thoughtful care, built around you</h2>
               <p className="text-sm leading-relaxed text-slate-600 sm:text-base">
-                Aura Dental Studio provides orthodontic and family dental care in Bandra West. Dr. Satyam Sharma takes time to understand each patient’s needs, explain findings clearly, and discuss care options before treatment.
+                Dr. Satyam Sharma completed his BDS at Nair Hospital Dental College and his MDS in Orthodontics and Dentofacial Orthopedics at Government Dental College, Mumbai. With over 12 years of clinical experience, he brings specialist orthodontic training to family and restorative dentistry.
+              </p>
+              <p className="text-sm leading-relaxed text-slate-600 sm:text-base">
+                At Aura Dental Studio, he takes time to understand each patient’s concerns, explain findings in clear language, and discuss conservative care options before treatment—so patients can make informed decisions without pressure.
               </p>
               <Link to="/about" className="inline-flex items-center gap-2 text-sm font-bold text-teal-700 transition-colors hover:text-teal-800">
-                <span>Meet Dr. Sharma and learn about our approach</span>
+                <span>More about Dr. Sharma and his approach</span>
                 <ArrowRight size={16} />
               </Link>
             </div>
@@ -357,7 +367,6 @@ export default function HomePage() {
                     </div>
 
                     <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-3">
-                      <span className="text-xs text-slate-500">{treatment.durationLabel}</span>
                       <span className="text-sm font-bold text-teal-700 inline-flex items-center gap-1.5">
                         <span>View treatment details</span>
                         <ArrowRight size={15} className="transition-transform group-hover:translate-x-1" />
@@ -399,43 +408,55 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             
-            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-3">
-              <div className="w-11 h-11 rounded-xl bg-teal-100 text-teal-800 flex items-center justify-center font-bold text-base">
-                01
+            <div className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-teal-200 hover:shadow-xl space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-teal-50 text-teal-700 group-hover:bg-teal-700 group-hover:text-white transition-colors">
+                  <ShieldCheck size={22} />
+                </div>
+                <span className="text-xs font-semibold tracking-wider text-slate-300">01</span>
               </div>
-              <h3 className="text-lg font-bold text-slate-900">Computerized Pain-Free Numbing</h3>
+              <h3 className="text-lg font-bold text-slate-900">Comfort-first care</h3>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                We use computer-assisted local anesthesia delivery that flows below the pain threshold. We confirm full numbness before touching your tooth.
+                Computer-assisted local anesthesia and a careful comfort check before treatment begins.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-3">
-              <div className="w-11 h-11 rounded-xl bg-teal-100 text-teal-800 flex items-center justify-center font-bold text-base">
-                02
+            <div className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-teal-200 hover:shadow-xl space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-teal-50 text-teal-700 group-hover:bg-teal-700 group-hover:text-white transition-colors">
+                  <Sparkles size={22} />
+                </div>
+                <span className="text-xs font-semibold tracking-wider text-slate-300">02</span>
               </div>
-              <h3 className="text-lg font-bold text-slate-900">3D Optical Digital Scans</h3>
+              <h3 className="text-lg font-bold text-slate-900">Modern diagnostics</h3>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                No gag-inducing silicone impression trays. The 3Shape TRIOS optical scanner captures your teeth in high-definition 3D in just two minutes.
+                Digital tools help explain what we find and make treatment options easier to understand.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-3">
-              <div className="w-11 h-11 rounded-xl bg-teal-100 text-teal-800 flex items-center justify-center font-bold text-base">
-                03
+            <div className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-teal-200 hover:shadow-xl space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-teal-50 text-teal-700 group-hover:bg-teal-700 group-hover:text-white transition-colors">
+                  <CheckCircle2 size={22} />
+                </div>
+                <span className="text-xs font-semibold tracking-wider text-slate-300">03</span>
               </div>
-              <h3 className="text-lg font-bold text-slate-900">Clear Treatment Plans</h3>
+              <h3 className="text-lg font-bold text-slate-900">Clear, considered plans</h3>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                We explain your options, the proposed steps, and what to expect before any treatment begins.
+                Understand the recommended care, alternatives, and next steps before making a decision.
               </p>
             </div>
 
-            <div className="p-6 rounded-2xl bg-slate-50 border border-slate-200/80 space-y-3">
-              <div className="w-11 h-11 rounded-xl bg-teal-100 text-teal-800 flex items-center justify-center font-bold text-base">
-                04
+            <div className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-teal-200 hover:shadow-xl space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-teal-50 text-teal-700 group-hover:bg-teal-700 group-hover:text-white transition-colors">
+                  <Heart size={22} />
+                </div>
+                <span className="text-xs font-semibold tracking-wider text-slate-300">04</span>
               </div>
-              <h3 className="text-lg font-bold text-slate-900">Unhurried & Calm Visits</h3>
+              <h3 className="text-lg font-bold text-slate-900">A personal, unhurried visit</h3>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                We strictly limit our schedule to 6 patients per day. No overcrowded waiting rooms. Dr. Sharma dedicates his full attention to you.
+                Time to share your concerns, ask questions, and feel comfortable discussing your care.
               </p>
             </div>
 
@@ -473,7 +494,7 @@ export default function HomePage() {
                 href={`https://wa.me/${CLINIC.whatsapp}?text=${encodeURIComponent('Hello Dr. Sharma, I have an urgent dental concern and would like to book a visit. Please let me know availability.')}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-whatsapp text-xs h-11 px-5"
+                className="btn-secondary text-xs h-11 px-5"
               >
                 <MessageCircle size={15} />
                 <span>Message the Clinic</span>

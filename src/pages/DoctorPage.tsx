@@ -90,7 +90,7 @@ export default function DoctorPage() {
                     className="inline-flex h-10 w-full items-center justify-center gap-2 rounded-lg border border-teal-700 bg-transparent text-xs font-semibold text-teal-700 transition-colors hover:bg-teal-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-700"
                   >
                     <MessageCircle size={15} />
-                    <span>WhatsApp Dr. Sharma</span>
+                    <span>Chat with Us</span>
                   </a>
                 </div>
               </div>

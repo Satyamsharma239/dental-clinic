@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Calendar, MessageCircle, Mail, CheckCircle2, MapPin, ShieldCheck, User, Phone as PhoneIcon } from 'lucide-react';
+import { Calendar, MessageCircle, Mail, CheckCircle2, MapPin, ShieldCheck, User, Phone as PhoneIcon, ChevronDown } from 'lucide-react';
 import { TREATMENTS, Treatment } from '@/data/services';
 import { CLINIC } from '@/data/clinicInfo';
 import PageHero from '@/components/PageHero';
@@ -24,7 +24,6 @@ export default function BookingPage() {
   const [isAnxious, setIsAnxious] = useState<boolean>(false);
   const [formErrors, setFormErrors] = useState<{ name?: string; phone?: string; email?: string; treatment?: string; date?: string; time?: string }>({});
   const [appointmentRequest, setAppointmentRequest] = useState<{
-    id: string;
     name: string;
     phone: string;
     email: string;
@@ -66,7 +65,9 @@ export default function BookingPage() {
       errs.phone = 'Mobile number must start with 6, 7, 8, or 9.';
     }
 
-    if (patientEmail.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(patientEmail.trim())) {
+    if (!patientEmail.trim()) {
+      errs.email = 'Please enter your email address.';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(patientEmail.trim())) {
       errs.email = 'Please enter a valid email address.';
     }
 
@@ -90,15 +91,12 @@ export default function BookingPage() {
     e.preventDefault();
     if (!validate()) return;
 
-    const hex = Math.random().toString(36).substring(2, 8).toUpperCase();
-    const id = `AURA-${hex}`;
     const cleanPhoneDigits = patientPhone.replace(/\D/g, '');
     const readableDate = formatDisplayDate(selectedDate);
 
     if (!selectedTreatment) return;
 
     const record = {
-      id,
       name: patientName.trim(),
       phone: cleanPhoneDigits,
       email: patientEmail.trim(),
@@ -114,12 +112,12 @@ export default function BookingPage() {
 
   if (appointmentRequest) {
     const waText = encodeURIComponent(
-      `Hello Dr. Sharma, I would like to book an appointment at Aura Dental Studio:\n\n*Booking Reference:* ${appointmentRequest.id}\n*Patient Name:* ${appointmentRequest.name}\n*Treatment:* ${appointmentRequest.treatment.name}\n*Preferred Date:* ${appointmentRequest.date}\n*Preferred Time:* ${appointmentRequest.time}\n*Phone:* +91 ${appointmentRequest.phone}\n*Gentle Care Buffer:* ${appointmentRequest.isAnxious ? 'Yes, requested' : 'Standard'}\n\nPlease confirm availability and my visit time. Thank you!`
+      `Hello Dr. Sharma, I would like to book an appointment at Aura Dental Studio:\n\n*Patient Name:* ${appointmentRequest.name}\n*Treatment:* ${appointmentRequest.treatment.name}\n*Preferred Date:* ${appointmentRequest.date}\n*Preferred Time:* ${appointmentRequest.time}\n*Phone:* +91 ${appointmentRequest.phone}\n*Email:* ${appointmentRequest.email}\n*Gentle Care Buffer:* ${appointmentRequest.isAnxious ? 'Yes, requested' : 'Standard'}\n\nPlease confirm availability and my visit time. Thank you!`
     );
 
-    const mailtoSubject = encodeURIComponent(`Appointment Booking ${appointmentRequest.id} - ${appointmentRequest.name}`);
+    const mailtoSubject = encodeURIComponent(`Appointment Request - ${appointmentRequest.name}`);
     const mailtoBody = encodeURIComponent(
-      `Hello Aura Dental Studio Team,\n\nI would like to book an appointment with Dr. Satyam Sharma.\n\nBooking Reference: ${appointmentRequest.id}\nPatient Name: ${appointmentRequest.name}\nPhone: +91 ${appointmentRequest.phone}\nEmail: ${appointmentRequest.email || 'Not provided'}\nTreatment: ${appointmentRequest.treatment.name}\nPreferred Date: ${appointmentRequest.date}\nPreferred Time: ${appointmentRequest.time}\nGentle Care Buffer: ${appointmentRequest.isAnxious ? 'Yes (requested)' : 'Standard'}\nNotes: ${appointmentRequest.notes || 'None'}\n\nPlease confirm availability and my visit time.\n\nBest regards,\n${appointmentRequest.name}`
+      `Hello Aura Dental Studio Team,\n\nI would like to request an appointment with Dr. Satyam Sharma.\n\nPatient Name: ${appointmentRequest.name}\nPhone: +91 ${appointmentRequest.phone}\nEmail: ${appointmentRequest.email || 'Not provided'}\nTreatment: ${appointmentRequest.treatment.name}\nPreferred Date: ${appointmentRequest.date}\nPreferred Time: ${appointmentRequest.time}\nGentle Care Buffer: ${appointmentRequest.isAnxious ? 'Yes (requested)' : 'Standard'}\nNotes: ${appointmentRequest.notes || 'None'}\n\nPlease confirm availability and my visit time.\n\nBest regards,\n${appointmentRequest.name}`
     );
 
     return (
@@ -132,23 +130,17 @@ export default function BookingPage() {
                 <CheckCircle2 size={32} />
               </div>
               <span className="text-xs font-bold uppercase tracking-wider text-teal-700 block">
-                Booking Details Ready
+                Appointment Request
               </span>
               <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
                 Your Booking Details
               </h1>
               <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-                Thank you, <strong>{appointmentRequest.name}</strong>. Choose a contact option below to send your details. Your visit is booked only after the clinic confirms the date and time.
+                Thanks, <strong>{appointmentRequest.name}</strong>. Choose a contact option to send your request. Your visit is not booked until the clinic confirms the date and time.
               </p>
             </div>
 
             <div className="bg-slate-50 rounded-xl p-5 border border-slate-200 space-y-3 text-xs sm:text-sm">
-              <div className="flex justify-between items-center pb-2.5 border-b border-slate-200">
-                <span className="text-slate-500 font-medium">Reference Code</span>
-                <span className="font-mono font-bold text-teal-800 bg-white px-2.5 py-1 rounded-md border border-slate-200">
-                  {appointmentRequest.id}
-                </span>
-              </div>
               <div className="flex justify-between py-1">
                 <span className="text-slate-500">Treatment</span>
                 <span className="font-bold text-slate-900">{appointmentRequest.treatment.name}</span>
@@ -173,21 +165,21 @@ export default function BookingPage() {
 
             <div className="space-y-3">
               <a
-                href={`https://wa.me/${CLINIC.whatsapp}?text=${waText}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-whatsapp w-full text-xs h-11"
+                href={`mailto:${CLINIC.email}?subject=${mailtoSubject}&body=${mailtoBody}`}
+                className="btn-primary w-full text-xs h-11"
               >
-                <MessageCircle size={16} />
-                <span>Continue with WhatsApp</span>
+                <Mail size={15} />
+                <span>Continue with Email</span>
               </a>
 
               <a
-                href={`mailto:${CLINIC.email}?subject=${mailtoSubject}&body=${mailtoBody}`}
+                href={`https://wa.me/${CLINIC.whatsapp}?text=${waText}`}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn-secondary w-full text-xs h-11"
               >
-                <Mail size={15} className="text-slate-600" />
-                <span>Continue with Email</span>
+                <MessageCircle size={16} />
+                <span>Continue with WhatsApp</span>
               </a>
             </div>
 
@@ -223,24 +215,27 @@ export default function BookingPage() {
                 <label className="block text-xs font-bold uppercase tracking-wider text-slate-700">
                   Select Treatment / Service *
                 </label>
-                <select
+                <div className="relative">
+                  <select
                   value={selectedTreatment?.id ?? ''}
                   onChange={(e) => {
                     const found = TREATMENTS.find((t) => t.id === e.target.value);
                     setSelectedTreatment(found ?? null);
                     if (formErrors.treatment) setFormErrors({ ...formErrors, treatment: undefined });
                   }}
-                  className={`w-full h-12 px-4 bg-white border rounded-xl text-sm text-slate-800 font-semibold focus:outline-none focus:ring-2 focus:ring-teal-600 ${
-                    formErrors.treatment ? 'border-red-400 ring-1 ring-red-400' : 'border-slate-300'
+                  className={`h-14 w-full appearance-none rounded-xl border bg-white py-3 pl-4 pr-12 text-sm font-semibold text-slate-800 shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-teal-600 focus:border-teal-600 ${
+                    formErrors.treatment ? 'border-red-400 ring-1 ring-red-400' : 'border-slate-200 hover:border-teal-300'
                   }`}
                 >
-                  <option value="" disabled>Select a treatment</option>
+                  <option value="" disabled>Select a treatment or consultation</option>
                   {TREATMENTS.map((t) => (
                     <option key={t.id} value={t.id}>
-                      {t.name}
+                      {t.category ? `${t.category} · ${t.name}` : t.name}
                     </option>
                   ))}
-                </select>
+                  </select>
+                  <ChevronDown size={18} className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-slate-500" />
+                </div>
                 {formErrors.treatment && (
                   <p className="text-xs text-red-600 font-medium">{formErrors.treatment}</p>
                 )}
@@ -347,13 +342,14 @@ export default function BookingPage() {
 
                   <div>
                     <label htmlFor="patientEmail" className="block text-xs font-bold text-slate-700 mb-1">
-                      Email Address (optional)
+                      Email Address *
                     </label>
                     <div className="relative">
                       <Mail size={16} className="absolute left-3.5 top-3.5 text-slate-400" />
                       <input
                         id="patientEmail"
                         type="email"
+                        required
                         value={patientEmail}
                         onChange={(e) => {
                           setPatientEmail(e.target.value);

@@ -35,7 +35,7 @@ export default function ServicesPage() {
       <PageHero
         eyebrow="Dental Services · Waterfield Road, Bandra West"
         title="Our Dental Services & Honest Pricing"
-        description="Every procedure at Aura Dental Studio is delivered with natural tooth conservation in mind. We explain every step and recovery time before starting."
+        description="Every procedure at Aura Dental Studio is delivered with natural tooth conservation in mind. We explain each step and care option before starting."
       />
 
       <section className="pt-6 pb-10 sm:pt-8 sm:pb-12 bg-white border-b border-slate-200">

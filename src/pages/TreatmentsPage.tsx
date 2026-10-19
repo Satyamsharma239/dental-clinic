@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { TREATMENTS } from '@/data/services';
 import { CLINIC } from '@/data/clinicInfo';
-import { Clock, MessageCircle, Calendar, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { MessageCircle, Calendar, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 const CATEGORIES = ['All', 'Orthodontics', 'Restorative', 'Cosmetic', 'Preventative', 'Surgical', 'Pediatric'];
 
@@ -25,7 +25,7 @@ export default function TreatmentsPage() {
             Conservative dental procedures in Bandra West.
           </h1>
           <p className="font-sans text-sm sm:text-base text-ink-secondary leading-relaxed">
-            Every procedure at Aura Dental Studio is delivered with natural tooth conservation in mind. We explain every clinical step and realistic recovery time before starting.
+            Every procedure at Aura Dental Studio is delivered with natural tooth conservation in mind. We explain each clinical step and care option before starting.
           </p>
         </div>
 
@@ -70,10 +70,6 @@ export default function TreatmentsPage() {
                     />
                     <div className="absolute top-3 left-3 bg-white/95 px-2.5 py-1 rounded-xs text-[10px] font-mono uppercase text-ink shadow-2xs">
                       {treatment.category}
-                    </div>
-                    <div className="absolute top-3 right-3 bg-ink/80 text-canvas px-2.5 py-1 rounded-xs text-[11px] font-mono flex items-center gap-1">
-                      <Clock size={11} />
-                      <span>{treatment.durationLabel}</span>
                     </div>
                   </div>
 

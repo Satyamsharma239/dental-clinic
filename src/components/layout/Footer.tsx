@@ -1,10 +1,8 @@
 import { Link } from 'react-router-dom';
 import { CLINIC } from '@/data/clinicInfo';
-import { Phone, Mail, MapPin, MessageCircle, Calendar } from 'lucide-react';
+import { Phone, Mail, MapPin } from 'lucide-react';
 
 export default function Footer() {
-  const waUrl = `https://wa.me/${CLINIC.whatsapp}?text=${encodeURIComponent('Hello Dr. Sharma, I want to inquire about dental appointments at Aura Dental Studio.')}`;
-
   return (
     <footer className="bg-slate-900 text-slate-300 pt-16 pb-12 border-t border-slate-800 font-sans">
       <div className="max-w-container mx-auto px-4 sm:px-8">
@@ -22,28 +20,9 @@ export default function Footer() {
             </Link>
 
             <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
-              Gentle, conservative family dentistry on Waterfield Road. We prioritize clear explanations, 3D optical scanning, and thoughtful care for every patient.
+              Gentle, conservative family dentistry on Waterfield Road. We prioritize clear explanations, personalized treatment, and thoughtful care for every patient.
             </p>
 
-            <div className="pt-2 flex flex-wrap items-center gap-3">
-              <a
-                href={waUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-whatsapp text-xs h-10 px-4 rounded-lg"
-              >
-                <MessageCircle size={15} />
-                <span>WhatsApp Inquiry</span>
-              </a>
-
-              <Link
-                to="/book"
-                className="h-10 px-4 inline-flex items-center justify-center gap-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold transition-colors border border-slate-700"
-              >
-                <Calendar size={15} />
-                <span>Book Appointment</span>
-              </Link>
-            </div>
           </div>
 
           <div className="lg:col-span-3 space-y-3">
@@ -113,7 +92,6 @@ export default function Footer() {
             <Link to="/testimonials" className="hover:text-white transition-colors">Testimonials</Link>
             <Link to="/blog" className="hover:text-white transition-colors">Blog</Link>
             <Link to="/contact" className="hover:text-white transition-colors">Contact</Link>
-            <Link to="/book" className="hover:text-white transition-colors">Book Appointment</Link>
           </div>
         </div>
 

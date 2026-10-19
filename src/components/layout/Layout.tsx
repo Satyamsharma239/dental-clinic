@@ -1,10 +1,12 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Header from './Header';
 import Footer from './Footer';
 import ConsultationCTA from './ConsultationCTA';
 import FloatingWhatsApp from '@/components/common/FloatingWhatsApp';
 
 export default function Layout() {
+  const { pathname } = useLocation();
+
   return (
     <div className="flex flex-col min-h-screen bg-canvas text-ink">
       <a
@@ -20,7 +22,7 @@ export default function Layout() {
         <Outlet />
       </main>
 
-      <ConsultationCTA />
+      {pathname !== '/contact' && <ConsultationCTA />}
       <Footer />
       <FloatingWhatsApp />
     </div>
